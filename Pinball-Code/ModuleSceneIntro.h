@@ -21,9 +21,11 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
+	p2List<PhysBody*> backgrounds;
 
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
+	SDL_Texture* background;
 	uint bonus_fx;
 };

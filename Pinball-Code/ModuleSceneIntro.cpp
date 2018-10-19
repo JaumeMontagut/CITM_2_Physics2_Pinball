@@ -26,6 +26,8 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
+	background = App->textures->Load("sprites/images/253.png");
+
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	return ret;
@@ -58,7 +60,10 @@ update_status ModuleSceneIntro::Update()
 		
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_4)==KEY_DOWN)
+	{
+		backgrounds.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), backgroundChain, 208));
+	}
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -96,6 +101,14 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
+	c = backgrounds.getFirst();
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(background, x, y, NULL, 1.0f, c->data->GetRotation());
+		c = c->next;
+	}
 	return UPDATE_CONTINUE;
 }
 
