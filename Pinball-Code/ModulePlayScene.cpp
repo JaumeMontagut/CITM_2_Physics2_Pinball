@@ -132,15 +132,6 @@ update_status ModulePlayScene::PostUpdate()
 		c = c->next;
 	}
 
-	c = Physbackground.getFirst();
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(background, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
-
 	return UPDATE_CONTINUE;
 }
 
