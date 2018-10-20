@@ -26,7 +26,7 @@ bool ModulePlayScene::Start()
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-	background = App->textures->Load("sprites/images/253.png");
+	walls = App->textures->Load("sprites/images/253.png");
 	redBouncer = App->textures->Load("sprites/images/155.png");
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
@@ -47,11 +47,13 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
 	Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
 	Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
-	for (p2List_item<PhysBody*>* backitem =Physbackground.getFirst();backitem; backitem=backitem->next)
-		{
-			backitem->data->body->SetType(b2_staticBody);
-		}
-		
+	for (p2List_item<PhysBody*>* backitem = Physbackground.getFirst(); backitem; backitem = backitem->next)
+	{
+		backitem->data->body->SetType(b2_staticBody);
+	}
+
+	redBouncer1 = App->physics->CreateBouncer(200, 50, 22);
+	redBouncer1->listener = this;
 	
 	return ret;
 }
@@ -63,7 +65,7 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(circle);
 	App->textures->Unload(box);
 	App->textures->Unload(rick);
-	App->textures->Unload(background);
+	App->textures->Unload(walls);
 	App->textures->Unload(redBouncer);
 
 	//TODO: Remove SFX
@@ -77,7 +79,6 @@ update_status ModulePlayScene::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-// Update: draw background
 update_status ModulePlayScene::Update()
 {
 	//Logic
@@ -104,7 +105,8 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	App->renderer->Blit(background, 0, 0);
+	App->renderer->Blit(walls, 0, 0);
+
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)
 	{

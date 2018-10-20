@@ -24,11 +24,12 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 	p2List<PhysBody*> Physbackground;
+	PhysBody* redBouncer1;
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
-	SDL_Texture* background = nullptr;
+	SDL_Texture* walls = nullptr;
 	SDL_Texture* redBouncer = nullptr;
 	uint bonus_fx=0;
 
