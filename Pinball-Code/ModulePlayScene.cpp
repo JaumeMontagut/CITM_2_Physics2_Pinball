@@ -26,7 +26,11 @@ bool ModulePlayScene::Start()
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
+
+	texBackground[0] = App->textures->Load("sprites/images/253.png");
+
 	walls = App->textures->Load("sprites/images/253.png");
+
 	redBouncer = App->textures->Load("sprites/images/155.png");
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
@@ -65,7 +69,11 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(circle);
 	App->textures->Unload(box);
 	App->textures->Unload(rick);
+
+	App->textures->Unload(texBackground[0]);
+
 	App->textures->Unload(walls);
+
 	App->textures->Unload(redBouncer);
 
 	//TODO: Remove SFX
@@ -105,8 +113,9 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	App->renderer->Blit(walls, 0, 0);
 
+	App->renderer->Blit(texBackground[0], 0, 0);
+	App->renderer->Blit(walls, 0, 0);
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)
 	{

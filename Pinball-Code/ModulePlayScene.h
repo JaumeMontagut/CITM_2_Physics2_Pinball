@@ -29,7 +29,11 @@ public:
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
+
+	SDL_Texture* texBackground[2];
+
 	SDL_Texture* walls = nullptr;
+
 	SDL_Texture* redBouncer = nullptr;
 	uint bonus_fx=0;
 
