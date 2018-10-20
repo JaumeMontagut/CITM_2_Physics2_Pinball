@@ -56,7 +56,7 @@
     <ClInclude Include="ModulePhysics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChainCoordanetes.h">
+    <ClInclude Include="ChainCoordinates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

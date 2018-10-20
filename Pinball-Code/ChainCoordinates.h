@@ -1,5 +1,5 @@
-#ifndef CHAIN_COORDANETE_H
-#define CHAIN_COORDANETE_H
+#ifndef CHAIN_COORDINATES_H
+#define CHAIN_COORDINATES_H
 
 int backgroundChain[216] = {
 	136, 512,
