@@ -26,8 +26,8 @@ public:
 
 public:
 	int width, height;
-	b2Body* body;
-	Module* listener;
+	b2Body* body=nullptr;
+	Module* listener=nullptr;
 };
 
 // Module --------------------------------------

@@ -22,7 +22,7 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 	p2List<PhysBody*> backgrounds;
-	PhysBody* Physbackground=nullptr;
+	p2List<PhysBody*> Physbackground;
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;

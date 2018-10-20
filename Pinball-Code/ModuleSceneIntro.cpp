@@ -30,8 +30,15 @@ bool ModuleSceneIntro::Start()
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
-	Physbackground = App->physics->CreateChain(0,0, backgroundChain, 208);
-	Physbackground->body->SetType(b2_staticBody);
+	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
+	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
+	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
+	for (p2List_item<PhysBody*>* backitem =Physbackground.getFirst();backitem; backitem=backitem->next)
+		{
+			backitem->data->body->SetType(b2_staticBody);
+		}
+		
+	
 	return ret;
 }
 
@@ -46,7 +53,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	App->renderer->Blit(background,0,0);
+	/*App->renderer->Blit(background,0,0);*/
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
