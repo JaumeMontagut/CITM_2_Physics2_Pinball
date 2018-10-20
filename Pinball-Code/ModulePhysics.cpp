@@ -94,7 +94,7 @@ PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	b->SetUserData(pbody);
-	pbody->width = pbody->height = radius;
+	pbody->width = pbody->height = radius * 2;
 
 	return pbody;
 }
@@ -118,7 +118,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	b->SetUserData(pbody);
-	pbody->width = pbody->height = radius;
+	pbody->width = pbody->height = radius * 2;
 
 	return pbody;
 }
@@ -142,8 +142,8 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	b->SetUserData(pbody);
-	pbody->width = width * 0.5f;
-	pbody->height = height * 0.5f;
+	pbody->width = width;
+	pbody->height = height;
 
 	return pbody;
 }
@@ -346,11 +346,11 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
-void PhysBody::GetPosition(int& x, int &y) const
+void PhysBody::GetPixelPosition(int& x, int &y) const
 {
 	b2Vec2 pos = body->GetPosition();
-	x = METERS_TO_PIXELS(pos.x) - (width);
-	y = METERS_TO_PIXELS(pos.y) - (height);
+	x = METERS_TO_PIXELS(pos.x) - width * 0.5f;
+	y = METERS_TO_PIXELS(pos.y) - height * 0.5f;
 }
 
 float PhysBody::GetRotation() const

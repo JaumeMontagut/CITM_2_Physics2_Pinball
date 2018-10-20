@@ -31,7 +31,7 @@ bool ModulePlayScene::Start()
 
 	walls = App->textures->Load("sprites/images/253.png");
 
-	redBouncer = App->textures->Load("sprites/images/155.png");
+	redBouncerTex = App->textures->Load("sprites/images/155.png");
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
@@ -56,7 +56,7 @@ bool ModulePlayScene::Start()
 		backitem->data->body->SetType(b2_staticBody);
 	}
 
-	redBouncer1 = App->physics->CreateBouncer(200, 50, 22);
+	redBouncer1 = App->physics->CreateBouncer(267, 256, 11);
 	redBouncer1->listener = this;
 	
 	return ret;
@@ -74,7 +74,7 @@ bool ModulePlayScene::CleanUp()
 
 	App->textures->Unload(walls);
 
-	App->textures->Unload(redBouncer);
+	App->textures->Unload(redBouncerTex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonus_fx);
@@ -101,26 +101,25 @@ update_status ModulePlayScene::Update()
 		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
-	}
-
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-
 	App->renderer->Blit(texBackground[0], 0, 0);
 	App->renderer->Blit(walls, 0, 0);
+	//Bouncers
+	iPoint pos;
+	redBouncer1->GetPixelPosition(pos.x, pos.y);
+	pos += redBouncerOffset;
+	App->renderer->Blit(redBouncerTex, pos.x, pos.y);
+	//Added physics shapes
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)
 	{
 		int x, y;
-		c->data->GetPosition(x, y);
+		c->data->GetPixelPosition(x, y);
 		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
@@ -129,19 +128,12 @@ update_status ModulePlayScene::PostUpdate()
 	while (c != NULL)
 	{
 		int x, y;
-		c->data->GetPosition(x, y);
+		c->data->GetPixelPosition(x, y);
 		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
-	c = ricks.getFirst();
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
+	//Ball (on top of all before)
 
 	return UPDATE_CONTINUE;
 }

@@ -22,19 +22,17 @@ public:
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
-	p2List<PhysBody*> ricks;
 	p2List<PhysBody*> Physbackground;
-	PhysBody* redBouncer1;
+
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
-
-	SDL_Texture* texBackground[2];
-
 	SDL_Texture* walls = nullptr;
-
-	SDL_Texture* redBouncer = nullptr;
+	SDL_Texture* texBackground[2];
+	SDL_Texture* redBouncerTex = nullptr;
+	PhysBody* redBouncer1;
+	iPoint redBouncerOffset = iPoint(-4, -2);
 	uint bonus_fx=0;
 
 
