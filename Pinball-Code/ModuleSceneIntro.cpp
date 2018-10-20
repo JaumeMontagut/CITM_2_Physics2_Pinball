@@ -39,6 +39,13 @@ bool ModuleSceneIntro::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
 	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
 	Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
+	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12));
+	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10));
+	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16));
+	Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
+	Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
+	Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
+	Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
 	for (p2List_item<PhysBody*>* backitem =Physbackground.getFirst();backitem; backitem=backitem->next)
 		{
 			backitem->data->body->SetType(b2_staticBody);
@@ -59,7 +66,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	/*App->renderer->Blit(background,0,0);*/
+	App->renderer->Blit(background,0,0);
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
