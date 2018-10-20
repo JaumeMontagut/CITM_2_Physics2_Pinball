@@ -1,11 +1,9 @@
-
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
-#include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "ModulePlayScene.h"
 
@@ -18,7 +16,6 @@ Application::Application()
 	textures = new ModuleTextures(this);
 	input = new ModuleInput(this);
 	audio = new ModuleAudio(this, true);
-	player = new ModulePlayer(this);
 	scene_intro = new ModulePlayScene(this);
 	physics = new ModulePhysics(this);
 
@@ -26,19 +23,13 @@ Application::Application()
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
 
-	// Main Modules
 	AddModule(window);
 	AddModule(physics);
-	AddModule(renderer);
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
-	
-	// Scenes
 	AddModule(scene_intro);
-	
-	// Player
-	AddModule(player);
+	AddModule(renderer);//Renderer has to be the last module because it's the one it executes RenderPresent
 }
 
 Application::~Application()

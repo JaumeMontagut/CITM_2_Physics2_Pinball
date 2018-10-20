@@ -73,13 +73,14 @@ bool ModulePlayScene::CleanUp()
 
 update_status ModulePlayScene::PreUpdate()
 {
+	//Input
 	return UPDATE_CONTINUE;
 }
 
 // Update: draw background
 update_status ModulePlayScene::Update()
 {
-	App->renderer->Blit(background,0,0);
+	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
@@ -96,16 +97,16 @@ update_status ModulePlayScene::Update()
 		
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
 	}
-	// Prepare for raycast ------------------------------------------------------
-	
-	iPoint mouse;
-	mouse.x = App->input->GetMouseX();
-	mouse.y = App->input->GetMouseY();
 
-	// All draw functions ------------------------------------------------------
+	return UPDATE_CONTINUE;
+}
+
+update_status ModulePlayScene::PostUpdate()
+{
+	//Draw
+	App->renderer->Blit(background, 0, 0);
 	p2List_item<PhysBody*>* c = circles.getFirst();
-
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
@@ -114,8 +115,7 @@ update_status ModulePlayScene::Update()
 	}
 
 	c = boxes.getFirst();
-
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
@@ -124,8 +124,7 @@ update_status ModulePlayScene::Update()
 	}
 
 	c = ricks.getFirst();
-
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
@@ -141,11 +140,7 @@ update_status ModulePlayScene::Update()
 		App->renderer->Blit(background, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
-	return UPDATE_CONTINUE;
-}
 
-update_status ModulePlayScene::PostUpdate()
-{
 	return UPDATE_CONTINUE;
 }
 
