@@ -132,7 +132,7 @@ update_status ModulePlayScene::PostUpdate()
 		c = c->next;
 	}
 
-	c = backgrounds.getFirst();
+	c = Physbackground.getFirst();
 	while (c != NULL)
 	{
 		int x, y;
