@@ -37,6 +37,8 @@ bool ModuleSceneIntro::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12));
 	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84));
 	Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
+	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
+	Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
 	for (p2List_item<PhysBody*>* backitem =Physbackground.getFirst();backitem; backitem=backitem->next)
 		{
 			backitem->data->body->SetType(b2_staticBody);
