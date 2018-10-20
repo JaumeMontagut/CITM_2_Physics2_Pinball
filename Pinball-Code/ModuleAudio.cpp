@@ -166,3 +166,22 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+bool ModuleAudio::UnloadSFX(uint id)
+{
+	bool ret = false;
+
+	p2List_item<Mix_Chunk*>* item;
+	for (item = fx.getFirst(); item != NULL; item = item->next)
+	{
+		if (item->data == fx[id - 1])
+		{
+			Mix_FreeChunk(item->data);
+			fx.del(item);
+			item->data = NULL;
+			ret = true;
+		}
+	}
+
+	return ret;
+}

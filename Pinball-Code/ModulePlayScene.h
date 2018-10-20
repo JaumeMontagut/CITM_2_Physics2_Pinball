@@ -13,7 +13,9 @@ public:
 	~ModulePlayScene();
 
 	bool Start();
+	update_status PreUpdate();
 	update_status Update();
+	update_status PostUpdate();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
@@ -28,6 +30,7 @@ public:
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
 	SDL_Texture* background = nullptr;
+	SDL_Texture* redBouncer = nullptr;
 	uint bonus_fx=0;
 
 

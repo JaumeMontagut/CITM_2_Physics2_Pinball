@@ -27,6 +27,7 @@ bool ModulePlayScene::Start()
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
 	background = App->textures->Load("sprites/images/253.png");
+	redBouncer = App->textures->Load("sprites/images/155.png");
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
@@ -58,9 +59,21 @@ bool ModulePlayScene::Start()
 // Load assets
 bool ModulePlayScene::CleanUp()
 {
-	LOG("Unloading Intro scene");
+	LOG("Unloading Play scene");
+	App->textures->Unload(circle);
+	App->textures->Unload(box);
+	App->textures->Unload(rick);
+	App->textures->Unload(background);
+	App->textures->Unload(redBouncer);
 
+	//TODO: Remove SFX
+	App->audio->UnloadSFX(bonus_fx);
 	return true;
+}
+
+update_status ModulePlayScene::PreUpdate()
+{
+	return UPDATE_CONTINUE;
 }
 
 // Update: draw background
@@ -82,10 +95,6 @@ update_status ModulePlayScene::Update()
 	{
 		
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
-	}
-	if (App->input->GetKey(SDL_SCANCODE_4)==KEY_DOWN)
-	{
-		backgrounds.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), backgroundChain, 208));
 	}
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -135,7 +144,16 @@ update_status ModulePlayScene::Update()
 	return UPDATE_CONTINUE;
 }
 
+update_status ModulePlayScene::PostUpdate()
+{
+	return UPDATE_CONTINUE;
+}
+
 void ModulePlayScene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+	//if (bodyA == ) {
+
+	//}
+
 	App->audio->PlayFx(bonus_fx);
 }
