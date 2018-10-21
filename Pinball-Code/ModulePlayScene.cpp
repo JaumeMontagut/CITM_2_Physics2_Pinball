@@ -101,11 +101,6 @@ update_status ModulePlayScene::Update()
 		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
 	}
 
-	return UPDATE_CONTINUE;
-}
-
-update_status ModulePlayScene::PostUpdate()
-{
 	//Draw
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
@@ -113,12 +108,12 @@ update_status ModulePlayScene::PostUpdate()
 		App->renderer->Blit(blueLightTex, 237, 226);
 		illuminateCharacter = false;
 	}
-	//Bouncers
+	//- Bouncers
 	iPoint pos;
 	redBumper1->GetPixelPosition(pos.x, pos.y);
 	pos += redBumperOffset;
 	App->renderer->Blit(redBumperTex, pos.x, pos.y);
-	//Added physics shapes
+	//- Added physics shapes
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)
 	{
@@ -136,8 +131,13 @@ update_status ModulePlayScene::PostUpdate()
 		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
+	//- Ball (on top of all before)
 
-	//Ball (on top of all before)
+	return UPDATE_CONTINUE;
+}
+
+update_status ModulePlayScene::PostUpdate()
+{
 
 	return UPDATE_CONTINUE;
 }
