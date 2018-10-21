@@ -29,7 +29,8 @@ bool ModulePlayScene::Start()
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
-	blueLightTex = App->textures->Load("sprites/sprites/DefineSprite_77/1.png");
+	blueCharacter1Tex = App->textures->Load("sprites/sprites/DefineSprite_78/1.png");
+	blueCharacter2Tex = App->textures->Load("sprites/sprites/DefineSprite_78/2.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -70,7 +71,7 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(backgroundTex);
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(redBumperTex);
-	App->textures->Unload(blueLightTex);
+	App->textures->Unload(blueCharacter1Tex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
@@ -104,8 +105,11 @@ update_status ModulePlayScene::Update()
 	//Draw
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
-	if (illuminateCharacter) {
-		App->renderer->Blit(blueLightTex, 237, 226);
+	if (!illuminateCharacter) {
+		App->renderer->Blit(blueCharacter1Tex, 234, 192);
+	}
+	else {
+		App->renderer->Blit(blueCharacter2Tex, 234, 192);
 		illuminateCharacter = false;
 	}
 	//- Bouncers

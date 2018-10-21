@@ -44,5 +44,6 @@ public:
 private:
 	//Blue light character
 	bool illuminateCharacter = false;
-	SDL_Texture * blueLightTex;
+	SDL_Texture * blueCharacter1Tex = nullptr;
+	SDL_Texture * blueCharacter2Tex = nullptr;
 };
