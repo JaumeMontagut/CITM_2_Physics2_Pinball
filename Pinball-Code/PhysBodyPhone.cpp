@@ -31,7 +31,6 @@ void PhysBodyPhone::Activate()
 	active = true;
 	App->scene_play->IncreasePhoneCombo();
 	currTex = activeTex;
-	//Show active sprite
 }
 
 void PhysBodyPhone::Deactivate()

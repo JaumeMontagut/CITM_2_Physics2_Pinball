@@ -23,27 +23,18 @@ public:
 
 	void IlluminateBlueCharacter();
 	void IncreasePhoneCombo();
+	inline  void CreatefliperJoint();
 
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> Physbackground;
-
-	
 	SDL_Texture* handTex = nullptr;
-
-	
 	b2PrismaticJoint* m_joint;
 	SDL_Texture* circle = nullptr;
-
-	
 	SDL_Texture* circleTex = nullptr;
-
-	SDL_Texture* box = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
-	
 	uint bonusSFX=0;
-
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;
 	//Blue bumper
@@ -65,4 +56,8 @@ public:
 	PhysBodyPhone * phonePieces[5] = { nullptr };
 	uint phoneSFX = 0u;
 	uint phoneBonusSFX = 0u;
+private:
+	b2RevoluteJoint* joinFlipper;
+	b2Body* CircleFlipper;
+	b2Body* rectangleFlipper;
 };

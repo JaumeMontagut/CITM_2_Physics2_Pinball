@@ -27,7 +27,6 @@ bool ModulePlayScene::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	circleTex = App->textures->Load("sprites/images/174.png"); 
-	box = App->textures->Load("pinball/crate.png");
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
@@ -89,11 +88,11 @@ bool ModulePlayScene::Start()
 	phonePieces[4] = App->physics->CreatePhonePiece(10, 10, 10, 10);
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
+
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
 	b2PrismaticJointDef jointDef;
-	b2Vec2 worldAxis(0.0f, 1.0f); 
-	jointDef.Initialize(App->physics->ground, handlauncher, {294,294}, worldAxis);
+	jointDef.Initialize(App->physics->ground, handlauncher, { 294,294 }, { 0.0f, 1.0f });
 
 	jointDef.enableLimit = true;
 	jointDef.lowerTranslation = 0.0f;
@@ -105,8 +104,28 @@ bool ModulePlayScene::Start()
 	jointDef.motorSpeed = 0.0f;
 	jointDef.collideConnected = false;
 	m_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&jointDef);
+
+	CreatefliperJoint();
+	
 	
 	return ret;
+}
+
+inline void ModulePlayScene::CreatefliperJoint()
+{
+	CircleFlipper = App->physics->CreateCircle(133,463,4)->body;
+	CircleFlipper->SetType(b2BodyType::b2_staticBody);
+	rectangleFlipper = App->physics->CreateRectangle(151, 463, 40, 9)->body;
+	rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
+
+	b2RevoluteJointDef JoinFlipperDef;
+	JoinFlipperDef.Initialize(rectangleFlipper, CircleFlipper, CircleFlipper->GetWorldCenter());
+	JoinFlipperDef.enableLimit = true;
+	JoinFlipperDef.lowerAngle = -45 * DEGTORAD;
+	JoinFlipperDef.upperAngle = 45 * DEGTORAD;
+
+	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&JoinFlipperDef);
+
 }
 
 // Load assets
@@ -114,7 +133,6 @@ bool ModulePlayScene::CleanUp()
 {
 	LOG("Unloading Play scene");
 	App->textures->Unload(circleTex);
-	App->textures->Unload(box);
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(backgroundTex);
 	App->textures->Unload(wallsTex);
@@ -159,6 +177,7 @@ update_status ModulePlayScene::Update()
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
 	App->renderer->Blit(wallsTex, 0, 0);
+
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
 	}
@@ -180,7 +199,10 @@ update_status ModulePlayScene::Update()
 	{
 		m_joint->SetMotorSpeed(-40.0f);
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		rectangleFlipper->ApplyAngularImpulse(-1.5f,true);
+	}
 	
 	return UPDATE_CONTINUE;
 }
@@ -188,18 +210,7 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-
 	
-	//Bouncers
-
-	
-	//Draw background
-	
-	//- Blue character
-
-
-
-
 	//- Bouncers
 
 	p2List_item<PhysBody*>* circle = circles.getFirst();
