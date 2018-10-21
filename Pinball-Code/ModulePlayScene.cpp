@@ -132,6 +132,13 @@ update_status ModulePlayScene::Update()
 
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
+	if (!illuminateCharacter) {
+		App->renderer->Blit(blueCharacter1Tex, 234, 192);
+	}
+	else {
+		App->renderer->Blit(blueCharacter2Tex, 234, 192);
+		illuminateCharacter = false;
+	}
 
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
@@ -154,23 +161,7 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	
-	//Bouncers
-
-
-	//Draw background
-	/*App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(wallsTex, 0, 0);*/
-	//- Blue character
-
-	if (!illuminateCharacter) {
-		App->renderer->Blit(blueCharacter1Tex, 234, 192);
-	}
-	else {
-		App->renderer->Blit(blueCharacter2Tex, 234, 192);
-		illuminateCharacter = false;
-	}
-
+	//- Bouncers
 	p2List_item<PhysBody*>* circle = circles.getFirst();
 	while (circle != NULL)
 	{
