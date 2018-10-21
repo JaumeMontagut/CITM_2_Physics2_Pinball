@@ -54,6 +54,9 @@
     <ClInclude Include="PhysBodyBumper.h">
       <Filter>Physics Bodies</Filter>
     </ClInclude>
+    <ClInclude Include="PhysBodyPhone.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp" />
@@ -81,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="PhysBodyBumper.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysBodyPhone.cpp">
       <Filter>Physics Bodies</Filter>
     </ClCompile>
   </ItemGroup>

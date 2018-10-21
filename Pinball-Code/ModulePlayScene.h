@@ -7,6 +7,7 @@
 #include "Box2D\Box2D\Box2D.h"
 
 class PhysBody;
+class PhysBodyPhone;
 
 class ModulePlayScene : public Module
 {
@@ -21,6 +22,7 @@ public:
 	bool CleanUp();
 
 	void IlluminateBlueCharacter();
+	/*void IncreasePhoneCombo();*/
 
 public:
 	p2List<PhysBody*> circles;
@@ -56,10 +58,15 @@ public:
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
 	SDL_Texture * blueCharacter2Tex = nullptr;
+
 private:
 	inline  void CreatefliperJoin();
 	b2RevoluteJoint* joinFlipper;
 	b2Body* CircleFlipper;
 	b2Body* rectangleFlipper;
+
+	//Phone combo
+	uint activePhonePieces = 0u;
+	PhysBodyPhone * phonePieces[5] = { nullptr };
 
 };
