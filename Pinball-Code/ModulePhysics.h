@@ -54,12 +54,16 @@ public:
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
+	b2Joint* CreateJoint_2(const b2JointDef& def);
+	b2Body* ground;
+	b2World* world;
+
 
 private:
 
 	bool debug;
-	b2World* world;
+	
 	b2MouseJoint* mouse_joint;
-	b2Body* ground;
+	
 	b2Body* clickedBody = NULL;
 };
