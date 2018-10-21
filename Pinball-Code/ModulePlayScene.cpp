@@ -29,7 +29,7 @@ bool ModulePlayScene::Start()
 	rick = App->textures->Load("pinball/rick_head.png");
 
 	texBackground[0] = App->textures->Load("sprites/images/253.png");
-
+	texBackground[1] = App->textures->Load("sprites/images/65.png");
 	walls = App->textures->Load("sprites/images/253.png");
 
 	redBouncerTex = App->textures->Load("sprites/images/155.png");
@@ -72,6 +72,7 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(rick);
 
 	App->textures->Unload(texBackground[0]);
+	App->textures->Unload(texBackground[1]);
 
 	App->textures->Unload(walls);
 
@@ -108,6 +109,7 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
+	App->renderer->Blit(texBackground[1], 0, 0);
 	App->renderer->Blit(texBackground[0], 0, 0);
 	App->renderer->Blit(walls, 0, 0);
 	//Bouncers
