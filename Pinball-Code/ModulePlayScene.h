@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "Globals.h"
 #include "ModuleRender.h"
+#include "Box2D\Box2D\Box2D.h"
 
 class PhysBody;
 
@@ -25,12 +26,12 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> Physbackground;
 	PhysBody* hand;
-
+	b2PrismaticJoint* m_joint;
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
-
+	
 	uint bonusSFX=0;
 
 	//Red bumper

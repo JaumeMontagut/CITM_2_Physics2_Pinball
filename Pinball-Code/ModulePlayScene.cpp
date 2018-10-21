@@ -58,8 +58,25 @@ bool ModulePlayScene::Start()
 
 	redBumper1 = App->physics->CreateBumper(267, 256, 11);
 
-	hand = App->physics->CreateRectangle(294,476,18,47);
-	hand->body->SetType(b2_staticBody);
+	//hand = App->physics->CreateRectangle(294,476,18,21);
+	
+	hand = App->physics->CreateChain(0, 0, rectangle, 8);
+
+	b2PrismaticJointDef jointDef;
+	b2Vec2 worldAxis(0.0f, 1.0f); 
+	jointDef.Initialize(App->physics->ground, hand->body, {294,294}, worldAxis);
+
+	jointDef.enableLimit = true;
+	jointDef.lowerTranslation = -0.5f;
+	jointDef.upperTranslation = 0.5f;
+	
+
+	jointDef.enableMotor = true;
+	jointDef.maxMotorForce = 500.0f;
+	jointDef.motorSpeed = 0.0f;
+	jointDef.collideConnected = false;
+	m_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&jointDef);
+	
 	return ret;
 }
 
@@ -93,8 +110,8 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
-	//App->renderer->Blit(backgroundTex, 0, 0);
-	//App->renderer->Blit(wallsTex, 0, 0);
+	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(wallsTex, 0, 0);
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -102,9 +119,12 @@ update_status ModulePlayScene::Update()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		
+		m_joint->SetMotorSpeed((0.0F, 1.0F));
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+	{
+		m_joint->SetMotorSpeed(-40.0f);
+	}
 	
 	return UPDATE_CONTINUE;
 }
@@ -116,9 +136,8 @@ update_status ModulePlayScene::PostUpdate()
 	//Bouncers
 
 
-	//Draw
-	App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(wallsTex, 0, 0);
+
+
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
 	}

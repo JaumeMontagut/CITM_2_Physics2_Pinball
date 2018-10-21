@@ -1,5 +1,11 @@
 #pragma once
 
+int rectangle[8] = {
+	285, 466,
+	303, 466,
+	303, 476,
+	285, 476
+};
 int backgroundChain[216] = {
 	136, 512,
 	134, 486,
