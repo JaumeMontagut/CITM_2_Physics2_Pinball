@@ -70,6 +70,7 @@ update_status ModulePhysics::PostUpdate()
 			pb->PostUpdate();
 		}
 	}
+
 	//Draw debug lines
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
@@ -183,7 +184,7 @@ update_status ModulePhysics::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, SDL_Texture* bumperTex, SDL_Texture* flashTex)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -199,7 +200,7 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius)
 
 	b->CreateFixture(&fixture);
 
-	PhysBodyBumper* pbody = new PhysBodyBumper();
+	PhysBodyBumper* pbody = new PhysBodyBumper(bumperTex, flashTex);
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius * 2;

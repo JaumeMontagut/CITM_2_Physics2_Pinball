@@ -57,7 +57,7 @@ bool ModulePlayScene::Start()
 		backitem->data->body->SetType(b2_staticBody);
 	}
 
-	redBumper1 = App->physics->CreateBumper(267, 256, 11);
+	redBumper1 = App->physics->CreateBumper(267, 256, 11, redBumperTex, flashTex);
 
 	hand = App->physics->CreateRectangle(294,476,18,47);
 	hand->body->SetType(b2_staticBody);
@@ -123,10 +123,7 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	//- Bouncers
-	iPoint pos;
-	redBumper1->GetPixelPosition(pos.x, pos.y);
-	App->renderer->Blit(redBumperTex, pos.x + bumperOffset.x, pos.y + bumperOffset.y);
+	//TODO (Jaume): Draw balls in their own post update
 	//- Balls
 	p2List_item<PhysBody*>* circle = circles.getFirst();
 	while (circle != NULL)

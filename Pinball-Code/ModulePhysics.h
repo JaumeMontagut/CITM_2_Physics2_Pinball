@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Box2D/Box2D/Box2D.h"
+#include "p2Point.h"
 
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y -7.0f
@@ -11,6 +12,8 @@
 
 #define METERS_TO_PIXELS(m) ((int) floor(PIXELS_PER_METER * m))
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
+
+struct SDL_Texture;
 
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
@@ -48,7 +51,7 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
-	PhysBody* CreateBumper(int x, int y, int radius);
+	PhysBody* CreateBumper(int x, int y, int radius, SDL_Texture* bumperTex, SDL_Texture* flashTex);
 
 private:
 

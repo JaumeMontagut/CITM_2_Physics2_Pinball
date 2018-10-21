@@ -35,11 +35,9 @@ public:
 
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;
-	iPoint flashOffset = iPoint(-13, -12);
 	//Red bumper
 	SDL_Texture* redBumperTex = nullptr;
 	PhysBody* redBumper1;//TODO: Make an array and incialize it to nullptr
-	iPoint bumperOffset = iPoint(-4, -2);
 	uint redBumperSFX = 0;
 
 
