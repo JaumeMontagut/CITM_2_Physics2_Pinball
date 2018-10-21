@@ -29,9 +29,11 @@ bool ModulePlayScene::Start()
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
+	blueCharacter1Tex = App->textures->Load("sprites/sprites/DefineSprite_78/1.png");
+	blueCharacter2Tex = App->textures->Load("sprites/sprites/DefineSprite_78/2.png");
 
-	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.mp3");
-	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.mp3");
+	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
+	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
@@ -67,17 +69,20 @@ bool ModulePlayScene::CleanUp()
 	LOG("Unloading Play scene");
 	App->textures->Unload(circle);
 	App->textures->Unload(box);
-
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(backgroundTex);
-
 	App->textures->Unload(wallsTex);
-
 	App->textures->Unload(redBumperTex);
+	App->textures->Unload(blueCharacter1Tex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
 	return true;
+}
+
+void ModulePlayScene::IlluminateBlueCharacter()
+{
+	illuminateCharacter = true;
 }
 
 update_status ModulePlayScene::PreUpdate()
@@ -99,6 +104,7 @@ update_status ModulePlayScene::Update()
 	{
 		
 	}
+
 	
 	return UPDATE_CONTINUE;
 }
@@ -108,12 +114,30 @@ update_status ModulePlayScene::PostUpdate()
 	//Draw
 	
 	//Bouncers
+
+
+	//Draw
+	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(wallsTex, 0, 0);
+	if (!illuminateCharacter) {
+		App->renderer->Blit(blueCharacter1Tex, 234, 192);
+	}
+	else {
+		App->renderer->Blit(blueCharacter2Tex, 234, 192);
+		illuminateCharacter = false;
+	}
+	//- Bouncers
+
 	iPoint pos;
 	redBumper1->GetPixelPosition(pos.x, pos.y);
 	pos += redBumperOffset;
 	App->renderer->Blit(redBumperTex, pos.x, pos.y);
 
+
 	//Added physics shapes
+
+	//- Added physics shapes
+
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)
 	{
@@ -123,9 +147,18 @@ update_status ModulePlayScene::PostUpdate()
 		c = c->next;
 	}
 
-	
 
-	//Ball (on top of all before)
+	//c = boxes.getFirst();
+	//while (c != NULL)
+	//{
+	//	int x, y;
+	//	c->data->GetPixelPosition(x, y);
+	//	App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
+	//	c = c->next;
+	//}
+	//- Ball (on top of all before)
+
 
 	return UPDATE_CONTINUE;
 }
+
