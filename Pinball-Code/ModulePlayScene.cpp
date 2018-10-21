@@ -8,6 +8,7 @@
 #include "ModulePhysics.h"
 #include "ChainCoordinates.h"
 #include "PhysBodyBumper.h"
+#include "PhysBodyPhone.h"
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
@@ -124,6 +125,19 @@ bool ModulePlayScene::CleanUp()
 void ModulePlayScene::IlluminateBlueCharacter()
 {
 	illuminateCharacter = true;
+}
+
+void ModulePlayScene::IncreasePhoneCombo()
+{
+	activePhonePieces++;
+	if (activePhonePieces > 5) {
+		activePhonePieces = 0u;
+		//Add points
+		//PlaySFX
+		for (uint i = 0; i < 5; ++i) {
+			phonePieces[i]->Deactivate();
+		}
+	}
 }
 
 update_status ModulePlayScene::PreUpdate()

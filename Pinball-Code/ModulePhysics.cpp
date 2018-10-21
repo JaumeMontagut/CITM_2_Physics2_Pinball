@@ -8,6 +8,7 @@
 
 //Physics Bodies
 #include "PhysBodyBumper.h"
+#include "PhysBodyPhone.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -265,7 +266,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height)
+PhysBodyPhone* ModulePhysics::CreatePhonePiece(int x, int y, int width, int height)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -283,7 +284,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 
 	b->CreateFixture(&fixture);
 
-	PhysBody* pbody = new PhysBody();
+	PhysBodyPhone* pbody = new PhysBodyPhone();
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = width;
