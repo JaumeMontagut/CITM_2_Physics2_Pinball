@@ -57,7 +57,11 @@ bool ModulePlayScene::Start()
 		backitem->data->body->SetType(b2_staticBody);
 	}
 
-	redBumper1 = App->physics->CreateBumper(267, 256, 11, redBumperTex, flashTex);
+	redBumper[0] = App->physics->CreateBumper(267, 256, 11, redBumperTex, flashTex);
+	redBumper[1] = App->physics->CreateBumper(322, 255, 11, redBumperTex, flashTex);
+	redBumper[2] = App->physics->CreateBumper(272, 289, 11, redBumperTex, flashTex);
+	redBumper[3] = App->physics->CreateBumper(320, 292, 11, redBumperTex, flashTex);
+	redBumper[4] = App->physics->CreateBumper(291, 323, 11, redBumperTex, flashTex);
 
 	hand = App->physics->CreateRectangle(294,476,18,47);
 	hand->body->SetType(b2_staticBody);

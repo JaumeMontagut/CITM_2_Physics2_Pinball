@@ -37,7 +37,7 @@ public:
 	SDL_Texture * flashTex = nullptr;
 	//Red bumper
 	SDL_Texture* redBumperTex = nullptr;
-	PhysBody* redBumper1;//TODO: Make an array and incialize it to nullptr
+	PhysBody* redBumper[5] = {nullptr};
 	uint redBumperSFX = 0;
 
 
