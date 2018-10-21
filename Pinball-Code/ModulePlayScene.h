@@ -58,7 +58,11 @@ public:
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
 	SDL_Texture * blueCharacter2Tex = nullptr;
-	//Phone combo
+	//Phone piece
+	SDL_Texture * phoneActive = nullptr;
+	SDL_Texture * phoneUnactive = nullptr;
 	uint activePhonePieces = 0u;
 	PhysBodyPhone * phonePieces[5] = { nullptr };
+	uint phoneSFX = 0u;
+	uint phoneBonusSFX = 0u;
 };

@@ -36,14 +36,15 @@ bool ModulePlayScene::Start()
 	blueCharacter1Tex = App->textures->Load("sprites/sprites/DefineSprite_78/1.png");
 	blueCharacter2Tex = App->textures->Load("sprites/sprites/DefineSprite_78/2.png");
 	flashTex = App->textures->Load("sprites/shapes/157.png");
+	handTex = App->textures->Load("sprites/images/1.png");
+	phoneActive = App->textures->Load("sprites/sprites/DefineSprite_119/2.png");
+	phoneUnactive = App->textures->Load("sprites/sprites/DefineSprite_119/1.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
-
-	handTex = App->textures->Load("sprites/images/1.png");
-
 	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
-
+	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
+	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
@@ -80,6 +81,12 @@ bool ModulePlayScene::Start()
 
 	PhysBody* greyBumper;
 	greyBumper = App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
+
+	phonePieces[0] = App->physics->CreatePhonePiece(10, 10, 10, 10);
+	phonePieces[1] = App->physics->CreatePhonePiece(10, 10, 10, 10);
+	phonePieces[2] = App->physics->CreatePhonePiece(10, 10, 10, 10);
+	phonePieces[3] = App->physics->CreatePhonePiece(10, 10, 10, 10);
+	phonePieces[4] = App->physics->CreatePhonePiece(10, 10, 10, 10);
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
@@ -131,9 +138,10 @@ void ModulePlayScene::IncreasePhoneCombo()
 	activePhonePieces++;
 	if (activePhonePieces > 5) {
 		activePhonePieces = 0u;
-		//Add points
-		//PlaySFX
+		//TODO: Add bonus points
+		App->audio->PlayFx(phoneSFX);
 		for (uint i = 0; i < 5; ++i) {
+			App->audio->PlayFx(phoneBonusSFX);
 			phonePieces[i]->Deactivate();
 		}
 	}
