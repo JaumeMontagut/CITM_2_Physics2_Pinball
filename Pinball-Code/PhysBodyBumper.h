@@ -5,6 +5,7 @@
 
 class PhysBodyBumper : public PhysBody {
 	void OnCollision(PhysBody* bodyB) override;
+	update_status PostUpdate() override;
 };
 
 #endif // !

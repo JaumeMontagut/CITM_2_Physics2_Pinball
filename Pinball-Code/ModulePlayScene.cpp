@@ -31,6 +31,7 @@ bool ModulePlayScene::Start()
 	redBumperTex = App->textures->Load("sprites/images/155.png");
 	blueCharacter1Tex = App->textures->Load("sprites/sprites/DefineSprite_78/1.png");
 	blueCharacter2Tex = App->textures->Load("sprites/sprites/DefineSprite_78/2.png");
+	flashTex = App->textures->Load("sprites/shapes/157.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -74,6 +75,7 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(redBumperTex);
 	App->textures->Unload(blueCharacter1Tex);
+	App->textures->Unload(flashTex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
@@ -124,8 +126,7 @@ update_status ModulePlayScene::PostUpdate()
 	//- Bouncers
 	iPoint pos;
 	redBumper1->GetPixelPosition(pos.x, pos.y);
-	pos += redBumperOffset;
-	App->renderer->Blit(redBumperTex, pos.x, pos.y);
+	App->renderer->Blit(redBumperTex, pos.x + bumperOffset.x, pos.y + bumperOffset.y);
 	//- Balls
 	p2List_item<PhysBody*>* circle = circles.getFirst();
 	while (circle != NULL)

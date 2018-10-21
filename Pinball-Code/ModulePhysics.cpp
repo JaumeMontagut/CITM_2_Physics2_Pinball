@@ -42,9 +42,13 @@ update_status ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
 
-	for(b2Contact* contact = world->GetContactList(); contact; contact = contact->GetNext())
+	return UPDATE_CONTINUE;
+}
+
+update_status ModulePhysics::Update() {
+	for (b2Contact* contact = world->GetContactList(); contact; contact = contact->GetNext())
 	{
-		if(contact->GetFixtureA() && contact->IsTouching())
+		if (contact->GetFixtureA() && contact->IsTouching())
 		{
 			PhysBody* pb1 = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
 			PhysBody* pb2 = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
@@ -54,12 +58,19 @@ update_status ModulePhysics::PreUpdate()
 				pb2->OnCollision(pb1);
 		}
 	}
-
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePhysics::PostUpdate()
 {
+	//Draw bodies
+	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) {
+		PhysBody* pb = (PhysBody*)b->GetUserData();;
+		if (pb != nullptr) {
+			pb->PostUpdate();
+		}
+	}
+	//Draw debug lines
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
@@ -510,4 +521,9 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 void PhysBody::OnCollision(PhysBody * bodyB)
 {
 
+}
+
+update_status PhysBody::PostUpdate()
+{
+	return UPDATE_CONTINUE;
 }

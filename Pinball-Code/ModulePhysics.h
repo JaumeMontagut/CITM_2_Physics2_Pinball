@@ -24,10 +24,11 @@ public:
 	bool Contains(int x, int y) const;
 	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
 	virtual void OnCollision(PhysBody* bodyB);
+	virtual update_status PostUpdate();
 
 public:
 	int width, height;
-	b2Body* body=nullptr;
+	b2Body* body = nullptr;
 };
 
 // Module --------------------------------------
@@ -39,6 +40,7 @@ public:
 
 	bool Start();
 	update_status PreUpdate();
+	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
 

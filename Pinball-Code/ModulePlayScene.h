@@ -26,17 +26,20 @@ public:
 	p2List<PhysBody*> Physbackground;
 	PhysBody* hand;
 
-	SDL_Texture* circle = nullptr;
+	SDL_Texture* circleTex = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
 
 	uint bonusSFX=0;
 
+	//Bumpers
+	SDL_Texture * flashTex = nullptr;
+	iPoint flashOffset = iPoint(-13, -12);
 	//Red bumper
 	SDL_Texture* redBumperTex = nullptr;
 	PhysBody* redBumper1;//TODO: Make an array and incialize it to nullptr
-	iPoint redBumperOffset = iPoint(-4, -2);
+	iPoint bumperOffset = iPoint(-4, -2);
 	uint redBumperSFX = 0;
 
 
