@@ -6,4 +6,5 @@
 
 void PhysBodyBumper::OnCollision(PhysBody * bodyB) {
 	App->audio->PlayFx(App->scene_play->redBumperSFX);
+	App->scene_play->IlluminateBlueCharacter();
 }

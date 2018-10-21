@@ -19,6 +19,8 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
+	void IlluminateBlueCharacter();
+
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
@@ -39,4 +41,8 @@ public:
 	uint redBumperSFX = 0;
 
 
+private:
+	//Blue light character
+	bool illuminateCharacter = false;
+	SDL_Texture * blueLightTex;
 };

@@ -29,6 +29,7 @@ bool ModulePlayScene::Start()
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
+	blueLightTex = App->textures->Load("sprites/sprites/DefineSprite_77/1.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -65,17 +66,20 @@ bool ModulePlayScene::CleanUp()
 	LOG("Unloading Play scene");
 	App->textures->Unload(circle);
 	App->textures->Unload(box);
-
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(backgroundTex);
-
 	App->textures->Unload(wallsTex);
-
 	App->textures->Unload(redBumperTex);
+	App->textures->Unload(blueLightTex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
 	return true;
+}
+
+void ModulePlayScene::IlluminateBlueCharacter()
+{
+	illuminateCharacter = true;
 }
 
 update_status ModulePlayScene::PreUpdate()
@@ -105,6 +109,10 @@ update_status ModulePlayScene::PostUpdate()
 	//Draw
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
+	if (illuminateCharacter) {
+		App->renderer->Blit(blueLightTex, 237, 226);
+		illuminateCharacter = false;
+	}
 	//Bouncers
 	iPoint pos;
 	redBumper1->GetPixelPosition(pos.x, pos.y);
