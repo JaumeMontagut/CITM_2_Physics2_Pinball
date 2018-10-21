@@ -28,7 +28,7 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> Physbackground;
 
-	PhysBody* handlauncher;
+	
 	SDL_Texture* handTex = nullptr;
 
 	

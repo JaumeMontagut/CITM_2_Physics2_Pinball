@@ -82,16 +82,15 @@ bool ModulePlayScene::Start()
 	greyBumper = App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
+	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
-	handlauncher = App->physics->CreateChain(0, 0, rectangle, 8);
-
 	b2PrismaticJointDef jointDef;
 	b2Vec2 worldAxis(0.0f, 1.0f); 
-	jointDef.Initialize(App->physics->ground, handlauncher->body, {294,294}, worldAxis);
+	jointDef.Initialize(App->physics->ground, handlauncher, {294,294}, worldAxis);
 
 	jointDef.enableLimit = true;
-	jointDef.lowerTranslation = -0.5f;
-	jointDef.upperTranslation = 0.5f;
+	jointDef.lowerTranslation = 0.0f;
+	jointDef.upperTranslation = 0.7f;
 	
 
 	jointDef.enableMotor = true;
@@ -150,6 +149,7 @@ update_status ModulePlayScene::Update()
 {
 
 	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
 	App->renderer->Blit(wallsTex, 0, 0);
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
@@ -186,18 +186,10 @@ update_status ModulePlayScene::PostUpdate()
 
 	
 	//Draw background
-	App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	App->renderer->Blit(wallsTex, 0, 0);
+	
 	//- Blue character
 
-	if (!illuminateCharacter) {
-		App->renderer->Blit(blueCharacter1Tex, 234, 192);
-	}
-	else {
-		App->renderer->Blit(blueCharacter2Tex, 234, 192);
-		illuminateCharacter = false;
-	}
+
 
 
 	//- Bouncers
