@@ -30,8 +30,8 @@ bool ModulePlayScene::Start()
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
 
-	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.mp3");
-	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.mp3");
+	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
+	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
