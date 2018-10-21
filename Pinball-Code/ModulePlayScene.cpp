@@ -35,7 +35,7 @@ bool ModulePlayScene::Start()
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
-
+	handTex = App->textures->Load("sprites/images/1.png");
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
 	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
@@ -65,11 +65,11 @@ bool ModulePlayScene::Start()
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
 	
-	hand = App->physics->CreateChain(0, 0, rectangle, 8);
+	handlauncher = App->physics->CreateChain(0, 0, rectangle, 8);
 
 	b2PrismaticJointDef jointDef;
 	b2Vec2 worldAxis(0.0f, 1.0f); 
-	jointDef.Initialize(App->physics->ground, hand->body, {294,294}, worldAxis);
+	jointDef.Initialize(App->physics->ground, handlauncher->body, {294,294}, worldAxis);
 
 	jointDef.enableLimit = true;
 	jointDef.lowerTranslation = -0.5f;
@@ -97,7 +97,8 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(redBumperTex);
 	App->textures->Unload(blueCharacter1Tex);
 	App->textures->Unload(flashTex);
-
+	App->textures->Unload(handTex);
+	
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
 	return true;
@@ -144,10 +145,11 @@ update_status ModulePlayScene::PostUpdate()
 	
 	//Bouncers
 
-
+	
 	//Draw background
-	/*App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(wallsTex, 0, 0);*/
+	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
+	App->renderer->Blit(wallsTex, 0, 0);
 	//- Blue character
 
 	if (!illuminateCharacter) {
@@ -170,13 +172,4 @@ update_status ModulePlayScene::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-//update_status ModulePlayScene::PostUpdate()
-//{
-//	//Draw
-//	//TODO (Jaume): Draw balls in their own post update
-//	//- Balls
-//	
-//
-//	return UPDATE_CONTINUE;
-//}
 

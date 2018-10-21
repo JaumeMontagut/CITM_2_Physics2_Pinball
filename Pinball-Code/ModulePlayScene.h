@@ -25,12 +25,15 @@ public:
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> Physbackground;
-	PhysBody* hand;
 
+	PhysBody* handlauncher;
+	SDL_Texture* handTex = nullptr;
+
+	
 	b2PrismaticJoint* m_joint;
 	SDL_Texture* circle = nullptr;
 
-
+	
 	SDL_Texture* circleTex = nullptr;
 
 	SDL_Texture* box = nullptr;

@@ -205,7 +205,7 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, SDL_Texture* bum
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
-
+	
 	b->CreateFixture(&fixture);
 
 	PhysBodyBumper* pbody = new PhysBodyBumper(bumperTex, flashTex);
