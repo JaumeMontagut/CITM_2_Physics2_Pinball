@@ -18,7 +18,6 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
-	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
 	p2List<PhysBody*> circles;
@@ -28,9 +27,8 @@ public:
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
-	SDL_Texture* rick = nullptr;
-	SDL_Texture* walls = nullptr;
-	SDL_Texture* texBackground[2];
+	SDL_Texture* wallsTex = nullptr;
+	SDL_Texture* backgroundTex = nullptr;
 	SDL_Texture* redBouncerTex = nullptr;
 	PhysBody* redBouncer1;
 	iPoint redBouncerOffset = iPoint(-4, -2);

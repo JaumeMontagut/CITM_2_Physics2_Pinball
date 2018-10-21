@@ -10,7 +10,7 @@
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
-	circle = box = rick = NULL;
+
 }
 
 ModulePlayScene::~ModulePlayScene()
@@ -26,32 +26,28 @@ bool ModulePlayScene::Start()
 
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-
-	texBackground[0] = App->textures->Load("sprites/images/253.png");
-	texBackground[1] = App->textures->Load("sprites/images/65.png");
-	walls = App->textures->Load("sprites/images/253.png");
-
+	wallsTex = App->textures->Load("sprites/images/253.png");
+	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBouncerTex = App->textures->Load("sprites/images/155.png");
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
-	//Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
-	//Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
-	//Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
-	//Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12));
-	//Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12));
-	//Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84));
-	//Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
-	//Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
-	//Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
-	//Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12));
-	//Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10));
-	//Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16));
-	//Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
-	//Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
-	//Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
-	//Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
+	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
+	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
+	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
+	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12));
+	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12));
+	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84));
+	Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
+	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
+	Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
+	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12));
+	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10));
+	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16));
+	Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
+	Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
+	Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
+	Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
 	for (p2List_item<PhysBody*>* backitem = Physbackground.getFirst(); backitem; backitem = backitem->next)
 	{
 		backitem->data->body->SetType(b2_staticBody);
@@ -68,12 +64,11 @@ bool ModulePlayScene::CleanUp()
 	LOG("Unloading Play scene");
 	App->textures->Unload(circle);
 	App->textures->Unload(box);
-	App->textures->Unload(rick);
 
-	App->textures->Unload(texBackground[0]);
-	App->textures->Unload(texBackground[1]);
+	App->textures->Unload(wallsTex);
+	App->textures->Unload(backgroundTex);
 
-	App->textures->Unload(walls);
+	App->textures->Unload(wallsTex);
 
 	App->textures->Unload(redBouncerTex);
 
@@ -107,9 +102,8 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	App->renderer->Blit(texBackground[1], 0, 0);
-	App->renderer->Blit(texBackground[0], 0, 0);
-	App->renderer->Blit(walls, 0, 0);
+	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(wallsTex, 0, 0);
 	//Bouncers
 	iPoint pos;
 	redBouncer1->GetPixelPosition(pos.x, pos.y);
@@ -137,13 +131,4 @@ update_status ModulePlayScene::PostUpdate()
 	//Ball (on top of all before)
 
 	return UPDATE_CONTINUE;
-}
-
-void ModulePlayScene::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
-{
-	//if (bodyA == ) {
-
-	//}
-
-	App->audio->PlayFx(bonus_fx);
 }
