@@ -24,13 +24,14 @@ bool ModulePlayScene::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("sprites/images/174.png"); 
+	circleTex = App->textures->Load("sprites/images/174.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
 	blueCharacter1Tex = App->textures->Load("sprites/sprites/DefineSprite_78/1.png");
 	blueCharacter2Tex = App->textures->Load("sprites/sprites/DefineSprite_78/2.png");
+	flashTex = App->textures->Load("sprites/shapes/157.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -56,7 +57,11 @@ bool ModulePlayScene::Start()
 		backitem->data->body->SetType(b2_staticBody);
 	}
 
-	redBumper1 = App->physics->CreateBumper(267, 256, 11);
+	redBumper[0] = App->physics->CreateBumper(267, 256, 11, redBumperTex, flashTex);
+	redBumper[1] = App->physics->CreateBumper(322, 255, 11, redBumperTex, flashTex);
+	redBumper[2] = App->physics->CreateBumper(272, 289, 11, redBumperTex, flashTex);
+	redBumper[3] = App->physics->CreateBumper(320, 292, 11, redBumperTex, flashTex);
+	redBumper[4] = App->physics->CreateBumper(291, 323, 11, redBumperTex, flashTex);
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
 	
@@ -84,13 +89,14 @@ bool ModulePlayScene::Start()
 bool ModulePlayScene::CleanUp()
 {
 	LOG("Unloading Play scene");
-	App->textures->Unload(circle);
+	App->textures->Unload(circleTex);
 	App->textures->Unload(box);
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(backgroundTex);
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(redBumperTex);
 	App->textures->Unload(blueCharacter1Tex);
+	App->textures->Unload(flashTex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
@@ -110,8 +116,10 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
+
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
+
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -125,6 +133,7 @@ update_status ModulePlayScene::Update()
 	{
 		m_joint->SetMotorSpeed(-40.0f);
 	}
+
 	
 	return UPDATE_CONTINUE;
 }
@@ -136,7 +145,10 @@ update_status ModulePlayScene::PostUpdate()
 	//Bouncers
 
 
-
+	//Draw background
+	/*App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(wallsTex, 0, 0);*/
+	//- Blue character
 
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
@@ -145,39 +157,26 @@ update_status ModulePlayScene::PostUpdate()
 		App->renderer->Blit(blueCharacter2Tex, 234, 192);
 		illuminateCharacter = false;
 	}
-	//- Bouncers
 
-	iPoint pos;
-	redBumper1->GetPixelPosition(pos.x, pos.y);
-	pos += redBumperOffset;
-	App->renderer->Blit(redBumperTex, pos.x, pos.y);
-
-
-	//Added physics shapes
-
-	//- Added physics shapes
-
-	p2List_item<PhysBody*>* c = circles.getFirst();
-	while (c != NULL)
+	p2List_item<PhysBody*>* circle = circles.getFirst();
+	while (circle != NULL)
 	{
 		int x, y;
-		c->data->GetPixelPosition(x, y);
-		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
+		circle->data->GetPixelPosition(x, y);
+		App->renderer->Blit(circleTex, x, y, NULL, 1.0f, circle->data->GetRotation());
+		circle = circle->next;
 	}
-
-
-	//c = boxes.getFirst();
-	//while (c != NULL)
-	//{
-	//	int x, y;
-	//	c->data->GetPixelPosition(x, y);
-	//	App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-	//	c = c->next;
-	//}
-	//- Ball (on top of all before)
-
 
 	return UPDATE_CONTINUE;
 }
+
+//update_status ModulePlayScene::PostUpdate()
+//{
+//	//Draw
+//	//TODO (Jaume): Draw balls in their own post update
+//	//- Balls
+//	
+//
+//	return UPDATE_CONTINUE;
+//}
 
