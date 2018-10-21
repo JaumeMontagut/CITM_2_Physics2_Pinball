@@ -147,27 +147,27 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 
-	if (clickedBody != NULL && mouse_joint == NULL) {
-		b2MouseJointDef def;
-		def.bodyA = ground;
-		def.bodyB = clickedBody;
-		def.target = mousePosMeters;
-		def.dampingRatio = 0.5f;
-		def.frequencyHz = 2.0f;
-		def.maxForce = 100.0f * clickedBody->GetMass();
-		mouse_joint = (b2MouseJoint*)world->CreateJoint(&def);
-	}
+	//if (clickedBody != NULL && mouse_joint == NULL) {
+	//	b2MouseJointDef def;
+	//	def.bodyA = ground;
+	//	def.bodyB = clickedBody;
+	//	def.target = mousePosMeters;
+	//	def.dampingRatio = 0.5f;
+	//	def.frequencyHz = 2.0f;
+	//	def.maxForce = 100.0f * clickedBody->GetMass();
+	//	mouse_joint = (b2MouseJoint*)world->CreateJoint(&def);
+	//}
 
-	else if (clickedBody != NULL && mouse_joint != NULL && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-		App->renderer->DrawLine(METERS_TO_PIXELS(clickedBody->GetPosition().x), METERS_TO_PIXELS(clickedBody->GetPosition().y), mousePosPixels.x, mousePosPixels.y, 255, 0, 0, 255);
-		mouse_joint->SetTarget(mousePosMeters);
-	}
+	//else if (clickedBody != NULL && mouse_joint != NULL && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+	//	App->renderer->DrawLine(METERS_TO_PIXELS(clickedBody->GetPosition().x), METERS_TO_PIXELS(clickedBody->GetPosition().y), mousePosPixels.x, mousePosPixels.y, 255, 0, 0, 255);
+	//	mouse_joint->SetTarget(mousePosMeters);
+	//}
 
-	else if (mouse_joint != NULL && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP) {
-		world->DestroyJoint(mouse_joint);
-		mouse_joint = NULL;
-		clickedBody = NULL;
-	}
+	//else if (mouse_joint != NULL && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP) {
+	//	world->DestroyJoint(mouse_joint);
+	//	mouse_joint = NULL;
+	//	clickedBody = NULL;
+	//}
 
 	return UPDATE_CONTINUE;
 }
