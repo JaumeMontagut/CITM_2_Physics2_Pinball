@@ -3,13 +3,14 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include "ModuleRender.h"
 
 class PhysBody;
 
 class ModulePlayScene : public Module
 {
 public:
-	ModulePlayScene(Application* app, bool start_enabled = true);
+	ModulePlayScene(bool start_enabled = true);
 	~ModulePlayScene();
 
 	bool Start();

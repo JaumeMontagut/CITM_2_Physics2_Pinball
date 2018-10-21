@@ -23,6 +23,7 @@ public:
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
 	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
+	virtual void OnCollision(PhysBody* bodyB);
 
 public:
 	int width, height;
@@ -34,7 +35,7 @@ public:
 class ModulePhysics : public Module, public b2ContactListener
 {
 public:
-	ModulePhysics(Application* app, bool start_enabled = true);
+	ModulePhysics(bool start_enabled = true);
 	~ModulePhysics();
 
 	bool Start();

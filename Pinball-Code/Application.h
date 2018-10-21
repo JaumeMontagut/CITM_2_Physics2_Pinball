@@ -22,7 +22,7 @@ public:
 	ModuleInput* input;
 	ModuleAudio* audio;
 	ModulePlayer* player;
-	ModulePlayScene* scene_intro;
+	ModulePlayScene* scene_play;
 	ModulePhysics* physics;
 
 private:
@@ -42,3 +42,5 @@ private:
 
 	void AddModule(Module* mod);
 };
+
+extern Application* App;

@@ -7,7 +7,8 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ChainCoordinates.h"
-ModulePlayScene::ModulePlayScene(Application* app, bool start_enabled) : Module(app, start_enabled)
+
+ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
 	circle = box = rick = NULL;
 }
@@ -35,22 +36,22 @@ bool ModulePlayScene::Start()
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
-	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
-	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
-	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
-	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84));
-	Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
-	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
-	Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
-	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10));
-	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16));
-	Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
-	Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
-	Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
+	//Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
+	//Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
+	//Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
+	//Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12));
+	//Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12));
+	//Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84));
+	//Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
+	//Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
+	//Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
+	//Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12));
+	//Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10));
+	//Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16));
+	//Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
+	//Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
+	//Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
+	//Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
 	for (p2List_item<PhysBody*>* backitem = Physbackground.getFirst(); backitem; backitem = backitem->next)
 	{
 		backitem->data->body->SetType(b2_staticBody);

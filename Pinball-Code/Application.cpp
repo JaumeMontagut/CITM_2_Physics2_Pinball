@@ -11,13 +11,13 @@
 
 Application::Application()
 {
-	renderer = new ModuleRender(this);
-	window = new ModuleWindow(this);
-	textures = new ModuleTextures(this);
-	input = new ModuleInput(this);
-	audio = new ModuleAudio(this, true);
-	scene_intro = new ModulePlayScene(this);
-	physics = new ModulePhysics(this);
+	renderer = new ModuleRender();
+	window = new ModuleWindow();
+	textures = new ModuleTextures();
+	input = new ModuleInput();
+	audio = new ModuleAudio(true);
+	scene_play = new ModulePlayScene();
+	physics = new ModulePhysics();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -28,7 +28,7 @@ Application::Application()
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(scene_intro);
+	AddModule(scene_play);
 	AddModule(renderer);//Renderer has to be the last module because it's the one it executes RenderPresent
 }
 

@@ -12,7 +12,7 @@
 #pragma comment( lib, "Box2D/libx86/Release/Box2D.lib" )
 #endif
 
-ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModulePhysics::ModulePhysics(bool start_enabled) : Module(start_enabled)
 {
 	world = NULL;
 	mouse_joint = NULL;
@@ -406,6 +406,11 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 	}
 
 	return ret;
+}
+
+void PhysBody::OnCollision(PhysBody * bodyB)
+{
+
 }
 
 void ModulePhysics::BeginContact(b2Contact* contact)
