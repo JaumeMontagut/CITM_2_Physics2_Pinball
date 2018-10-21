@@ -56,4 +56,10 @@ public:
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
 	SDL_Texture * blueCharacter2Tex = nullptr;
+private:
+	inline  void CreatefliperJoin();
+	b2RevoluteJoint* joinFlipper;
+	b2Body* CircleFlipper;
+	b2Body* rectangleFlipper;
+
 };
