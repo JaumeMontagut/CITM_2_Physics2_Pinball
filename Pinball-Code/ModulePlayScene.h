@@ -44,13 +44,14 @@ public:
 
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;
+	//Blue bumper
+	SDL_Texture * blueBumperTex = nullptr;
+	uint bluegreyBumperSFX = 0u;
 	//Red bumper
 	SDL_Texture* redBumperTex = nullptr;
-	PhysBody* redBumper[5] = {nullptr};
-	uint redBumperSFX = 0;
-
-
-private:
+	uint redBumperSFX = 0u;
+	//Grey bumper
+	SDL_Texture * greyBumperTex = nullptr;
 	//Blue light character
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;

@@ -7,9 +7,15 @@
 
 struct SDL_Texture;
 
+enum class BUMPER_TYPE {
+	Red,
+	Blue,
+	Grey
+};
+
 class PhysBodyBumper : public PhysBody {
 public:
-	PhysBodyBumper(SDL_Texture* bumperTex, SDL_Texture* flashTex);
+	PhysBodyBumper(BUMPER_TYPE type);
 	void OnCollision(PhysBody* bodyB) override;
 	update_status PostUpdate() override;
 private:
@@ -18,6 +24,8 @@ private:
 	SDL_Texture * flashTex = nullptr;
 	iPoint flashOffset = iPoint(-13, -12);
 	bool touched = false;
+	uint bumperSFX = 0;
+	BUMPER_TYPE type;
 };
 
 #endif // !

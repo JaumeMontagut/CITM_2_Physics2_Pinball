@@ -7,6 +7,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ChainCoordinates.h"
+#include "PhysBodyBumper.h"
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
@@ -29,13 +30,20 @@ bool ModulePlayScene::Start()
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
 	redBumperTex = App->textures->Load("sprites/images/155.png");
+	blueBumperTex = App->textures->Load("sprites/images/160.png");
+	greyBumperTex = App->textures->Load("sprites/images/163.png");
 	blueCharacter1Tex = App->textures->Load("sprites/sprites/DefineSprite_78/1.png");
 	blueCharacter2Tex = App->textures->Load("sprites/sprites/DefineSprite_78/2.png");
 	flashTex = App->textures->Load("sprites/shapes/157.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
+
 	handTex = App->textures->Load("sprites/images/1.png");
+
+	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
+
+
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
 	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
@@ -57,11 +65,20 @@ bool ModulePlayScene::Start()
 		backitem->data->body->SetType(b2_staticBody);
 	}
 
-	redBumper[0] = App->physics->CreateBumper(267, 256, 11, redBumperTex, flashTex);
-	redBumper[1] = App->physics->CreateBumper(322, 255, 11, redBumperTex, flashTex);
-	redBumper[2] = App->physics->CreateBumper(272, 289, 11, redBumperTex, flashTex);
-	redBumper[3] = App->physics->CreateBumper(320, 292, 11, redBumperTex, flashTex);
-	redBumper[4] = App->physics->CreateBumper(291, 323, 11, redBumperTex, flashTex);
+	PhysBody* redBumper[5];
+	redBumper[0] = App->physics->CreateBumper(267, 256, 11, BUMPER_TYPE::Red);
+	redBumper[1] = App->physics->CreateBumper(322, 255, 11, BUMPER_TYPE::Red);
+	redBumper[2] = App->physics->CreateBumper(272, 289, 11, BUMPER_TYPE::Red);
+	redBumper[3] = App->physics->CreateBumper(320, 292, 11, BUMPER_TYPE::Red);
+	redBumper[4] = App->physics->CreateBumper(291, 323, 11, BUMPER_TYPE::Red);
+
+	PhysBody* blueBumper[3];
+	blueBumper[0] = App->physics->CreateBumper(385, 101, 11, BUMPER_TYPE::Blue);
+	blueBumper[1] = App->physics->CreateBumper(427,  95, 11, BUMPER_TYPE::Blue);
+	blueBumper[2] = App->physics->CreateBumper(414, 137, 11, BUMPER_TYPE::Blue);
+
+	PhysBody* greyBumper;
+	greyBumper = App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
 	
@@ -120,6 +137,13 @@ update_status ModulePlayScene::Update()
 
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
+	if (!illuminateCharacter) {
+		App->renderer->Blit(blueCharacter1Tex, 234, 192);
+	}
+	else {
+		App->renderer->Blit(blueCharacter2Tex, 234, 192);
+		illuminateCharacter = false;
+	}
 
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
@@ -142,6 +166,7 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
+
 	
 	//Bouncers
 
@@ -159,6 +184,9 @@ update_status ModulePlayScene::PostUpdate()
 		App->renderer->Blit(blueCharacter2Tex, 234, 192);
 		illuminateCharacter = false;
 	}
+
+
+	//- Bouncers
 
 	p2List_item<PhysBody*>* circle = circles.getFirst();
 	while (circle != NULL)

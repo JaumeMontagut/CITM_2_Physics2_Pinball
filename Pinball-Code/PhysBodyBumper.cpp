@@ -7,15 +7,31 @@
 #include "Application.h"
 #include "p2Point.h"
 
-PhysBodyBumper::PhysBodyBumper(SDL_Texture* bumperTex, SDL_Texture * flashTex) : PhysBody(),
-bumperTex(bumperTex),
-flashTex(flashTex) {
-
+PhysBodyBumper::PhysBodyBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
+	switch (type) {
+	case BUMPER_TYPE::Blue:
+		bumperTex = App->scene_play->blueBumperTex;
+		flashTex = App->scene_play->flashTex;
+		bumperSFX = App->scene_play->bluegreyBumperSFX;
+		break;
+	case BUMPER_TYPE::Red:
+		bumperTex = App->scene_play->redBumperTex;
+		flashTex = App->scene_play->flashTex;
+		bumperSFX = App->scene_play->redBumperSFX;
+		break;
+	case BUMPER_TYPE::Grey:
+		bumperTex = App->scene_play->greyBumperTex;
+		flashTex = App->scene_play->flashTex;
+		bumperSFX = App->scene_play->bluegreyBumperSFX;
+		break;
+	}
 }
 
 void PhysBodyBumper::OnCollision(PhysBody * bodyB) {
-	App->audio->PlayFx(App->scene_play->redBumperSFX);
-	App->scene_play->IlluminateBlueCharacter();
+	if (type == BUMPER_TYPE::Red) {
+		App->scene_play->IlluminateBlueCharacter();
+	}
+	App->audio->PlayFx(bumperSFX);
 	touched = true;
 }
 
