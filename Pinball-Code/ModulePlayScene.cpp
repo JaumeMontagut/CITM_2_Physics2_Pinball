@@ -24,7 +24,7 @@ bool ModulePlayScene::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
+	circle = App->textures->Load("sprites/images/174.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
@@ -55,7 +55,9 @@ bool ModulePlayScene::Start()
 	}
 
 	redBumper1 = App->physics->CreateBumper(267, 256, 11);
-	
+
+	hand = App->physics->CreateRectangle(294,476,18,47);
+	hand->body->SetType(b2_staticBody);
 	return ret;
 }
 
@@ -86,30 +88,31 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
+	//App->renderer->Blit(backgroundTex, 0, 0);
+	//App->renderer->Blit(wallsTex, 0, 0);
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f));
 	}
-
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+		
 	}
-
+	
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(wallsTex, 0, 0);
+	
 	//Bouncers
 	iPoint pos;
 	redBumper1->GetPixelPosition(pos.x, pos.y);
 	pos += redBumperOffset;
 	App->renderer->Blit(redBumperTex, pos.x, pos.y);
+
 	//Added physics shapes
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)
@@ -120,14 +123,7 @@ update_status ModulePlayScene::PostUpdate()
 		c = c->next;
 	}
 
-	c = boxes.getFirst();
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPixelPosition(x, y);
-		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
+	
 
 	//Ball (on top of all before)
 

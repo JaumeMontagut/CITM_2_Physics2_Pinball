@@ -21,9 +21,8 @@ public:
 
 public:
 	p2List<PhysBody*> circles;
-	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> Physbackground;
-
+	PhysBody* hand;
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
