@@ -24,7 +24,7 @@ bool ModulePlayScene::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("sprites/images/174.png"); 
+	circleTex = App->textures->Load("sprites/images/174.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
@@ -67,7 +67,7 @@ bool ModulePlayScene::Start()
 bool ModulePlayScene::CleanUp()
 {
 	LOG("Unloading Play scene");
-	App->textures->Unload(circle);
+	App->textures->Unload(circleTex);
 	App->textures->Unload(box);
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(backgroundTex);
@@ -93,8 +93,6 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
-	//App->renderer->Blit(backgroundTex, 0, 0);
-	//App->renderer->Blit(wallsTex, 0, 0);
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -105,20 +103,10 @@ update_status ModulePlayScene::Update()
 		
 	}
 
-	
-	return UPDATE_CONTINUE;
-}
-
-update_status ModulePlayScene::PostUpdate()
-{
-	//Draw
-	
-	//Bouncers
-
-
-	//Draw
+	//Draw background
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(wallsTex, 0, 0);
+	//- Blue character
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
 	}
@@ -126,38 +114,27 @@ update_status ModulePlayScene::PostUpdate()
 		App->renderer->Blit(blueCharacter2Tex, 234, 192);
 		illuminateCharacter = false;
 	}
-	//- Bouncers
+	
+	return UPDATE_CONTINUE;
+}
 
+update_status ModulePlayScene::PostUpdate()
+{
+	//Draw
+	//- Bouncers
 	iPoint pos;
 	redBumper1->GetPixelPosition(pos.x, pos.y);
 	pos += redBumperOffset;
 	App->renderer->Blit(redBumperTex, pos.x, pos.y);
-
-
-	//Added physics shapes
-
-	//- Added physics shapes
-
-	p2List_item<PhysBody*>* c = circles.getFirst();
-	while (c != NULL)
+	//- Balls
+	p2List_item<PhysBody*>* circle = circles.getFirst();
+	while (circle != NULL)
 	{
 		int x, y;
-		c->data->GetPixelPosition(x, y);
-		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
+		circle->data->GetPixelPosition(x, y);
+		App->renderer->Blit(circleTex, x, y, NULL, 1.0f, circle->data->GetRotation());
+		circle = circle->next;
 	}
-
-
-	//c = boxes.getFirst();
-	//while (c != NULL)
-	//{
-	//	int x, y;
-	//	c->data->GetPixelPosition(x, y);
-	//	App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-	//	c = c->next;
-	//}
-	//- Ball (on top of all before)
-
 
 	return UPDATE_CONTINUE;
 }
