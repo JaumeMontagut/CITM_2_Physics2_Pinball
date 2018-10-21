@@ -28,9 +28,10 @@ bool ModulePlayScene::Start()
 	box = App->textures->Load("pinball/crate.png");
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
-	redBouncerTex = App->textures->Load("sprites/images/155.png");
+	redBumperTex = App->textures->Load("sprites/images/155.png");
 
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.mp3");
+	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.mp3");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
@@ -53,7 +54,7 @@ bool ModulePlayScene::Start()
 		backitem->data->body->SetType(b2_staticBody);
 	}
 
-	redBouncer1 = App->physics->CreateBouncer(267, 256, 11);
+	redBumper1 = App->physics->CreateBumper(267, 256, 11);
 	
 	return ret;
 }
@@ -70,10 +71,10 @@ bool ModulePlayScene::CleanUp()
 
 	App->textures->Unload(wallsTex);
 
-	App->textures->Unload(redBouncerTex);
+	App->textures->Unload(redBumperTex);
 
 	//TODO: Remove SFX
-	App->audio->UnloadSFX(bonus_fx);
+	App->audio->UnloadSFX(bonusSFX);
 	return true;
 }
 
@@ -106,9 +107,9 @@ update_status ModulePlayScene::PostUpdate()
 	App->renderer->Blit(wallsTex, 0, 0);
 	//Bouncers
 	iPoint pos;
-	redBouncer1->GetPixelPosition(pos.x, pos.y);
-	pos += redBouncerOffset;
-	App->renderer->Blit(redBouncerTex, pos.x, pos.y);
+	redBumper1->GetPixelPosition(pos.x, pos.y);
+	pos += redBumperOffset;
+	App->renderer->Blit(redBumperTex, pos.x, pos.y);
 	//Added physics shapes
 	p2List_item<PhysBody*>* c = circles.getFirst();
 	while (c != NULL)

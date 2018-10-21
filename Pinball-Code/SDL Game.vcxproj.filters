@@ -24,9 +24,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="PhysBodyBouncer.h">
-      <Filter>Physics Bodies</Filter>
-    </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -54,13 +51,13 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="ChainCoordinates.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="PhysBodyBumper.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="PhysBodyBouncer.cpp">
-      <Filter>Physics Bodies</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -83,5 +80,8 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="PhysBodyBumper.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

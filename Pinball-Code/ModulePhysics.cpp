@@ -7,7 +7,7 @@
 #include "math.h"
 
 //Physics Bodies
-#include "PhysBodyBouncer.h"
+#include "PhysBodyBumper.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -58,7 +58,7 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -74,7 +74,7 @@ PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
 
 	b->CreateFixture(&fixture);
 
-	PhysBodyBouncer* pbody = new PhysBodyBouncer();
+	PhysBodyBumper* pbody = new PhysBodyBumper();
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius * 2;

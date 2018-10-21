@@ -29,10 +29,14 @@ public:
 	SDL_Texture* box = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
-	SDL_Texture* redBouncerTex = nullptr;
-	PhysBody* redBouncer1;
-	iPoint redBouncerOffset = iPoint(-4, -2);
-	uint bonus_fx=0;
+
+	uint bonusSFX=0;
+
+	//Red bumper
+	SDL_Texture* redBumperTex = nullptr;
+	PhysBody* redBumper1;//TODO: Make an array and incialize it to nullptr
+	iPoint redBumperOffset = iPoint(-4, -2);
+	uint redBumperSFX = 0;
 
 
 };
