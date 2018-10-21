@@ -16,7 +16,7 @@
 class PhysBody
 {
 public:
-	PhysBody() : listener(NULL), body(NULL)
+	PhysBody() : body(NULL)
 	{}
 
 	void GetPixelPosition(int& x, int &y) const;
@@ -28,7 +28,6 @@ public:
 public:
 	int width, height;
 	b2Body* body=nullptr;
-	Module* listener=nullptr;
 };
 
 // Module --------------------------------------
@@ -48,9 +47,6 @@ public:
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateBouncer(int x, int y, int radius);
-
-	// b2ContactListener ---
-	void BeginContact(b2Contact* contact);
 
 private:
 

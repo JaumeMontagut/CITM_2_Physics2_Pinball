@@ -58,7 +58,6 @@ bool ModulePlayScene::Start()
 	}
 
 	redBouncer1 = App->physics->CreateBouncer(267, 256, 11);
-	redBouncer1->listener = this;
 	
 	return ret;
 }
@@ -95,7 +94,6 @@ update_status ModulePlayScene::Update()
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
-		circles.getLast()->data->listener = this;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)

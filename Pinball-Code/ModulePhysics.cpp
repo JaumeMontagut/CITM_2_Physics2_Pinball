@@ -6,6 +6,9 @@
 #include "p2Point.h"
 #include "math.h"
 
+//Physics Bodies
+#include "PhysBodyBouncer.h"
+
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
 #else
@@ -31,28 +34,6 @@ bool ModulePhysics::Start()
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
-	// needed to create joints like mouse joint
-	b2BodyDef bd;
-	ground = world->CreateBody(&bd);
-
-	//// big static circle as "ground" in the middle of the screen
-	//int x = SCREEN_WIDTH / 2;
-	//int y = SCREEN_HEIGHT / 1.5f;
-	//int diameter = SCREEN_WIDTH / 2;
-
-	//b2BodyDef body;
-	//body.type = b2_staticBody;
-	//body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	//b2Body* big_ball = world->CreateBody(&body);
-
-	//b2CircleShape shape;
-	//shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
-
-	//b2FixtureDef fixture;
-	//fixture.shape = &shape;
-	//big_ball->CreateFixture(&fixture);
-
 	return true;
 }
 
@@ -61,14 +42,16 @@ update_status ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
 
-	for(b2Contact* c = world->GetContactList(); c; c = c->GetNext())
+	for(b2Contact* contact = world->GetContactList(); contact; contact = contact->GetNext())
 	{
-		if(c->GetFixtureA()->IsSensor() && c->IsTouching())
+		if(contact->GetFixtureA() && contact->IsTouching())
 		{
-			PhysBody* pb1 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
-			PhysBody* pb2 = (PhysBody*)c->GetFixtureB()->GetBody()->GetUserData();
-			if(pb1 && pb2 && pb1->listener)
-				pb1->listener->OnCollision(pb1, pb2);
+			PhysBody* pb1 = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
+			PhysBody* pb2 = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
+			if (pb1 && pb2)
+				pb1->OnCollision(pb2);
+			if (pb1 && pb2)
+				pb2->OnCollision(pb1);
 		}
 	}
 
@@ -91,7 +74,7 @@ PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
 
 	b->CreateFixture(&fixture);
 
-	PhysBody* pbody = new PhysBody();
+	PhysBodyBouncer* pbody = new PhysBodyBouncer();
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius * 2;
@@ -411,16 +394,4 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 void PhysBody::OnCollision(PhysBody * bodyB)
 {
 
-}
-
-void ModulePhysics::BeginContact(b2Contact* contact)
-{
-	PhysBody* physA = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
-	PhysBody* physB = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
-
-	if(physA && physA->listener != NULL)
-		physA->listener->OnCollision(physA, physB);
-
-	if(physB && physB->listener != NULL)
-		physB->listener->OnCollision(physB, physA);
 }
