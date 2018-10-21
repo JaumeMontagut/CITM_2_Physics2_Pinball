@@ -184,7 +184,7 @@ update_status ModulePhysics::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, SDL_Texture* bumperTex, SDL_Texture* flashTex)
+PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -200,7 +200,7 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, SDL_Texture* bum
 
 	b->CreateFixture(&fixture);
 
-	PhysBodyBumper* pbody = new PhysBodyBumper(bumperTex, flashTex);
+	PhysBodyBumper* pbody = new PhysBodyBumper(type);
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius * 2;

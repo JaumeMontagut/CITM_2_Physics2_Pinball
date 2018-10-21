@@ -34,6 +34,8 @@ public:
 	b2Body* body = nullptr;
 };
 
+enum class BUMPER_TYPE;
+
 // Module --------------------------------------
 class ModulePhysics : public Module, public b2ContactListener
 {
@@ -51,7 +53,7 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
-	PhysBody* CreateBumper(int x, int y, int radius, SDL_Texture* bumperTex, SDL_Texture* flashTex);
+	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
 
 private:
 
