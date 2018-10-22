@@ -27,7 +27,7 @@ PhysBodyBumper::PhysBodyBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 	}
 }
 
-void PhysBodyBumper::OnCollision(PhysBody * bodyB) {
+void PhysBodyBumper::OnCollisionEnter (PhysBody * bodyB) {
 	if (type == BUMPER_TYPE::Red) {
 		App->scene_play->IlluminateBlueCharacter();
 	}

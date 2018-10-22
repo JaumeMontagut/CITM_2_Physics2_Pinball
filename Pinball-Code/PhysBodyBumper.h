@@ -16,7 +16,7 @@ enum class BUMPER_TYPE {
 class PhysBodyBumper : public PhysBody {
 public:
 	PhysBodyBumper(BUMPER_TYPE type);
-	void OnCollision(PhysBody* bodyB) override;
+	void OnCollisionEnter (PhysBody* bodyB) override;
 	update_status PostUpdate() override;
 private:
 	SDL_Texture * bumperTex = nullptr;
