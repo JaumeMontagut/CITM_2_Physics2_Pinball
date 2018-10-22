@@ -4,16 +4,20 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL_scancode.h"
+#include "ModuleRender.h"
+#include "ModulePlayScene.h"
 // Small class to return to other modules to track position and rotation of physics bodies
 class FliperPhysbody : public PhysBody
 {
 public:
-	
-	
+	bool rightfliper;
+private:
+	b2Vec2 mesure;
 public:
 	FliperPhysbody();
-    update_status PostUpdate() override;
-
+	FliperPhysbody(b2Vec2 mesure);
+    update_status PreUpdate() override;
+	update_status PostUpdate() override;
 	/*virtual void OnCollision(PhysBody* bodyB);
 	
 	virtual update_status Update();
