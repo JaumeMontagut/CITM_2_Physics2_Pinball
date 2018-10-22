@@ -20,9 +20,9 @@ void PhysBodyPhone::OnCollision(PhysBody * bodyB)
 
 update_status PhysBodyPhone::PostUpdate()
 {
-	int x, y;
-	GetPixelPosition(x,y);
-	App->renderer->Blit(currTex, x, y);
+	iPoint pos;
+	GetPixelPosition(pos.x,pos.y);
+	App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y);
 	return UPDATE_CONTINUE;
 }
 

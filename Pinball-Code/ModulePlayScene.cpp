@@ -81,11 +81,11 @@ bool ModulePlayScene::Start()
 	PhysBody* greyBumper;
 	greyBumper = App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
 
-	phonePieces[0] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[1] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[2] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[3] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[4] = App->physics->CreatePhonePiece(10, 10, 10, 10);
+	phonePieces[0] = App->physics->CreatePhonePiece(368, 127, 14, 6);
+	phonePieces[1] = App->physics->CreatePhonePiece(10, 10, 14, 6);
+	phonePieces[2] = App->physics->CreatePhonePiece(10, 10, 14, 6);
+	phonePieces[3] = App->physics->CreatePhonePiece(10, 10, 14, 6);
+	phonePieces[4] = App->physics->CreatePhonePiece(10, 10, 14, 6);
 
 	//hand = App->physics->CreateRectangle(294,476,18,21);
 
