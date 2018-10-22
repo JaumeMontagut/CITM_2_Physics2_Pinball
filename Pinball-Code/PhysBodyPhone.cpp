@@ -13,7 +13,7 @@ PhysBodyPhone::PhysBodyPhone() : PhysBody()
 
 void PhysBodyPhone::OnCollision(PhysBody * bodyB)
 {
-	if (!active) {
+	if (!active && SDL_GetTicks() > deactivationTime + activationDelay) {
 		Activate();
 	}
 }
@@ -36,5 +36,6 @@ void PhysBodyPhone::Activate()
 void PhysBodyPhone::Deactivate()
 {
 	active = false;
+	deactivationTime = SDL_GetTicks();
 	currTex = unactiveTex;
 }

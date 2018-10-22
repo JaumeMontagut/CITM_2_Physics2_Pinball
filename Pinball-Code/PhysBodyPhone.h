@@ -2,6 +2,7 @@
 
 #include "ModulePhysics.h"
 #include "Module.h"
+#include "SDL/include/SDL_stdinc.h"
 
 struct SDL_Texture;
 
@@ -20,4 +21,6 @@ private:
 	SDL_Texture * activeTex = nullptr;
 	SDL_Texture * unactiveTex = nullptr;
 	iPoint offset = iPoint(-1,-6);
+	Uint32 deactivationTime = 0;
+	Uint32 activationDelay = 10000;//1000 ms = 1s
 };
