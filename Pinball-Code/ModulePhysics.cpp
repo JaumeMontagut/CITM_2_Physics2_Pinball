@@ -68,18 +68,58 @@ update_status ModulePhysics::Update() {
 	}
 
 	//On collision calls
+	//INFO: This implementation only detects if a body enters / is / exits a collision
+	//If there were to be more than one body moving on the screen this wouldn't work as expected
+	//INFO: In our case, as there is only one ball moving in the scene, this implementation works perfectly
+	//and gets rid of using lists for each collision pair or a b2ContactListener (which would require substancially more processing)
+
+	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) {
+		PhysBody* pb = (PhysBody*)b->GetUserData();;
+		if (pb != nullptr) {
+			pb->wasColliding = pb->isColliding;
+			pb->isColliding = false;
+		}
+	}
+
 	for (b2Contact* contact = world->GetContactList(); contact; contact = contact->GetNext())
 	{
 		if (contact->GetFixtureA() && contact->IsTouching())
 		{
 			PhysBody* pb1 = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
 			PhysBody* pb2 = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
-			if (pb1 && pb2)
-				pb1->OnCollision(pb2);
-			if (pb1 && pb2)
-				pb2->OnCollision(pb1);
+
+			pb1->isColliding = true;
+			pb2->isColliding = true;
+
+			if (pb1 && pb2) {
+				if (pb1->isColliding && !pb1->wasColliding) {
+					pb1->OnCollisionEnter(pb2);
+				}
+				else {
+					pb1->OnCollision(pb2);
+				}
+			}
+
+			if (pb1 && pb2) {
+				if (pb2->isColliding && !pb2->wasColliding) {
+					pb2->OnCollisionEnter(pb1);
+				}
+				else {
+					pb2->OnCollision(pb1);
+				}
+			}
 		}
 	}
+
+	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) {
+		PhysBody* pb = (PhysBody*)b->GetUserData();;
+		if (pb != nullptr) {
+			if (pb->wasColliding && !pb->isColliding) {
+				pb->OnCollisionExit();
+			}
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -467,7 +507,16 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 	return ret;
 }
 
+void PhysBody::OnCollisionEnter(PhysBody * bodyB)
+{
+}
+
 void PhysBody::OnCollision(PhysBody * bodyB)
+{
+
+}
+
+void PhysBody::OnCollisionExit()
 {
 
 }

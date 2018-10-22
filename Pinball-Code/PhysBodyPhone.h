@@ -2,13 +2,14 @@
 
 #include "ModulePhysics.h"
 #include "Module.h"
+#include "SDL/include/SDL_stdinc.h"
 
 struct SDL_Texture;
 
 class PhysBodyPhone : public PhysBody {
 public:
 	PhysBodyPhone();
-	void OnCollision(PhysBody * bodyB) override;
+	void OnCollisionEnter(PhysBody * bodyB) override;
 	update_status PostUpdate() override;
 
 	void Activate();

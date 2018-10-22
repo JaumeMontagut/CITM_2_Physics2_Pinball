@@ -16,16 +16,17 @@ enum class BUMPER_TYPE {
 class PhysBodyBumper : public PhysBody {
 public:
 	PhysBodyBumper(BUMPER_TYPE type);
-	void OnCollision(PhysBody* bodyB) override;
+	void OnCollisionEnter (PhysBody* bodyB) override;
 	update_status PostUpdate() override;
 private:
 	SDL_Texture * bumperTex = nullptr;
 	iPoint bumperOffset = iPoint(-4, -2);
 	SDL_Texture * flashTex = nullptr;
 	iPoint flashOffset = iPoint(-13, -12);
-	bool touched = false;
 	uint bumperSFX = 0;
 	BUMPER_TYPE type;
+	const uint flashFrames = 4u;
+	uint currFlash = flashFrames;
 };
 
 #endif // !

@@ -11,7 +11,7 @@ PhysBodyPhone::PhysBodyPhone() : PhysBody()
 	currTex = unactiveTex;
 }
 
-void PhysBodyPhone::OnCollision(PhysBody * bodyB)
+void PhysBodyPhone::OnCollisionEnter(PhysBody * bodyB)
 {
 	if (!active) {
 		Activate();
@@ -29,8 +29,8 @@ update_status PhysBodyPhone::PostUpdate()
 void PhysBodyPhone::Activate()
 {
 	active = true;
-	App->scene_play->IncreasePhoneCombo();
 	currTex = activeTex;
+	App->scene_play->IncreasePhoneCombo();
 }
 
 void PhysBodyPhone::Deactivate()

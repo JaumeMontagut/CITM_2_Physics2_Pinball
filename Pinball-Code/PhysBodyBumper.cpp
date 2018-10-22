@@ -27,21 +27,21 @@ PhysBodyBumper::PhysBodyBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 	}
 }
 
-void PhysBodyBumper::OnCollision(PhysBody * bodyB) {
+void PhysBodyBumper::OnCollisionEnter (PhysBody * bodyB) {
 	if (type == BUMPER_TYPE::Red) {
 		App->scene_play->IlluminateBlueCharacter();
 	}
 	App->audio->PlayFx(bumperSFX);
-	touched = true;
+	currFlash = 0u;
 }
 
 update_status PhysBodyBumper::PostUpdate()
 {
 	int x, y;
 	GetPixelPosition(x, y);
-	if (touched) {
+	if (currFlash < flashFrames) {
 		App->renderer->Blit(flashTex, x + flashOffset.x, y + flashOffset.y);
-		touched = false;
+		currFlash++;
 	}
 	App->renderer->Blit(bumperTex, x + bumperOffset.x, y + bumperOffset.y);
 	return UPDATE_CONTINUE;

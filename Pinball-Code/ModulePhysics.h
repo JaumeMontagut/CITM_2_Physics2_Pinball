@@ -27,13 +27,19 @@ public:
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
 	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
-	virtual void OnCollision(PhysBody* bodyB);
+
 	virtual update_status PreUpdate();
 	virtual update_status Update();
 	virtual update_status PostUpdate();
 
+	virtual void OnCollisionEnter(PhysBody* bodyB);
+	virtual void OnCollision(PhysBody* bodyB);
+	virtual void OnCollisionExit();
+
 public:
 	int width, height;
+	bool wasColliding = false;
+	bool isColliding = false;
 	b2Body* body = nullptr;
 };
 
