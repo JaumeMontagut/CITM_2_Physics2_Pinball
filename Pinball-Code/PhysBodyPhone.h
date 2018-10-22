@@ -19,4 +19,5 @@ private:
 	SDL_Texture * currTex = nullptr;
 	SDL_Texture * activeTex = nullptr;
 	SDL_Texture * unactiveTex = nullptr;
+	iPoint offset = iPoint(-1,-6);
 };

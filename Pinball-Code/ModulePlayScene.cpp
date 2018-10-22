@@ -81,11 +81,11 @@ bool ModulePlayScene::Start()
 	PhysBody* greyBumper;
 	greyBumper = App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
 
-	phonePieces[0] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[1] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[2] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[3] = App->physics->CreatePhonePiece(10, 10, 10, 10);
-	phonePieces[4] = App->physics->CreatePhonePiece(10, 10, 10, 10);
+	phonePieces[0] = App->physics->CreatePhonePiece(380, 131, 14, 6, -121.6f);
+	phonePieces[1] = App->physics->CreatePhonePiece(391, 143, 14, 6, -150.0f);
+	phonePieces[2] = App->physics->CreatePhonePiece(455, 82, 14, 6, 67.0f);
+	phonePieces[3] = App->physics->CreatePhonePiece(460, 99, 14, 6, 85.2f);
+	phonePieces[4] = App->physics->CreatePhonePiece(460, 115, 14, 6, 92.9f);
 
 	
 
@@ -144,12 +144,13 @@ void ModulePlayScene::IlluminateBlueCharacter()
 void ModulePlayScene::IncreasePhoneCombo()
 {
 	activePhonePieces++;
-	if (activePhonePieces > 5) {
+	App->audio->PlayFx(phoneSFX);
+
+	if (activePhonePieces >= 5) {
 		activePhonePieces = 0u;
 		//TODO: Add bonus points
-		App->audio->PlayFx(phoneSFX);
+		App->audio->PlayFx(phoneBonusSFX);
 		for (uint i = 0; i < 5; ++i) {
-			App->audio->PlayFx(phoneBonusSFX);
 			phonePieces[i]->Deactivate();
 		}
 	}
@@ -164,9 +165,9 @@ update_status ModulePlayScene::PreUpdate()
 update_status ModulePlayScene::Update()
 {
 
-	//App->renderer->Blit(backgroundTex, 0, 0);
-	//App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	//App->renderer->Blit(wallsTex, 0, 0);
+	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
+	App->renderer->Blit(wallsTex, 0, 0);
 
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);

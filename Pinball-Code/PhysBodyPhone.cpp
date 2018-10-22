@@ -13,16 +13,16 @@ PhysBodyPhone::PhysBodyPhone() : PhysBody()
 
 void PhysBodyPhone::OnCollision(PhysBody * bodyB)
 {
-	if (!activeTex) {
+	if (!active) {
 		Activate();
 	}
 }
 
 update_status PhysBodyPhone::PostUpdate()
 {
-	int x, y;
-	GetPixelPosition(x,y);
-	App->renderer->Blit(currTex, x, y);
+	iPoint pos;
+	GetPixelPosition(pos.x,pos.y);
+	App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), 8, 8);
 	return UPDATE_CONTINUE;
 }
 
@@ -37,5 +37,4 @@ void PhysBodyPhone::Deactivate()
 {
 	active = false;
 	currTex = unactiveTex;
-	//Show idle sprite
 }
