@@ -87,7 +87,7 @@ bool ModulePlayScene::Start()
 	phonePieces[3] = App->physics->CreatePhonePiece(460, 99, 14, 6, 85.2f);
 	phonePieces[4] = App->physics->CreatePhonePiece(460, 115, 14, 6, 92.9f);
 
-	//hand = App->physics->CreateRectangle(294,476,18,21);
+	
 
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
@@ -105,28 +105,18 @@ bool ModulePlayScene::Start()
 	jointDef.collideConnected = false;
 	m_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&jointDef);
 
-	CreateFlipperJoint();
+
+	App->physics->CreateFliper(133, 463, false);
+	App->physics->CreateFliper(362, 463, false);
+	App->physics->CreateFliper(460, 463, true);
+	App->physics->CreateFliper(226, 463, true);
+	/*CreateFlipperJoint();*/
 	
 	
 	return ret;
 }
 
-inline void ModulePlayScene::CreateFlipperJoint()
-{
-	CircleFlipper = App->physics->CreateCircle(133,463,4)->body;
-	CircleFlipper->SetType(b2BodyType::b2_staticBody);
-	rectangleFlipper = App->physics->CreateRectangle(151, 463, 40, 9)->body;
-	rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
 
-	b2RevoluteJointDef jointFlipperDef;
-	jointFlipperDef.Initialize(rectangleFlipper, CircleFlipper, CircleFlipper->GetWorldCenter());
-	jointFlipperDef.enableLimit = true;
-	jointFlipperDef.lowerAngle = -45 * DEGTORAD;
-	jointFlipperDef.upperAngle = 45 * DEGTORAD;
-
-	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&jointFlipperDef);
-
-}
 
 // Load assets
 bool ModulePlayScene::CleanUp()
@@ -200,10 +190,10 @@ update_status ModulePlayScene::Update()
 	{
 		m_joint->SetMotorSpeed(-40.0f);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		rectangleFlipper->ApplyAngularImpulse(-0.5f,true);
-	}
+	}*/
 	
 	return UPDATE_CONTINUE;
 }
