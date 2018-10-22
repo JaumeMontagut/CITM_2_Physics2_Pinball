@@ -23,9 +23,10 @@ private:
 	iPoint bumperOffset = iPoint(-4, -2);
 	SDL_Texture * flashTex = nullptr;
 	iPoint flashOffset = iPoint(-13, -12);
-	bool touched = false;
 	uint bumperSFX = 0;
 	BUMPER_TYPE type;
+	const uint flashFrames = 4u;
+	uint currFlash = flashFrames;
 };
 
 #endif // !
