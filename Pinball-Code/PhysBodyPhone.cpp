@@ -22,7 +22,7 @@ update_status PhysBodyPhone::PostUpdate()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x,pos.y);
-	App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y);
+	App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle());
 	return UPDATE_CONTINUE;
 }
 
