@@ -111,11 +111,13 @@ bool ModulePlayScene::Start()
 	App->physics->CreateFliper(133, 463, false);
 	App->physics->CreateFliper(224, 464, true);
 
-	App->physics->CreateFliper(362, 463, false);
+	App->physics->CreateFliper(362, 461, false);
 
 	App->physics->CreateFliper(458, 463, true);
 	
-	
+	 ball = App->physics->CreateCircle(294, 450, 6.5f);
+	ball->body->SetBullet(true);
+	circles.add(ball);
 	
 	
 	return ret;
@@ -164,6 +166,14 @@ void ModulePlayScene::IncreasePhoneCombo()
 
 update_status ModulePlayScene::PreUpdate()
 {
+	
+	if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
+	{
+		ball->body->SetLinearVelocity({ 0,0 });
+		ball->body->SetAngularVelocity(0.0f);
+		ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS( 450) },0);
+		
+	}
 	//Input
 	return UPDATE_CONTINUE;
 }

@@ -58,8 +58,9 @@ public:
 	PBPhone * phonePieces[5] = { nullptr };
 	uint phoneSFX = 0u;
 	uint phoneBonusSFX = 0u;
-private:
-	b2RevoluteJoint* joinFlipper;
-	b2Body* CircleFlipper;
-	b2Body* rectangleFlipper;
+
+public :
+	PhysBody * ball;
+
+	
 };
