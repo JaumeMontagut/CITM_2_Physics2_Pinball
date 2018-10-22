@@ -38,13 +38,15 @@ bool ModulePlayScene::Start()
 	handTex = App->textures->Load("sprites/images/1.png");
 	phoneActive = App->textures->Load("sprites/sprites/DefineSprite_119/2.png");
 	phoneUnactive = App->textures->Load("sprites/sprites/DefineSprite_119/1.png");
+	fliperTex = App->textures->Load("sprites/images/fliper.png");
+
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
 	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
 	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
 	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
-
+	
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
 	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
@@ -107,10 +109,13 @@ bool ModulePlayScene::Start()
 
 
 	App->physics->CreateFliper(133, 463, false);
+	App->physics->CreateFliper(224, 464, true);
+
 	App->physics->CreateFliper(362, 463, false);
-	App->physics->CreateFliper(460, 463, true);
-	App->physics->CreateFliper(226, 463, true);
-	/*CreateFlipperJoint();*/
+
+	App->physics->CreateFliper(458, 463, true);
+	
+	
 	
 	
 	return ret;
@@ -130,7 +135,8 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(blueCharacter1Tex);
 	App->textures->Unload(flashTex);
 	App->textures->Unload(handTex);
-	
+	App->textures->Unload(fliperTex);
+
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
 	return true;
@@ -180,7 +186,10 @@ update_status ModulePlayScene::Update()
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f));
+		PhysBody* circle = App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f);
+		circle->body->SetBullet(true);
+		circles.add(circle);
+		
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{

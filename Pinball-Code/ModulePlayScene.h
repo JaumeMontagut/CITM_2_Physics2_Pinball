@@ -34,6 +34,8 @@ public:
 	SDL_Texture* circleTex = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
+	SDL_Texture* fliperTex = nullptr;
+
 	uint bonusSFX=0;
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;

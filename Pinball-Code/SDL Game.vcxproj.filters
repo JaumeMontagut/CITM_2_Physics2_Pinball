@@ -60,6 +60,9 @@
     <ClInclude Include="FlippersPhysBody.h">
       <Filter>Physics Bodies</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp" />
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="FlippersPhysBody.cpp">
       <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -242,12 +242,12 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 	b2Body* CircleFlipper;
 	b2Body* rectangleFlipper;
 	b2RevoluteJointDef jointFlipperDef;
-	
+	b2Vec2 mesure(40, 10);
 	if (!rightFliper)
 	{
 		CircleFlipper = CreateCircle(x, y, 4)->body;
 		CircleFlipper->SetType(b2BodyType::b2_staticBody);
-		rectangleFlipper = App->physics->CreateRectangle( x+20 , y, 40, 9)->body;
+		rectangleFlipper = App->physics->CreateRectangle( x+20 , y, mesure.x, mesure.y)->body;
 		rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
 		
 		
@@ -260,7 +260,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 
 		CircleFlipper = CreateCircle(x, y, 4)->body;
 		CircleFlipper->SetType(b2BodyType::b2_staticBody);
-		rectangleFlipper = App->physics->CreateRectangle(x-20, y, 40, 9)->body;
+		rectangleFlipper = App->physics->CreateRectangle(x-20, y, mesure.x, mesure.y)->body;
 		rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
 		
 		jointFlipperDef.enableLimit = true;
@@ -273,10 +273,10 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 	b2RevoluteJoint* joinFlipper;
 	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&jointFlipperDef);
 
-	FliperPhysbody* newFliper = new FliperPhysbody();
+	FliperPhysbody* newFliper = new FliperPhysbody({ mesure.x,mesure.y });
 	newFliper->body = rectangleFlipper;
 	rectangleFlipper->SetUserData(newFliper);
-
+	newFliper->rightfliper = rightFliper;
 	return newFliper;
 }
 
