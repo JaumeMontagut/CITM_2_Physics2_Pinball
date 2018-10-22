@@ -23,7 +23,7 @@ public:
 
 	void IlluminateBlueCharacter();
 	void IncreasePhoneCombo();
-	inline  void CreatefliperJoint();
+	inline  void CreateFlipperJoint();
 
 public:
 	p2List<PhysBody*> circles;

@@ -105,26 +105,26 @@ bool ModulePlayScene::Start()
 	jointDef.collideConnected = false;
 	m_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&jointDef);
 
-	CreatefliperJoint();
+	CreateFlipperJoint();
 	
 	
 	return ret;
 }
 
-inline void ModulePlayScene::CreatefliperJoint()
+inline void ModulePlayScene::CreateFlipperJoint()
 {
 	CircleFlipper = App->physics->CreateCircle(133,463,4)->body;
 	CircleFlipper->SetType(b2BodyType::b2_staticBody);
 	rectangleFlipper = App->physics->CreateRectangle(151, 463, 40, 9)->body;
 	rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
 
-	b2RevoluteJointDef JoinFlipperDef;
-	JoinFlipperDef.Initialize(rectangleFlipper, CircleFlipper, CircleFlipper->GetWorldCenter());
-	JoinFlipperDef.enableLimit = true;
-	JoinFlipperDef.lowerAngle = -45 * DEGTORAD;
-	JoinFlipperDef.upperAngle = 45 * DEGTORAD;
+	b2RevoluteJointDef jointFlipperDef;
+	jointFlipperDef.Initialize(rectangleFlipper, CircleFlipper, CircleFlipper->GetWorldCenter());
+	jointFlipperDef.enableLimit = true;
+	jointFlipperDef.lowerAngle = -45 * DEGTORAD;
+	jointFlipperDef.upperAngle = 45 * DEGTORAD;
 
-	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&JoinFlipperDef);
+	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&jointFlipperDef);
 
 }
 
@@ -174,9 +174,9 @@ update_status ModulePlayScene::PreUpdate()
 update_status ModulePlayScene::Update()
 {
 
-	App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	App->renderer->Blit(wallsTex, 0, 0);
+	//App->renderer->Blit(backgroundTex, 0, 0);
+	//App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
+	//App->renderer->Blit(wallsTex, 0, 0);
 
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
@@ -201,7 +201,7 @@ update_status ModulePlayScene::Update()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		rectangleFlipper->ApplyAngularImpulse(-1.5f,true);
+		rectangleFlipper->ApplyAngularImpulse(-0.5f,true);
 	}
 	
 	return UPDATE_CONTINUE;
