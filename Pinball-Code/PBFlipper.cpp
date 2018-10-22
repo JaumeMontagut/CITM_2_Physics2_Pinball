@@ -1,16 +1,16 @@
-#include "FlippersPhysBody.h"
+#include "PBFlipper.h"
 
 
 
-FliperPhysbody::FliperPhysbody()
+PBFlipper::PBFlipper()
 {
 }
 
-FliperPhysbody::FliperPhysbody(b2Vec2 mesure) :PhysBody(), mesure(mesure)
+PBFlipper::PBFlipper(b2Vec2 mesure) :PhysBody(), mesure(mesure)
 {
 }
 
-update_status FliperPhysbody::PreUpdate()
+update_status PBFlipper::PreUpdate()
 {
 	if (!rightfliper)
 	{
@@ -42,7 +42,7 @@ update_status FliperPhysbody::PreUpdate()
 
 }
 
-update_status FliperPhysbody::PostUpdate()
+update_status PBFlipper::PostUpdate()
 {
 	int x, y;
 	GetPixelPosition(x,y);

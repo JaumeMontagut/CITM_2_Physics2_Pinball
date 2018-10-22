@@ -7,15 +7,15 @@
 #include "ModuleRender.h"
 #include "ModulePlayScene.h"
 // Small class to return to other modules to track position and rotation of physics bodies
-class FliperPhysbody : public PhysBody
+class PBFlipper : public PhysBody
 {
 public:
 	bool rightfliper;
 private:
 	b2Vec2 mesure;
 public:
-	FliperPhysbody();
-	FliperPhysbody(b2Vec2 mesure);
+	PBFlipper();
+	PBFlipper(b2Vec2 mesure);
     update_status PreUpdate() override;
 	update_status PostUpdate() override;
 	/*virtual void OnCollision(PhysBody* bodyB);

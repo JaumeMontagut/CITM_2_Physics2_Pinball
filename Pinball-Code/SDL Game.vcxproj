@@ -73,7 +73,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="ChainCoordinates.h" />
-    <ClInclude Include="FlippersPhysBody.h" />
+    <ClInclude Include="PBFlipper.h" />
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ModulePhysics.h" />
@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="FlippersPhysBody.cpp" />
+    <ClCompile Include="PBFlipper.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />

@@ -9,7 +9,7 @@
 //Physics Bodies
 #include "PBBumper.h"
 #include "PBPhone.h"
-#include "FlippersPhysBody.h"
+#include "PBFlipper.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -313,7 +313,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 	b2RevoluteJoint* joinFlipper;
 	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&jointFlipperDef);
 
-	FliperPhysbody* newFliper = new FliperPhysbody({ mesure.x,mesure.y });
+	PBFlipper* newFliper = new PBFlipper({ mesure.x,mesure.y });
 	newFliper->body = rectangleFlipper;
 	rectangleFlipper->SetUserData(newFliper);
 	newFliper->rightfliper = rightFliper;
