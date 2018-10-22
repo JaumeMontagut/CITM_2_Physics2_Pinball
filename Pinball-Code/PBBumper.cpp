@@ -1,4 +1,4 @@
-#include "PhysBodyBumper.h"
+#include "PBBumper.h"
 #include "ModulePhysics.h"
 #include "ModulePlayScene.h"
 #include "ModuleRender.h"
@@ -7,7 +7,7 @@
 #include "Application.h"
 #include "p2Point.h"
 
-PhysBodyBumper::PhysBodyBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
+PBBumper::PBBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 	switch (type) {
 	case BUMPER_TYPE::Blue:
 		bumperTex = App->scene_play->blueBumperTex;
@@ -27,7 +27,7 @@ PhysBodyBumper::PhysBodyBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 	}
 }
 
-void PhysBodyBumper::OnCollisionEnter (PhysBody * bodyB) {
+void PBBumper::OnCollisionEnter (PhysBody * bodyB) {
 	if (type == BUMPER_TYPE::Red) {
 		App->scene_play->IlluminateBlueCharacter();
 	}
@@ -35,7 +35,7 @@ void PhysBodyBumper::OnCollisionEnter (PhysBody * bodyB) {
 	currFlash = 0u;
 }
 
-update_status PhysBodyBumper::PostUpdate()
+update_status PBBumper::PostUpdate()
 {
 	int x, y;
 	GetPixelPosition(x, y);

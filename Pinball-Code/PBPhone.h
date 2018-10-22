@@ -6,9 +6,9 @@
 
 struct SDL_Texture;
 
-class PhysBodyPhone : public PhysBody {
+class PBPhone : public PhysBody {
 public:
-	PhysBodyPhone();
+	PBPhone();
 	void OnCollisionEnter(PhysBody * bodyB) override;
 	update_status PostUpdate() override;
 

@@ -51,13 +51,16 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="ChainCoordinates.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="PhysBodyBumper.h">
-      <Filter>Physics Bodies</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysBodyPhone.h">
-      <Filter>Physics Bodies</Filter>
-    </ClInclude>
     <ClInclude Include="FlippersPhysBody.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="PBArrow.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="PBBumper.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="PBPhone.h">
       <Filter>Physics Bodies</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,13 +89,16 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="PhysBodyBumper.cpp">
-      <Filter>Physics Bodies</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysBodyPhone.cpp">
-      <Filter>Physics Bodies</Filter>
-    </ClCompile>
     <ClCompile Include="FlippersPhysBody.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="PBArrow.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="PBBumper.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="PBPhone.cpp">
       <Filter>Physics Bodies</Filter>
     </ClCompile>
   </ItemGroup>

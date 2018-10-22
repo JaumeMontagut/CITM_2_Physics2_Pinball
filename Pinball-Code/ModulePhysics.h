@@ -14,7 +14,7 @@
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
 
 struct SDL_Texture;
-class PhysBodyPhone;
+class PBPhone;
 
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
@@ -60,7 +60,7 @@ public:
 
 	PhysBody* CreateCircle(int x, int y, int radius);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
-	PhysBodyPhone* CreatePhonePiece(int x, int y, int width, int height, float angle);
+	PBPhone* CreatePhonePiece(int x, int y, int width, int height, float angle);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
 	PhysBody* CreateFliper(int x, int y, bool rightFliper);

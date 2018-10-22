@@ -13,9 +13,9 @@ enum class BUMPER_TYPE {
 	Grey
 };
 
-class PhysBodyBumper : public PhysBody {
+class PBBumper : public PhysBody {
 public:
-	PhysBodyBumper(BUMPER_TYPE type);
+	PBBumper(BUMPER_TYPE type);
 	void OnCollisionEnter (PhysBody* bodyB) override;
 	update_status PostUpdate() override;
 private:

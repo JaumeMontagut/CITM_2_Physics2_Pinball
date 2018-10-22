@@ -7,8 +7,8 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ChainCoordinates.h"
-#include "PhysBodyBumper.h"
-#include "PhysBodyPhone.h"
+#include "PBBumper.h"
+#include "PBPhone.h"
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {

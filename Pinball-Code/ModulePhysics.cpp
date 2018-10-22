@@ -7,8 +7,8 @@
 #include "math.h"
 
 //Physics Bodies
-#include "PhysBodyBumper.h"
-#include "PhysBodyPhone.h"
+#include "PBBumper.h"
+#include "PBPhone.h"
 #include "FlippersPhysBody.h"
 
 #ifdef _DEBUG
@@ -269,7 +269,7 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type
 	
 	b->CreateFixture(&fixture);
 
-	PhysBodyBumper* pbody = new PhysBodyBumper(type);
+	PBBumper* pbody = new PBBumper(type);
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius * 2;
@@ -369,7 +369,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBodyPhone* ModulePhysics::CreatePhonePiece(int x, int y, int width, int height, float angle)
+PBPhone* ModulePhysics::CreatePhonePiece(int x, int y, int width, int height, float angle)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -387,7 +387,7 @@ PhysBodyPhone* ModulePhysics::CreatePhonePiece(int x, int y, int width, int heig
 
 	b->CreateFixture(&fixture);
 
-	PhysBodyPhone* pbody = new PhysBodyPhone();
+	PBPhone* pbody = new PBPhone();
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = width;

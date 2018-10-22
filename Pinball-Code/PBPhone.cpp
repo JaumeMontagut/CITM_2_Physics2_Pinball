@@ -1,9 +1,9 @@
-#include "PhysBodyPhone.h"
+#include "PBPhone.h"
 #include "Application.h"
 #include "ModulePlayScene.h"
 #include "ModulePhysics.h"
 
-PhysBodyPhone::PhysBodyPhone() : PhysBody()
+PBPhone::PBPhone() : PhysBody()
 {
 	activeTex = App->scene_play->phoneActive;
 	unactiveTex = App->scene_play->phoneUnactive;
@@ -11,14 +11,14 @@ PhysBodyPhone::PhysBodyPhone() : PhysBody()
 	currTex = unactiveTex;
 }
 
-void PhysBodyPhone::OnCollisionEnter(PhysBody * bodyB)
+void PBPhone::OnCollisionEnter(PhysBody * bodyB)
 {
 	if (!active) {
 		Activate();
 	}
 }
 
-update_status PhysBodyPhone::PostUpdate()
+update_status PBPhone::PostUpdate()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x,pos.y);
@@ -26,14 +26,14 @@ update_status PhysBodyPhone::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-void PhysBodyPhone::Activate()
+void PBPhone::Activate()
 {
 	active = true;
 	currTex = activeTex;
 	App->scene_play->IncreasePhoneCombo();
 }
 
-void PhysBodyPhone::Deactivate()
+void PBPhone::Deactivate()
 {
 	active = false;
 	currTex = unactiveTex;

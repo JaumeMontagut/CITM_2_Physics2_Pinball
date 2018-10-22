@@ -7,7 +7,7 @@
 #include "Box2D\Box2D\Box2D.h"
 
 class PhysBody;
-class PhysBodyPhone;
+class PBPhone;
 
 class ModulePlayScene : public Module
 {
@@ -53,7 +53,7 @@ public:
 	SDL_Texture * phoneActive = nullptr;
 	SDL_Texture * phoneUnactive = nullptr;
 	uint activePhonePieces = 0u;
-	PhysBodyPhone * phonePieces[5] = { nullptr };
+	PBPhone * phonePieces[5] = { nullptr };
 	uint phoneSFX = 0u;
 	uint phoneBonusSFX = 0u;
 private:
