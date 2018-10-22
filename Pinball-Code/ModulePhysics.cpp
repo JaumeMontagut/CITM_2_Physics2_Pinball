@@ -46,10 +46,27 @@ update_status ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
 
+	//Update of each body
+	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) {
+		PhysBody* pb = (PhysBody*)b->GetUserData();;
+		if (pb != nullptr) {
+			pb->PreUpdate();
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePhysics::Update() {
+	//Update of each body
+	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) {
+		PhysBody* pb = (PhysBody*)b->GetUserData();;
+		if (pb != nullptr) {
+			pb->Update();
+		}
+	}
+
+	//On collision calls
 	for (b2Contact* contact = world->GetContactList(); contact; contact = contact->GetNext())
 	{
 		if (contact->GetFixtureA() && contact->IsTouching())
@@ -67,7 +84,7 @@ update_status ModulePhysics::Update() {
 
 update_status ModulePhysics::PostUpdate()
 {
-	//Draw bodies
+	//Post update of each body
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext()) {
 		PhysBody* pb = (PhysBody*)b->GetUserData();;
 		if (pb != nullptr) {
@@ -206,6 +223,8 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
+	fixture.friction = 0.0f;
+	fixture.restitution = 0.85f;
 	
 	b->CreateFixture(&fixture);
 
@@ -407,6 +426,16 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 void PhysBody::OnCollision(PhysBody * bodyB)
 {
 
+}
+
+update_status PhysBody::PreUpdate()
+{
+	return UPDATE_CONTINUE;
+}
+
+update_status PhysBody::Update()
+{
+	return UPDATE_CONTINUE;
 }
 
 update_status PhysBody::PostUpdate()
