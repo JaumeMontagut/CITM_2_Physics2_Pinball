@@ -9,6 +9,7 @@
 //Physics Bodies
 #include "PhysBodyBumper.h"
 #include "PhysBodyPhone.h"
+#include "FlippersPhysBody.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -234,6 +235,49 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type
 	pbody->width = pbody->height = radius * 2;
 
 	return pbody;
+}
+
+PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
+{
+	b2Body* CircleFlipper;
+	b2Body* rectangleFlipper;
+	b2RevoluteJointDef jointFlipperDef;
+	
+	if (!rightFliper)
+	{
+		CircleFlipper = CreateCircle(x, y, 4)->body;
+		CircleFlipper->SetType(b2BodyType::b2_staticBody);
+		rectangleFlipper = App->physics->CreateRectangle( x+20 , y, 40, 9)->body;
+		rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
+		
+		
+		jointFlipperDef.enableLimit = true;
+		jointFlipperDef.lowerAngle = -30 * DEGTORAD;
+		jointFlipperDef.upperAngle = 45 * DEGTORAD;
+	}
+	else
+	{
+
+		CircleFlipper = CreateCircle(x, y, 4)->body;
+		CircleFlipper->SetType(b2BodyType::b2_staticBody);
+		rectangleFlipper = App->physics->CreateRectangle(x-20, y, 40, 9)->body;
+		rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
+		
+		jointFlipperDef.enableLimit = true;
+		jointFlipperDef.lowerAngle = -45 * DEGTORAD;
+		jointFlipperDef.upperAngle = 30 * DEGTORAD;
+	}
+
+	jointFlipperDef.Initialize(rectangleFlipper, CircleFlipper, CircleFlipper->GetWorldCenter());
+
+	b2RevoluteJoint* joinFlipper;
+	joinFlipper = (b2RevoluteJoint*)App->physics->world->CreateJoint(&jointFlipperDef);
+
+	FliperPhysbody* newFliper = new FliperPhysbody();
+	newFliper->body = rectangleFlipper;
+	rectangleFlipper->SetUserData(newFliper);
+
+	return newFliper;
 }
 
 PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)

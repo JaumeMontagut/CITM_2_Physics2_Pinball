@@ -57,6 +57,7 @@ public:
 	PhysBodyPhone* CreatePhonePiece(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
+	PhysBody* CreateFliper(int x, int y, bool rightFliper);
 	b2Joint* CreateJoint_2(const b2JointDef& def);
 	b2Body* ground;
 	b2World* world;
