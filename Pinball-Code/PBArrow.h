@@ -5,6 +5,8 @@
 
 class PBArrow : public PhysBody {
 
+	update_status PostUpdate() override;
+	void OnCollisionEnter(PhysBody * physBodyB) override;
 };
 
 #endif // !
