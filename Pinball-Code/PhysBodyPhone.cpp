@@ -13,7 +13,7 @@ PhysBodyPhone::PhysBodyPhone() : PhysBody()
 
 void PhysBodyPhone::OnCollision(PhysBody * bodyB)
 {
-	if (!activeTex) {
+	if (!active) {
 		Activate();
 	}
 }
@@ -37,5 +37,4 @@ void PhysBodyPhone::Deactivate()
 {
 	active = false;
 	currTex = unactiveTex;
-	//Show idle sprite
 }

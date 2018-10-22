@@ -154,12 +154,13 @@ void ModulePlayScene::IlluminateBlueCharacter()
 void ModulePlayScene::IncreasePhoneCombo()
 {
 	activePhonePieces++;
-	if (activePhonePieces > 5) {
+	App->audio->PlayFx(phoneSFX);
+
+	if (activePhonePieces >= 5) {
 		activePhonePieces = 0u;
 		//TODO: Add bonus points
-		App->audio->PlayFx(phoneSFX);
+		App->audio->PlayFx(phoneBonusSFX);
 		for (uint i = 0; i < 5; ++i) {
-			App->audio->PlayFx(phoneBonusSFX);
 			phonePieces[i]->Deactivate();
 		}
 	}
