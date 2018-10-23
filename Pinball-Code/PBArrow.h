@@ -26,8 +26,8 @@ private:
 	SDL_Texture * activeTex = nullptr;
 	SDL_Texture * inactiveTex = nullptr;
 	SDL_Texture * currTex = nullptr;
-	iPoint offset;
-	iPoint pivot;
+	iPoint offset = iPoint(0,-8);
+	iPoint pivot = iPoint(9,13);
 	ARROW_COLOR color;
 	uint comboTime = 24u;
 	uint currCombo = comboTime;

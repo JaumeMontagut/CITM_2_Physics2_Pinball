@@ -12,12 +12,12 @@ PBArrow::PBArrow(ARROW_COLOR color) : color(color), PhysBody() {
 		activeTex = App->scene_play->yellowArrowActiveTex;
 		break;
 	case ARROW_COLOR::ORANGE:
-		inactiveTex = App->scene_play->yellowArrowInactiveTex;
-		activeTex = App->scene_play->yellowArrowActiveTex;
+		inactiveTex = App->scene_play->orangeArrowInactiveTex;
+		activeTex = App->scene_play->orangeArrowActiveTex;
 		break;
 	case ARROW_COLOR::PURPLE:
-		inactiveTex = App->scene_play->yellowArrowInactiveTex;
-		activeTex = App->scene_play->yellowArrowActiveTex;
+		inactiveTex = App->scene_play->purpleArrowInactiveTex;
+		activeTex = App->scene_play->purpleArrowActiveTex;
 		break;
 	}
 	currTex = inactiveTex;

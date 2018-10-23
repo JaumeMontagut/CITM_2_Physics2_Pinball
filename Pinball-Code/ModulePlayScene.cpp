@@ -96,7 +96,17 @@ bool ModulePlayScene::Start()
 	phonePieces[3] = App->physics->CreatePhonePiece(460, 99, 14, 6, 85.2f);
 	phonePieces[4] = App->physics->CreatePhonePiece(460, 115, 14, 6, 92.9f);
 
-	orangeArrows[0] = App->physics->CreateArrow(482, 195, 13, 12, 0.0f, ARROW_COLOR::ORANGE);//60.7f
+	yellowArrows[0] = App->physics->CreateArrow(131, 269, 13, 12, 63.1f, ARROW_COLOR::YELLOW);
+	yellowArrows[1] = App->physics->CreateArrow(142, 286, 13, 12, 63.1f, ARROW_COLOR::YELLOW);
+	yellowArrows[2] = App->physics->CreateArrow(243, 361, 13, 12, 41.3f, ARROW_COLOR::YELLOW);
+
+	orangeArrows[0] = App->physics->CreateArrow(472, 201, 13, 12, 60.7f, ARROW_COLOR::ORANGE);
+	orangeArrows[1] = App->physics->CreateArrow(481, 219, 13, 12, 61.2f, ARROW_COLOR::ORANGE);
+
+	purpleArrows[0] = App->physics->CreateArrow(444, 285, 13, 12, -60.2f, ARROW_COLOR::PURPLE);
+	purpleArrows[1] = App->physics->CreateArrow(454, 269, 13, 12, -62.3f, ARROW_COLOR::PURPLE);
+	purpleArrows[2] = App->physics->CreateArrow(346, 361, 13, 12, -41.1f, ARROW_COLOR::PURPLE);
+
 
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
