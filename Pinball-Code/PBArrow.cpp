@@ -29,22 +29,22 @@ update_status PBArrow::PostUpdate()
 	GetPixelPosition(pos.x, pos.y);
 	if (currCombo < comboTime) {
 		if (currCombo < 4u) {
-			App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+			App->renderer->Blit(inactiveTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 		}
 		else if (currCombo < 8u) {
-			App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+			App->renderer->Blit(activeTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 		}
 		else if (currCombo < 12u) {
-			App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+			App->renderer->Blit(inactiveTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 		}
 		else if (currCombo < 16u) {
-			App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+			App->renderer->Blit(activeTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 		}
 		else if (currCombo < 20u) {
-			App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+			App->renderer->Blit(inactiveTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 		}
 		else {
-			App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+			App->renderer->Blit(activeTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 		}
 		currCombo++;
 	}
@@ -82,4 +82,5 @@ void PBArrow::Deactivate()
 {
 	active = false;
 	currTex = inactiveTex;
+	currCombo = 0u;
 }
