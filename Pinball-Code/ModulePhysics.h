@@ -15,6 +15,9 @@
 
 struct SDL_Texture;
 class PBPhone;
+class PBArrow;
+enum class BUMPER_TYPE;
+enum class ARROW_COLOR;
 
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
@@ -43,8 +46,6 @@ public:
 	b2Body* body = nullptr;
 };
 
-enum class BUMPER_TYPE;
-
 // Module --------------------------------------
 class ModulePhysics : public Module, public b2ContactListener
 {
@@ -61,6 +62,7 @@ public:
 	PhysBody* CreateCircle(int x, int y, int radius);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PBPhone* CreatePhonePiece(int x, int y, int width, int height, float angle);
+	PBArrow * CreateArrow(int x, int y, int width, int height, float angle, ARROW_COLOR color);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
 	PhysBody* CreateFliper(int x, int y, bool rightFliper);

@@ -2,7 +2,7 @@
 
 
 
-PBFlipper::PBFlipper()
+PBFlipper::PBFlipper() : PhysBody()
 {
 }
 
