@@ -8,8 +8,8 @@
 #include "ModuleInput.h"
 void ModuleFonts::SetScore(uint addscore)
 {
-	App->textures->Unload(scoreNumTex);
-
+	/*App->textures->Unload(scoreNumTex);*/
+	SDL_DestroyTexture(scoreNumTex);
 	scoreNum += addscore;
 	stringnum = std::to_string(scoreNum);
 	const char* charnum = stringnum.c_str();
@@ -37,9 +37,27 @@ void ModuleFonts::SetScore(uint addscore)
 	
 
 	scoreNumTex = LoadMessatgeTex(GothicFont12, scoreString.GetString(), { 255,255,255,255 });
+
+
+
 	scoreString.Clear();
 	stringnum.clear();
 	
+}
+
+void ModuleFonts::SubstractLifes()
+{
+	if (lifes > 0)
+	{
+		lifes -= 1;
+	}
+}
+
+void ModuleFonts::ReStartGame()
+{
+	lifes = 3;
+	scoreNum = 0;
+	SetScore(0);
 }
 
 ModuleFonts::ModuleFonts(bool start_enabled)
@@ -67,14 +85,16 @@ bool ModuleFonts::Start()
 	//Fonts-------------------------------------------------------------------
 	VAGFont12 = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
 	GothicFont12 = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 12);
-	 candyFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 11);
-	 FuturaFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 11);
+	 candyFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
+	 FuturaFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
 
 	//Images-------------------------------------------------------------
 	scoreRect = App->textures->Load("sprites/images/score.png");
 	scoreTex = LoadMessatgeTex(VAGFont12, "score", { 255,255,255,255 });
 	scoreNumTex = LoadMessatgeTex(GothicFont12, "00000000", { 255,255,255,255 });
-
+	lifeRectTex = App->textures->Load("sprites/images/ballsCount.png");
+	ballstexTex = LoadMessatgeTex(FuturaFont, "Balls", { 255,255,255,255 });
+	ballTex= App->textures->Load("sprites/images/lifes.png");
 
 	return true;
 }
@@ -89,6 +109,10 @@ bool ModuleFonts::CleanUp()
 
 update_status ModuleFonts::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_R))
+	{
+		lifes = 3;
+	}
 	if(App->input->GetKey(SDL_SCANCODE_0))
 	{
 		SetScore(1000);
@@ -102,6 +126,21 @@ update_status ModuleFonts::PostUpdate()
 	App->renderer->Blit(scoreRect, 9, 455);
 	App->renderer->Blit(scoreTex, 15, 460);
 	App->renderer->Blit(scoreNumTex,16,473);
+	App->renderer->Blit(lifeRectTex, 310, 458);
+	App->renderer->Blit(ballstexTex, 318, 464);
+	if (lifes > 0)
+	{
+		App->renderer->Blit(ballTex, 336, 477);
+		if (lifes > 1)
+		{
+			App->renderer->Blit(ballTex, 325, 477);
+			if (lifes == 3)
+			{
+				App->renderer->Blit(ballTex, 315, 477);
+			}
+		}
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 
