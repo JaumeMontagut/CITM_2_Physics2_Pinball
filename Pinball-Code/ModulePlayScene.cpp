@@ -39,7 +39,8 @@ bool ModulePlayScene::Start()
 	phoneActive = App->textures->Load("sprites/sprites/DefineSprite_119/2.png");
 	phoneUnactive = App->textures->Load("sprites/sprites/DefineSprite_119/1.png");
 	fliperTex = App->textures->Load("sprites/images/fliper.png");
-
+	yellowArrowInactiveTex = App->textures->Load("sprites/sprites/DefineSprite_93/1.png");
+	yellowArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_93/2.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");

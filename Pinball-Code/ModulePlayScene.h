@@ -51,6 +51,9 @@ public:
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
 	SDL_Texture * blueCharacter2Tex = nullptr;
+	//Yellow arrow
+	SDL_Texture * yellowArrowActiveTex = nullptr;
+	SDL_Texture * yellowArrowInactiveTex = nullptr;
 	//Phone piece
 	SDL_Texture * phoneActive = nullptr;
 	SDL_Texture * phoneUnactive = nullptr;
