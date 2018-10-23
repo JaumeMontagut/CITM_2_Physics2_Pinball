@@ -65,6 +65,8 @@ bool ModulePlayScene::Start()
 	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
+	
+	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
