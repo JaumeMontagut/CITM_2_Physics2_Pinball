@@ -20,40 +20,65 @@ bool ModuleFonts::Init()
 		LOG("Initialization error: %s\n", TTF_GetError());
 		return false;
 	}
+	else
+	{
+		OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 48);
+	}
 	return true;
 }
 
-SDL_Texture * ModuleFonts::CreateTextTexture(TTF_Font * fonts, char * text)
-{
-	SDL_Surface* surface = TTF_RenderText_Solid(fonts, text, {0,0,0});
-	if (surface == NULL)
-	{
-		LOG("Text Render Error &s\n", TTF_GetError());
-		return nullptr;
-	}
-	
-	SDL_Texture* tex = SDL_CreateTextureFromSurface(App->renderer->renderer,surface);
-	if (tex == NULL)
-	{
-		LOG("Text Texture Creation Error %s \n", SDL_GetError());
-		return nullptr;
-	}
-	SDL_FreeSurface(surface);
+//SDL_Texture * ModuleFonts::CreateTextTexture(TTF_Font * fonts, char * text)
+//{
+//	SDL_Surface* surface = TTF_RenderText_Solid(fonts, text, {0,0,0});
+//	if (surface == NULL)
+//	{
+//		LOG("Text Render Error &s\n", TTF_GetError());
+//		return nullptr;
+//	}
+//	
+//	SDL_Texture* tex = SDL_CreateTextureFromSurface(App->renderer->renderer,surface);
+//	if (tex == NULL)
+//	{
+//		LOG("Text Texture Creation Error %s \n", SDL_GetError());
+//		return nullptr;
+//	}
+//	SDL_FreeSurface(surface);
+//
+//	return tex;
+//}
 
-	return tex;
+
+
+
+bool ModuleFonts::OpenFont(char* fontPath, int size)
+{
+	font= TTF_OpenFont(fontPath, size);
+	if (font == NULL)
+	{
+		return false;
+	}
+	return true;
 }
 
-SDL_Texture * ModuleFonts::GetText(char * text, char * filename, int size)
+bool ModuleFonts::PrintMessage(TTF_Font* thisfont, char * text, SDL_Color Color)
 {
-	return nullptr;
-}
+	SDL_Surface* textSurf=nullptr;
+	if (thisfont != nullptr)
+		textSurf = TTF_RenderText_Solid(thisfont, text, Color);
+	else
+		return false;
 
-TTF_Font * ModuleFonts::GetFont(std::string filename, int size)
-{
-	std::string  fullPath = SDL_GetBasePath();
-	fullPath.append("sprites/fonts" + filename);
-	
-	return nullptr;
+	if (textSurf != nullptr)
+	{
+		SDL_Texture *textTex =nullptr;
+		SDL_Rect textRect;
+		
+		textTex = SDL_CreateTextureFromSurface(App->renderer->renderer, textSurf);
+		SDL_QueryTexture(textTex, NULL, NULL, &textRect.w, &textRect.h);
+		App->renderer->Blit(textTex, 0, 0);
+	}
+
+	return true;
 }
 
 

@@ -9,6 +9,7 @@
 #include "ChainCoordinates.h"
 #include "PBBumper.h"
 #include "PBPhone.h"
+#include "ModuleFonts.h"
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
@@ -227,7 +228,7 @@ update_status ModulePlayScene::PostUpdate()
 		App->renderer->Blit(circleTex, x, y, NULL, 1.0f, circle->data->GetRotation());
 		circle = circle->next;
 	}
-
+	App->fonts->PrintMessage(App->fonts->font, "Hola que hace xd", { 155,50,0,255 });
 	return UPDATE_CONTINUE;
 }
 
