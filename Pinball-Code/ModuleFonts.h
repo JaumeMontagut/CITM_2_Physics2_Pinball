@@ -3,7 +3,7 @@
 
 
 #include "Module.h"
-
+#include <string>
 typedef struct _TTF_Font TTF_Font;
 struct SDL_Texture;
 

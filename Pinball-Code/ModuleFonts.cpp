@@ -4,7 +4,7 @@
 #pragma comment(lib, "SDL2_ttf-2.0.14/lib/x86/SDL2_ttf.lib")
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include <string>
+
 ModuleFonts::ModuleFonts(bool start_enabled)
 {
 }
