@@ -90,6 +90,8 @@
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="PBBumper.h" />
     <ClInclude Include="PBPhone.h" />
+    <ClInclude Include="PBStar.h" />
+    <ClInclude Include="PBTriangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -107,6 +109,8 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="PBBumper.cpp" />
     <ClCompile Include="PBPhone.cpp" />
+    <ClCompile Include="PBStar.cpp" />
+    <ClCompile Include="PBTriangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,12 +7,11 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ChainCoordinates.h"
+#include "ModuleFonts.h"
 #include "PBBumper.h"
 #include "PBPhone.h"
-
-#include "ModuleFonts.h"
-
 #include "PBArrow.h"
+#include "PBStar.h"
 
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
@@ -42,7 +41,7 @@ bool ModulePlayScene::Start()
 	flashTex = App->textures->Load("sprites/shapes/157.png");
 	handTex = App->textures->Load("sprites/images/1.png");
 	phoneActive = App->textures->Load("sprites/sprites/DefineSprite_119/2.png");
-	phoneUnactive = App->textures->Load("sprites/sprites/DefineSprite_119/1.png");
+	phoneInactive = App->textures->Load("sprites/sprites/DefineSprite_119/1.png");
 	fliperTex = App->textures->Load("sprites/images/fliper.png");
 	yellowArrowInactiveTex = App->textures->Load("sprites/sprites/DefineSprite_93/1.png");
 	yellowArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_93/2.png");
@@ -50,13 +49,17 @@ bool ModulePlayScene::Start()
 	orangeArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_98/2.png");
 	purpleArrowInactiveTex = App->textures->Load("sprites/sprites/DefineSprite_113/1.png");
 	purpleArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_113/2.png");
+	starInactiveTex = App->textures->Load("sprites/shapes/79.png");
+	starActiveTex = App->textures->Load("sprites/shapes/81.png");
+
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
 	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
 	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
 	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
-	arrowSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
-	
+	activateTargetSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
+	starBonusSFX = App->audio->LoadFx("sprites/sounds/544_happy_stars_anim.wav");
+
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
 	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
@@ -165,9 +168,11 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(orangeArrowInactiveTex);
 	App->textures->Unload(purpleArrowActiveTex);
 	App->textures->Unload(purpleArrowInactiveTex);
+	App->textures->Unload(starActiveTex);
+	App->textures->Unload(starInactiveTex);
 
 	//TODO: Remove SFX
-	App->audio->UnloadSFX(bonusSFX);
+	//App->audio->UnloadSFX(bonusSFX);
 	return true;
 }
 
@@ -193,7 +198,7 @@ void ModulePlayScene::IncreasePhoneCombo()
 void ModulePlayScene::IncreaseYellowArrow()
 {
 	activeYellowArrows++;
-	App->audio->PlayFx(arrowSFX);
+	App->audio->PlayFx(activateTargetSFX);
 	if (activeYellowArrows >= 3u) {
 		activeYellowArrows = 0u;
 		//TODO: Add bonus points
@@ -206,7 +211,7 @@ void ModulePlayScene::IncreaseYellowArrow()
 void ModulePlayScene::IncreaseOrangeArrow()
 {
 	activeOrangeArrows++;
-	App->audio->PlayFx(arrowSFX);
+	App->audio->PlayFx(activateTargetSFX);
 	if (activeOrangeArrows >= 2u) {
 		activeOrangeArrows = 0u;
 		//TODO: Add bonus points
@@ -219,12 +224,25 @@ void ModulePlayScene::IncreaseOrangeArrow()
 void ModulePlayScene::IncreasePurpleArrow()
 {
 	activePurpleArrows++;
-	App->audio->PlayFx(arrowSFX);
+	App->audio->PlayFx(activateTargetSFX);
 	if (activePurpleArrows >= 3u) {
 		activePurpleArrows = 0u;
 		//TODO: Add bonus points
 		for (uint i = 0u; i < 3u; ++i) {
 			purpleArrows[i]->Deactivate();
+		}
+	}
+}
+
+void ModulePlayScene::IncreaseStars()
+{
+	activeStars++;
+	App->audio->PlayFx(activateTargetSFX);
+	if (activeStars >= 5u) {
+		activeStars = 0u;
+		//TODO: Add bonus points
+		for (uint i = 0u; i < 3u; ++i) {
+			stars[i]->Deactivate();
 		}
 	}
 }
@@ -245,7 +263,6 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
-
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
 	App->renderer->Blit(wallsTex, 0, 0);

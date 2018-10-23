@@ -9,6 +9,7 @@
 class PhysBody;
 class PBPhone;
 class PBArrow;
+class PBStar;
 
 class ModulePlayScene : public Module
 {
@@ -27,19 +28,19 @@ public:
 	void IncreaseYellowArrow();
 	void IncreaseOrangeArrow();
 	void IncreasePurpleArrow();
+	void IncreaseStars();
 
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> Physbackground;
 	SDL_Texture* handTex = nullptr;
 	b2PrismaticJoint* m_joint;
-	SDL_Texture* circle = nullptr;
 	SDL_Texture* circleTex = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
+	uint bonusSFX = 0;
+	//Flipper
 	SDL_Texture* fliperTex = nullptr;
-
-	uint bonusSFX=0;
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;
 	//Blue bumper
@@ -54,8 +55,8 @@ public:
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
 	SDL_Texture * blueCharacter2Tex = nullptr;
-	//Arrows
-	uint arrowSFX = 0u;
+	//Targets light
+	uint activateTargetSFX = 0u;
 	//Yellow arrow
 	SDL_Texture * yellowArrowActiveTex = nullptr;
 	SDL_Texture * yellowArrowInactiveTex = nullptr;
@@ -73,14 +74,18 @@ public:
 	uint activePurpleArrows = 0u;
 	//Phone piece
 	SDL_Texture * phoneActive = nullptr;
-	SDL_Texture * phoneUnactive = nullptr;
+	SDL_Texture * phoneInactive = nullptr;
 	uint activePhonePieces = 0u;
 	PBPhone * phonePieces[5] = { nullptr };
 	uint phoneSFX = 0u;
 	uint phoneBonusSFX = 0u;
+	//Stars
+	SDL_Texture * starActiveTex = nullptr;
+	SDL_Texture * starInactiveTex = nullptr;
+	uint activeStars = 0u;
+	PBStar * stars[5] = { nullptr };
+	uint starBonusSFX = 0u;
 
 public :
 	PhysBody * ball;
-
-	
 };

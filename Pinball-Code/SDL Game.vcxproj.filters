@@ -66,6 +66,12 @@
     <ClInclude Include="PBArrow.h">
       <Filter>Physics Bodies</Filter>
     </ClInclude>
+    <ClInclude Include="PBStar.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="PBTriangle.h">
+      <Filter>Physics Bodies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp" />
@@ -105,6 +111,12 @@
       <Filter>Physics Bodies</Filter>
     </ClCompile>
     <ClCompile Include="PBArrow.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="PBStar.cpp">
+      <Filter>Physics Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="PBTriangle.cpp">
       <Filter>Physics Bodies</Filter>
     </ClCompile>
   </ItemGroup>

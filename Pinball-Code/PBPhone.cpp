@@ -6,9 +6,9 @@
 PBPhone::PBPhone() : PhysBody()
 {
 	activeTex = App->scene_play->phoneActive;
-	unactiveTex = App->scene_play->phoneUnactive;
+	inactiveTex = App->scene_play->phoneInactive;
 
-	currTex = unactiveTex;
+	currTex = inactiveTex;
 }
 
 void PBPhone::OnCollisionEnter(PhysBody * bodyB)
@@ -36,5 +36,5 @@ void PBPhone::Activate()
 void PBPhone::Deactivate()
 {
 	active = false;
-	currTex = unactiveTex;
+	currTex = inactiveTex;
 }
