@@ -20,7 +20,7 @@ private:
 	SDL_Texture * activeTex = nullptr;
 	SDL_Texture * inactiveTex = nullptr;
 	SDL_Texture * currTex = nullptr;
-	iPoint pivot = iPoint(0, 0);
 	iPoint offset = iPoint(0, 0);
+	iPoint pivot = iPoint(10, 3);
 	bool active = false;
 };

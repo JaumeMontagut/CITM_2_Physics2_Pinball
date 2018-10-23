@@ -42,6 +42,8 @@ public:
 	SDL_Texture* backgroundTex = nullptr;
 	uint bonusSFX = 0;
 	//Flipper
+	uint flipperUpSFX = 0u;
+	uint flipperDownSFX = 0u;
 	SDL_Texture* fliperTex = nullptr;
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;
@@ -53,6 +55,8 @@ public:
 	uint redBumperSFX = 0u;
 	//Grey bumper
 	SDL_Texture * greyBumperTex = nullptr;
+	//Girl character
+	SDL_Texture * girlCharacterTex = nullptr;
 	//Blue light character
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
