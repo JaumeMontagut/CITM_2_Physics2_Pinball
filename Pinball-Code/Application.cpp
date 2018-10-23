@@ -6,7 +6,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayScene.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 #include "Application.h"
 
 Application::Application()
@@ -27,10 +27,11 @@ Application::Application()
 	AddModule(window);
 	AddModule(physics);
 	AddModule(textures);
-	AddModule(fonts);
+	
 	AddModule(input);
 	AddModule(audio);
 	AddModule(scene_play);
+	AddModule(fonts);
 	AddModule(renderer);//Renderer has to be the last module because it's the one it executes RenderPresent
 }
 

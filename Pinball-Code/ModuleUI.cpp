@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 #include "SDL2_ttf-2.0.14/include/SDL_ttf.h"
 #pragma comment(lib, "SDL2_ttf-2.0.14/lib/x86/SDL2_ttf.lib")
 #include "ModuleTextures.h"
@@ -20,11 +20,29 @@ bool ModuleFonts::Init()
 		LOG("Initialization error: %s\n", TTF_GetError());
 		return false;
 	}
-	else
-	{
-		OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 48);
-	}
+	
 	return true;
+}
+bool ModuleFonts::Start()
+{
+	OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 48);
+	scoreTex = App->textures->Load("sprites/images/score.png");
+	return true;
+}
+bool ModuleFonts::CleanUp()
+{
+	App->textures->Unload(scoreTex);
+
+	TTF_Quit();
+	return true;
+}
+
+update_status ModuleFonts::PostUpdate()
+{
+	if(scoreTex !=nullptr)
+	App->renderer->Blit(scoreTex, 9, 455);
+
+	return update_status::UPDATE_CONTINUE;
 }
 
 //SDL_Texture * ModuleFonts::CreateTextTexture(TTF_Font * fonts, char * text)
@@ -76,6 +94,8 @@ bool ModuleFonts::PrintMessage(TTF_Font* thisfont, char * text, SDL_Color Color)
 		textTex = SDL_CreateTextureFromSurface(App->renderer->renderer, textSurf);
 		SDL_QueryTexture(textTex, NULL, NULL, &textRect.w, &textRect.h);
 		App->renderer->Blit(textTex, 0, 0);
+		SDL_FreeSurface(textSurf);
+		App->textures->Unload(textTex);
 	}
 
 	return true;
@@ -83,8 +103,3 @@ bool ModuleFonts::PrintMessage(TTF_Font* thisfont, char * text, SDL_Color Color)
 
 
 
-bool ModuleFonts::CleanUp()
-{
-	TTF_Quit();
-	return true;
-}
