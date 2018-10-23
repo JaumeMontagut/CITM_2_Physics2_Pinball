@@ -67,10 +67,11 @@ public:
 	PBStar* CreateStar(int x, int y, int width, int height, float angle);
 	PBTriangle* CreateTriangle(int x, int y, int width, int height, float angle);
 	PBArrow * CreateArrow(int x, int y, int width, int height, float angle, ARROW_COLOR color);
-	PhysBody* CreateChain(int x, int y, int* points, int size);
+	PhysBody* CreateChain(int x, int y, int* points, int size, b2BodyType type = b2_staticBody, float restitution = 0.0f);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
 	PhysBody* CreateFliper(int x, int y, bool rightFliper);
 	b2Joint* CreateJoint_2(const b2JointDef& def);
+	PhysBody* CreateTri(int x, int y, int width, int height, int* points, int size, bool isLeft, int blitX, int blitY);
 	b2Body* ground;
 	b2World* world;
 

@@ -93,6 +93,7 @@
     <ClInclude Include="PBBumper.h" />
     <ClInclude Include="PBPhone.h" />
     <ClInclude Include="PBStar.h" />
+    <ClInclude Include="PBTri.h" />
     <ClInclude Include="PBTriangle.h" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +113,7 @@
     <ClCompile Include="PBBumper.cpp" />
     <ClCompile Include="PBPhone.cpp" />
     <ClCompile Include="PBStar.cpp" />
+    <ClCompile Include="PBTri.cpp" />
     <ClCompile Include="PBTriangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

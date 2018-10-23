@@ -55,6 +55,9 @@ bool ModulePlayScene::Start()
 	triangleInactiveTex = App->textures->Load("sprites/shapes/100.png");
 	triangleActiveTex = App->textures->Load("sprites/shapes/102.png");
 	girlCharacterTex = App->textures->Load("sprites/images/64.png");
+	triTex = App->textures->Load("sprites/images/235.png");
+	triBackTex = App->textures->Load("sprites/images/237.png");
+	triFrontTex = App->textures->Load("sprites/images/240.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -66,45 +69,38 @@ bool ModulePlayScene::Start()
 	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
+	//triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
 	
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
-	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
-	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
-	Physbackground.add(App->physics->CreateChain(0, 0, right, 70));
-	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84));
-	Physbackground.add(App->physics->CreateChain(0, 0, center, 68));
-	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40));
-	Physbackground.add(App->physics->CreateChain(0, 0, top, 26));
-	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10));
-	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16));
-	Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
-	Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
-	Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
-	Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
+	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, right, 70, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, center, 68, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, top, 26, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16, b2_staticBody, 0.0f));
+	//Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
+	//Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
+	//Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
+	//Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
 
-	for (p2List_item<PhysBody*>* backitem = Physbackground.getFirst(); backitem; backitem = backitem->next)
-	{
-		backitem->data->body->SetType(b2_staticBody);
-	}
+	App->physics->CreateBumper(267, 256, 11, BUMPER_TYPE::Red);
+	App->physics->CreateBumper(322, 255, 11, BUMPER_TYPE::Red);
+	App->physics->CreateBumper(272, 289, 11, BUMPER_TYPE::Red);
+	App->physics->CreateBumper(320, 292, 11, BUMPER_TYPE::Red);
+	App->physics->CreateBumper(291, 323, 11, BUMPER_TYPE::Red);
 
-	PhysBody* redBumper[5];
-	redBumper[0] = App->physics->CreateBumper(267, 256, 11, BUMPER_TYPE::Red);
-	redBumper[1] = App->physics->CreateBumper(322, 255, 11, BUMPER_TYPE::Red);
-	redBumper[2] = App->physics->CreateBumper(272, 289, 11, BUMPER_TYPE::Red);
-	redBumper[3] = App->physics->CreateBumper(320, 292, 11, BUMPER_TYPE::Red);
-	redBumper[4] = App->physics->CreateBumper(291, 323, 11, BUMPER_TYPE::Red);
+	App->physics->CreateBumper(385, 101, 11, BUMPER_TYPE::Blue);
+	App->physics->CreateBumper(427,  95, 11, BUMPER_TYPE::Blue);
+	App->physics->CreateBumper(414, 137, 11, BUMPER_TYPE::Blue);
 
-	PhysBody* blueBumper[3];
-	blueBumper[0] = App->physics->CreateBumper(385, 101, 11, BUMPER_TYPE::Blue);
-	blueBumper[1] = App->physics->CreateBumper(427,  95, 11, BUMPER_TYPE::Blue);
-	blueBumper[2] = App->physics->CreateBumper(414, 137, 11, BUMPER_TYPE::Blue);
-
-	PhysBody* greyBumper;
-	greyBumper = App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
+	App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
 
 	phonePieces[0] = App->physics->CreatePhonePiece(380, 131, 14, 6, -121.6f);
 	phonePieces[1] = App->physics->CreatePhonePiece(391, 143, 14, 6, -150.0f);
@@ -135,7 +131,7 @@ bool ModulePlayScene::Start()
 	triangles[3] = App->physics->CreateTriangle(207, 367, 16, 7, 26.2f);
 	triangles[4] = App->physics->CreateTriangle(229, 382, 16, 7, 51.3f);
 
-	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
+	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody)->body;
 	
 	b2PrismaticJointDef jointDef;
 	jointDef.Initialize(App->physics->ground, handlauncher, { 294,294 }, { 0.0f, 1.0f });
@@ -159,7 +155,7 @@ bool ModulePlayScene::Start()
 
 	App->physics->CreateFliper(458, 463, true);
 	
-	 ball = App->physics->CreateCircle(294, 450, 6.5f);
+	ball = App->physics->CreateCircle(294, 450, 6.5f);
 	ball->body->SetBullet(true);
 	circles.add(ball);
 	
@@ -190,9 +186,10 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(purpleArrowInactiveTex);
 	App->textures->Unload(starActiveTex);
 	App->textures->Unload(starInactiveTex);
+	App->textures->Unload(triTex);
+	App->textures->Unload(triBackTex);
+	App->textures->Unload(triFrontTex);
 
-	//TODO: Remove SFX
-	//App->audio->UnloadSFX(bonusSFX);
 	return true;
 }
 
