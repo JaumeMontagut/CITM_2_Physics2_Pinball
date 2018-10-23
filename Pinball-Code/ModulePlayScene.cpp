@@ -123,6 +123,12 @@ bool ModulePlayScene::Start()
 	purpleArrows[2] = App->physics->CreateArrow(346, 361, 13, 12, -41.1f, ARROW_COLOR::PURPLE);
 
 
+	stars[0] = App->physics->CreateStar(371, 397, 12, 12, -49.2f);
+	stars[1] = App->physics->CreateStar(384, 375, 12, 12, -30.9f);
+	stars[2] = App->physics->CreateStar(410, 366, 12, 12, 0.0f);
+	stars[3] = App->physics->CreateStar(436, 375, 12, 12, 30.9f);
+	stars[4] = App->physics->CreateStar(450, 397, 12, 12, 49.2f);
+
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
 	b2PrismaticJointDef jointDef;
@@ -286,9 +292,9 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
-	/*App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	App->renderer->Blit(wallsTex, 0, 0);*/
+	App->renderer->Blit(wallsTex, 0, 0);
 
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
