@@ -14,7 +14,6 @@
 #include "PBStar.h"
 #include "PBTriangle.h"
 
-
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
 
@@ -290,7 +289,7 @@ update_status ModulePlayScene::PreUpdate()
 		ball->body->SetLinearVelocity({ 0,0 });
 		ball->body->SetAngularVelocity(0.0f);
 		ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS( 450) },0);
-		
+		App->fonts->SubstractLifes();
 	}
 	//Input
 	return UPDATE_CONTINUE;
