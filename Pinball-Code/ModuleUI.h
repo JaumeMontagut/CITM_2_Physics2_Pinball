@@ -12,8 +12,9 @@ class ModuleFonts : public Module
 public:
 	p2List<SDL_Texture*> textureFonts;
 	p2List<TTF_Font*> mFonts;
-	TTF_Font* font=nullptr;
-	SDL_Texture* scoreTex = nullptr;
+	TTF_Font* fontScore=nullptr;
+	SDL_Texture* scoreRect = nullptr;
+	SDL_Texture* scoreTex=nullptr;
 	
 public:
 	ModuleFonts(bool start_enabled = true);
@@ -23,11 +24,8 @@ public:
 	bool CleanUp() override;
 	update_status PostUpdate() override;
 
-	/*SDL_Texture* CreateTextTexture(TTF_Font* fonts , char* text);
-	SDL_Texture* GetText(char* text, char* filename, int size);
-	TTF_Font* GetFont(std::string filename, int size);*/
-	bool OpenFont(char* fontPath, int size);
-	bool PrintMessage(TTF_Font* thisfont, char* text, SDL_Color Color);
+
+	SDL_Texture* LoadMessatgeTex(TTF_Font* thisfont, char* text, SDL_Color Color);
 
 };
 

@@ -282,9 +282,9 @@ update_status ModulePlayScene::PreUpdate()
 
 update_status ModulePlayScene::Update()
 {
-	/*App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	App->renderer->Blit(wallsTex, 0, 0);*/
+	App->renderer->Blit(wallsTex, 0, 0);
 
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);

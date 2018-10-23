@@ -25,80 +25,59 @@ bool ModuleFonts::Init()
 }
 bool ModuleFonts::Start()
 {
-	OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 48);
-	scoreTex = App->textures->Load("sprites/images/score.png");
+
+	
+	//Fonts-------------------------------------------------------------------
+	fontScore = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 48);
+
+	//Images-------------------------------------------------------------
+	scoreRect = App->textures->Load("sprites/images/score.png");
+	scoreTex = LoadMessatgeTex(fontScore, "score", { 255,255,255,255 });
 	return true;
 }
 bool ModuleFonts::CleanUp()
 {
+	App->textures->Unload(scoreRect);
 	App->textures->Unload(scoreTex);
-
 	TTF_Quit();
 	return true;
 }
 
 update_status ModuleFonts::PostUpdate()
 {
-	if(scoreTex !=nullptr)
-	App->renderer->Blit(scoreTex, 9, 455);
-
+	if(scoreRect !=nullptr)
+	App->renderer->Blit(scoreRect, 9, 455);
+	App->renderer->Blit(scoreTex, 15, 463);
 	return update_status::UPDATE_CONTINUE;
 }
 
-//SDL_Texture * ModuleFonts::CreateTextTexture(TTF_Font * fonts, char * text)
-//{
-//	SDL_Surface* surface = TTF_RenderText_Solid(fonts, text, {0,0,0});
-//	if (surface == NULL)
-//	{
-//		LOG("Text Render Error &s\n", TTF_GetError());
-//		return nullptr;
-//	}
-//	
-//	SDL_Texture* tex = SDL_CreateTextureFromSurface(App->renderer->renderer,surface);
-//	if (tex == NULL)
-//	{
-//		LOG("Text Texture Creation Error %s \n", SDL_GetError());
-//		return nullptr;
-//	}
-//	SDL_FreeSurface(surface);
-//
-//	return tex;
-//}
 
 
 
 
-bool ModuleFonts::OpenFont(char* fontPath, int size)
+SDL_Texture* ModuleFonts::LoadMessatgeTex(TTF_Font* thisfont, char * text, SDL_Color Color)
 {
-	font= TTF_OpenFont(fontPath, size);
-	if (font == NULL)
-	{
-		return false;
-	}
-	return true;
-}
-
-bool ModuleFonts::PrintMessage(TTF_Font* thisfont, char * text, SDL_Color Color)
-{
+	SDL_Texture *textTex = nullptr;
 	SDL_Surface* textSurf=nullptr;
+
 	if (thisfont != nullptr)
 		textSurf = TTF_RenderText_Solid(thisfont, text, Color);
 	else
-		return false;
+		return nullptr;
 
 	if (textSurf != nullptr)
 	{
-		SDL_Texture *textTex =nullptr;
+		
 		SDL_Rect textRect;
 		
 		textTex = SDL_CreateTextureFromSurface(App->renderer->renderer, textSurf);
 		SDL_QueryTexture(textTex, NULL, NULL, &textRect.w, &textRect.h);
 		App->renderer->Blit(textTex, 0, 0);
 		SDL_FreeSurface(textSurf);
-		App->textures->Unload(textTex);
+		
 	}
 
-	return true;
+	return textTex;
 }
 
 
