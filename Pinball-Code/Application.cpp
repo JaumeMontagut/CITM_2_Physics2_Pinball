@@ -6,7 +6,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayScene.h"
-
+#include "ModuleFonts.h"
 #include "Application.h"
 
 Application::Application()
@@ -18,7 +18,7 @@ Application::Application()
 	audio = new ModuleAudio(true);
 	physics = new ModulePhysics();
 	scene_play = new ModulePlayScene();
-	
+	fonts = new ModuleFonts();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -27,6 +27,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(physics);
 	AddModule(textures);
+	AddModule(fonts);
 	AddModule(input);
 	AddModule(audio);
 	AddModule(scene_play);
