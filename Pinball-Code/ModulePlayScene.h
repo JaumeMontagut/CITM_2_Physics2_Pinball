@@ -10,6 +10,7 @@ class PhysBody;
 class PBPhone;
 class PBArrow;
 class PBStar;
+class PBTriangle;
 
 class ModulePlayScene : public Module
 {
@@ -29,6 +30,7 @@ public:
 	void IncreaseOrangeArrow();
 	void IncreasePurpleArrow();
 	void IncreaseStars();
+	void IncreaseTriangles();
 
 public:
 	p2List<PhysBody*> circles;
@@ -83,8 +85,14 @@ public:
 	SDL_Texture * starActiveTex = nullptr;
 	SDL_Texture * starInactiveTex = nullptr;
 	uint activeStars = 0u;
-	PBStar * stars[5] = { nullptr };
+	PBStar * stars[5u] = { nullptr };
 	uint starBonusSFX = 0u;
+	//Triangles
+	SDL_Texture * triangleActiveTex = nullptr;
+	SDL_Texture * triangleInactiveTex = nullptr;
+	uint activeTriangles = 0u;
+	PBTriangle * triangles[5u] = { nullptr };
+	uint triangleBonusSFX = 0u;
 
 public :
 	PhysBody * ball;

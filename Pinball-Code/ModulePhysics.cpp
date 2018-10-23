@@ -11,6 +11,8 @@
 #include "PBPhone.h"
 #include "PBFlipper.h"
 #include "PBArrow.h"
+#include "PBStar.h"
+#include "PBTriangle.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -389,6 +391,60 @@ PBPhone* ModulePhysics::CreatePhonePiece(int x, int y, int width, int height, fl
 	b->CreateFixture(&fixture);
 
 	PBPhone* pbody = new PBPhone();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width;
+	pbody->height = height;
+
+	return pbody;
+}
+
+PBStar * ModulePhysics::CreateStar(int x, int y, int width, int height, float angle)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+
+	b2Body* b = world->CreateBody(&body);
+	b->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), DEGTORAD * angle);
+
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 1.0f;
+	fixture.isSensor = true;
+
+	b->CreateFixture(&fixture);
+
+	PBStar* pbody = new PBStar();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width;
+	pbody->height = height;
+
+	return pbody;
+}
+
+PBTriangle * ModulePhysics::CreateTriangle(int x, int y, int width, int height, float angle)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+
+	b2Body* b = world->CreateBody(&body);
+	b->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), DEGTORAD * angle);
+
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 1.0f;
+	fixture.isSensor = true;
+
+	b->CreateFixture(&fixture);
+
+	PBTriangle* pbody = new PBTriangle();
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = width;

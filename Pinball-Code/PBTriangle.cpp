@@ -5,8 +5,8 @@
 
 PBTriangle::PBTriangle()
 {
-	activeTex = App->scene_play->starActiveTex;
-	inactiveTex = App->scene_play->starInactiveTex;
+	activeTex = App->scene_play->triangleActiveTex;
+	inactiveTex = App->scene_play->triangleInactiveTex;
 	currTex = inactiveTex;
 }
 
@@ -29,7 +29,7 @@ void PBTriangle::Activate()
 {
 	active = true;
 	currTex = activeTex;
-	App->scene_play->IncreaseStars();
+	App->scene_play->IncreaseTriangles();
 }
 
 void PBTriangle::Deactivate()

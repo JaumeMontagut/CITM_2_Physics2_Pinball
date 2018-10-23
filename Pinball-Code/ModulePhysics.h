@@ -16,6 +16,8 @@
 struct SDL_Texture;
 class PBPhone;
 class PBArrow;
+class PBStar;
+class PBTriangle;
 enum class BUMPER_TYPE;
 enum class ARROW_COLOR;
 
@@ -62,6 +64,8 @@ public:
 	PhysBody* CreateCircle(int x, int y, int radius);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PBPhone* CreatePhonePiece(int x, int y, int width, int height, float angle);
+	PBStar* CreateStar(int x, int y, int width, int height, float angle);
+	PBTriangle* CreateTriangle(int x, int y, int width, int height, float angle);
 	PBArrow * CreateArrow(int x, int y, int width, int height, float angle, ARROW_COLOR color);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);

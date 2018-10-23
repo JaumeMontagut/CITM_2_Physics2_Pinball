@@ -12,6 +12,7 @@
 #include "PBPhone.h"
 #include "PBArrow.h"
 #include "PBStar.h"
+#include "PBTriangle.h"
 
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
@@ -51,6 +52,8 @@ bool ModulePlayScene::Start()
 	purpleArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_113/2.png");
 	starInactiveTex = App->textures->Load("sprites/shapes/79.png");
 	starActiveTex = App->textures->Load("sprites/shapes/81.png");
+	triangleActiveTex = App->textures->Load("sprites/shapes/100.png");
+	triangleInactiveTex = App->textures->Load("sprites/shapes/102.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -59,6 +62,7 @@ bool ModulePlayScene::Start()
 	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
 	activateTargetSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	starBonusSFX = App->audio->LoadFx("sprites/sounds/544_happy_stars_anim.wav");
+	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
@@ -241,8 +245,23 @@ void ModulePlayScene::IncreaseStars()
 	if (activeStars >= 5u) {
 		activeStars = 0u;
 		//TODO: Add bonus points
-		for (uint i = 0u; i < 3u; ++i) {
+		App->audio->PlayFx(starBonusSFX);
+		for (uint i = 0u; i < 5u; ++i) {
 			stars[i]->Deactivate();
+		}
+	}
+}
+
+void ModulePlayScene::IncreaseTriangles()
+{
+	activeTriangles++;
+	App->audio->PlayFx(activateTargetSFX);
+	if (activeTriangles >= 5u) {
+		activeTriangles = 0u;
+		//TODO: Add bonus points
+		App->audio->PlayFx(triangleBonusSFX);
+		for (uint i = 0u; i < 5u; ++i) {
+			triangles[i]->Deactivate();
 		}
 	}
 }
