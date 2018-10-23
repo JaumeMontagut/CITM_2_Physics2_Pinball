@@ -11,7 +11,7 @@ class ModuleInput;
 class ModuleAudio;
 class ModulePlayScene;
 class ModulePhysics;
-
+class ModuleFonts;
 class Application
 {
 public:
@@ -22,7 +22,7 @@ public:
 	ModuleAudio* audio;
 	ModulePlayScene* scene_play;
 	ModulePhysics* physics;
-
+	ModuleFonts * fonts;
 private:
 
 	p2List<Module*> list_modules;
