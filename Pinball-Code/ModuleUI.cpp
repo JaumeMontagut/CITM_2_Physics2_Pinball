@@ -8,8 +8,8 @@
 #include "ModuleInput.h"
 void ModuleFonts::SetScore(uint addscore)
 {
-	App->textures->Unload(scoreNumTex);
-
+	/*App->textures->Unload(scoreNumTex);*/
+	SDL_DestroyTexture(scoreNumTex);
 	scoreNum += addscore;
 	stringnum = std::to_string(scoreNum);
 	const char* charnum = stringnum.c_str();
@@ -51,6 +51,13 @@ void ModuleFonts::SubstractLifes()
 	{
 		lifes -= 1;
 	}
+}
+
+void ModuleFonts::ReStartGame()
+{
+	lifes = 3;
+	scoreNum = 0;
+	SetScore(0);
 }
 
 ModuleFonts::ModuleFonts(bool start_enabled)
@@ -102,6 +109,10 @@ bool ModuleFonts::CleanUp()
 
 update_status ModuleFonts::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_R))
+	{
+		lifes = 3;
+	}
 	if(App->input->GetKey(SDL_SCANCODE_0))
 	{
 		SetScore(1000);

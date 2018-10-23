@@ -18,6 +18,7 @@ public:
 public:
 	void SetScore(uint score);
 	void SubstractLifes();
+	void ReStartGame();
 public:
 	ModuleFonts(bool start_enabled = true);
 	~ModuleFonts();

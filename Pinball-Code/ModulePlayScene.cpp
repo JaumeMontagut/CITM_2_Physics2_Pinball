@@ -283,14 +283,18 @@ void ModulePlayScene::IncreaseTriangles()
 
 update_status ModulePlayScene::PreUpdate()
 {
-	
-	if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
+	if (App->fonts->lifes > 0)
 	{
-		ball->body->SetLinearVelocity({ 0,0 });
-		ball->body->SetAngularVelocity(0.0f);
-		ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS( 450) },0);
-		App->fonts->SubstractLifes();
+		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
+		{
+			ball->body->SetLinearVelocity({ 0,0 });
+			ball->body->SetAngularVelocity(0.0f);
+			ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS(450) }, 0);
+			App->fonts->SubstractLifes();
+		}
+
 	}
+	
 	//Input
 	return UPDATE_CONTINUE;
 }
