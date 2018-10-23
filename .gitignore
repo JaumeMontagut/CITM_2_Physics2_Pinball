@@ -12,17 +12,10 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
 
 
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -40,10 +33,7 @@ Generated\ Files/
 *.VisualState.xml
 TestResult.xml
 
-# Build Results of an ATL Project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
+
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
