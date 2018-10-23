@@ -6,7 +6,7 @@
 /**
 * Contains items from double linked list
 */
-template<class tdata>
+template <class tdata>
 struct p2List_item
 {
 	tdata                 data;

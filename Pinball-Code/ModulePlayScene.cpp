@@ -165,6 +165,7 @@ void ModulePlayScene::IncreasePhoneCombo()
 	}
 }
 
+
 update_status ModulePlayScene::PreUpdate()
 {
 	
@@ -210,10 +211,7 @@ update_status ModulePlayScene::Update()
 	{
 		m_joint->SetMotorSpeed(-40.0f);
 	}
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		rectangleFlipper->ApplyAngularImpulse(-0.5f,true);
-	}*/
+
 	
 	return UPDATE_CONTINUE;
 }
@@ -221,9 +219,6 @@ update_status ModulePlayScene::Update()
 update_status ModulePlayScene::PostUpdate()
 {
 	//Draw
-	
-	//- Bouncers
-
 	p2List_item<PhysBody*>* circle = circles.getFirst();
 	while (circle != NULL)
 	{
