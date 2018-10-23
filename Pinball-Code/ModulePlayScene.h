@@ -41,6 +41,11 @@ public:
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
 	uint bonusSFX = 0;
+	//Tris
+	SDL_Texture * triTex = nullptr;
+	SDL_Texture * triBackTex = nullptr;
+	SDL_Texture * triFrontTex = nullptr;
+	uint triSFX = 0u;
 	//Flipper
 	uint flipperUpSFX = 0u;
 	uint flipperDownSFX = 0u;
