@@ -1,6 +1,6 @@
 #include "PBFlipper.h"
-
-
+#include "ModuleAudio.h"
+#include "ModuleRender.h"
 
 PBFlipper::PBFlipper() : PhysBody()
 {
@@ -14,24 +14,28 @@ update_status PBFlipper::PreUpdate()
 {
 	if (!rightfliper)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		{
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			App->audio->PlayFx(App->scene_play->flipperUpSFX);
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 			body->ApplyTorque(-40, true);
 
 		}
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
-		{
+		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP) {
+			App->audio->PlayFx(App->scene_play->flipperDownSFX);
 			body->ApplyTorque(40, true);
 		}
 	}
 	else
 	{
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		{
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			App->audio->PlayFx(App->scene_play->flipperUpSFX);
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 			body->ApplyTorque(40, true);
 		}
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
-		{
+		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP) {
+			App->audio->PlayFx(App->scene_play->flipperDownSFX);
 			body->ApplyTorque(-40, true);
 		}
 

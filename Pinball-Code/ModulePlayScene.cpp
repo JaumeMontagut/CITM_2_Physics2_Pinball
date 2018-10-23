@@ -63,6 +63,8 @@ bool ModulePlayScene::Start()
 	activateTargetSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	starBonusSFX = App->audio->LoadFx("sprites/sounds/544_happy_stars_anim.wav");
 	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
+	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
+	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
 
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));

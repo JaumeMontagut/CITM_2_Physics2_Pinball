@@ -42,6 +42,8 @@ public:
 	SDL_Texture* backgroundTex = nullptr;
 	uint bonusSFX = 0;
 	//Flipper
+	uint flipperUpSFX = 0u;
+	uint flipperDownSFX = 0u;
 	SDL_Texture* fliperTex = nullptr;
 	//Bumpers
 	SDL_Texture * flashTex = nullptr;
