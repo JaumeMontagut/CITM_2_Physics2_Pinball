@@ -52,8 +52,9 @@ bool ModulePlayScene::Start()
 	purpleArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_113/2.png");
 	starInactiveTex = App->textures->Load("sprites/shapes/79.png");
 	starActiveTex = App->textures->Load("sprites/shapes/81.png");
-	triangleActiveTex = App->textures->Load("sprites/shapes/100.png");
-	triangleInactiveTex = App->textures->Load("sprites/shapes/102.png");
+	triangleInactiveTex = App->textures->Load("sprites/shapes/100.png");
+	triangleActiveTex = App->textures->Load("sprites/shapes/102.png");
+	girlCharacterTex = App->textures->Load("sprites/images/64.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -122,12 +123,17 @@ bool ModulePlayScene::Start()
 	purpleArrows[1] = App->physics->CreateArrow(454, 269, 13, 12, -62.3f, ARROW_COLOR::PURPLE);
 	purpleArrows[2] = App->physics->CreateArrow(346, 361, 13, 12, -41.1f, ARROW_COLOR::PURPLE);
 
-
 	stars[0] = App->physics->CreateStar(371, 397, 12, 12, -49.2f);
 	stars[1] = App->physics->CreateStar(384, 375, 12, 12, -30.9f);
 	stars[2] = App->physics->CreateStar(410, 366, 12, 12, 0.0f);
 	stars[3] = App->physics->CreateStar(436, 375, 12, 12, 30.9f);
 	stars[4] = App->physics->CreateStar(450, 397, 12, 12, 49.2f);
+
+	triangles[0] = App->physics->CreateTriangle(133, 382, 16, 7, -51.3f);
+	triangles[1] = App->physics->CreateTriangle(155, 367, 16, 7, -26.2f);
+	triangles[2] = App->physics->CreateTriangle(181, 357, 16, 7, 0.0f);
+	triangles[3] = App->physics->CreateTriangle(207, 367, 16, 7, 26.2f);
+	triangles[4] = App->physics->CreateTriangle(229, 382, 16, 7, 51.3f);
 
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
@@ -327,6 +333,9 @@ update_status ModulePlayScene::Update()
 
 update_status ModulePlayScene::PostUpdate()
 {
+	//Draw forward elements
+	App->renderer->Blit(girlCharacterTex, 145, 381);
+
 	//Draw
 	p2List_item<PhysBody*>* circle = circles.getFirst();
 	while (circle != NULL)

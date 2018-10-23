@@ -55,6 +55,8 @@ public:
 	uint redBumperSFX = 0u;
 	//Grey bumper
 	SDL_Texture * greyBumperTex = nullptr;
+	//Girl character
+	SDL_Texture * girlCharacterTex = nullptr;
 	//Blue light character
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;

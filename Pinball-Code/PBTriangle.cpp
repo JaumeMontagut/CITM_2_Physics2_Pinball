@@ -14,7 +14,7 @@ update_status PBTriangle::PostUpdate()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x, pos.y);
-	App->renderer->Blit(currTex, pos.x, pos.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
+	App->renderer->Blit(currTex, pos.x + offset.x, pos.y + offset.y, NULL, 1.0f, RADTODEG * body->GetAngle(), pivot.x, pivot.y);
 	return UPDATE_CONTINUE;
 }
 
