@@ -34,7 +34,6 @@
 #include "../../SDL/include/SDL.h"
 #include "../../SDL/include/begin_code.h"
 
-
 /* Set up for C function definitions, even when using C++ */
 #ifdef __cplusplus
 extern "C" {
@@ -277,6 +276,5 @@ extern DECLSPEC int TTF_GetFontKerningSizeGlyphs(TTF_Font *font, Uint16 previous
 }
 #endif
 #include "../../SDL/include/close_code.h"
-
 
 #endif /* _SDL_TTF_H */

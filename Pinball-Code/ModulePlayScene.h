@@ -8,6 +8,7 @@
 
 class PhysBody;
 class PBPhone;
+class PBArrow;
 
 class ModulePlayScene : public Module
 {
@@ -23,7 +24,9 @@ public:
 
 	void IlluminateBlueCharacter();
 	void IncreasePhoneCombo();
-	inline  void CreateFlipperJoint();
+	void IncreaseYellowArrow();
+	void IncreaseOrangeArrow();
+	void IncreasePurpleArrow();
 
 public:
 	p2List<PhysBody*> circles;
@@ -51,9 +54,23 @@ public:
 	bool illuminateCharacter = false;
 	SDL_Texture * blueCharacter1Tex = nullptr;
 	SDL_Texture * blueCharacter2Tex = nullptr;
+	//Arrows
+	uint arrowSFX = 0u;
 	//Yellow arrow
 	SDL_Texture * yellowArrowActiveTex = nullptr;
 	SDL_Texture * yellowArrowInactiveTex = nullptr;
+	PBArrow * yellowArrows[3u] = { nullptr };
+	uint activeYellowArrows = 0u;
+	//Orange arrow
+	SDL_Texture * orangeArrowActiveTex = nullptr;
+	SDL_Texture * orangeArrowInactiveTex = nullptr;
+	PBArrow * orangeArrows[2u] = { nullptr };
+	uint activeOrangeArrows = 0u;
+	//Purple arrow
+	SDL_Texture * purpleArrowActiveTex = nullptr;
+	SDL_Texture * purpleArrowInactiveTex = nullptr;
+	PBArrow * purpleArrows[3u] = { nullptr };
+	uint activePurpleArrows = 0u;
 	//Phone piece
 	SDL_Texture * phoneActive = nullptr;
 	SDL_Texture * phoneUnactive = nullptr;

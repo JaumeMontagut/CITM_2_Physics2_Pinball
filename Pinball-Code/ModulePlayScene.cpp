@@ -9,7 +9,11 @@
 #include "ChainCoordinates.h"
 #include "PBBumper.h"
 #include "PBPhone.h"
+
 #include "ModuleFonts.h"
+
+#include "PBArrow.h"
+
 
 ModulePlayScene::ModulePlayScene(bool start_enabled) : Module(start_enabled)
 {
@@ -42,12 +46,16 @@ bool ModulePlayScene::Start()
 	fliperTex = App->textures->Load("sprites/images/fliper.png");
 	yellowArrowInactiveTex = App->textures->Load("sprites/sprites/DefineSprite_93/1.png");
 	yellowArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_93/2.png");
-
+	orangeArrowInactiveTex = App->textures->Load("sprites/sprites/DefineSprite_98/1.png");
+	orangeArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_98/2.png");
+	purpleArrowInactiveTex = App->textures->Load("sprites/sprites/DefineSprite_113/1.png");
+	purpleArrowActiveTex = App->textures->Load("sprites/sprites/DefineSprite_113/2.png");
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
 	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
 	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
 	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
+	arrowSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28));
@@ -65,6 +73,7 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
 	Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
 	Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
+
 	for (p2List_item<PhysBody*>* backitem = Physbackground.getFirst(); backitem; backitem = backitem->next)
 	{
 		backitem->data->body->SetType(b2_staticBody);
@@ -91,7 +100,7 @@ bool ModulePlayScene::Start()
 	phonePieces[3] = App->physics->CreatePhonePiece(460, 99, 14, 6, 85.2f);
 	phonePieces[4] = App->physics->CreatePhonePiece(460, 115, 14, 6, 92.9f);
 
-	
+	orangeArrows[0] = App->physics->CreateArrow(482, 195, 13, 12, 0.0f, ARROW_COLOR::ORANGE);//60.7f
 
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8)->body;
 	
@@ -140,6 +149,12 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(flashTex);
 	App->textures->Unload(handTex);
 	App->textures->Unload(fliperTex);
+	App->textures->Unload(yellowArrowActiveTex);
+	App->textures->Unload(yellowArrowInactiveTex);
+	App->textures->Unload(orangeArrowActiveTex);
+	App->textures->Unload(orangeArrowInactiveTex);
+	App->textures->Unload(purpleArrowActiveTex);
+	App->textures->Unload(purpleArrowInactiveTex);
 
 	//TODO: Remove SFX
 	App->audio->UnloadSFX(bonusSFX);
@@ -155,17 +170,54 @@ void ModulePlayScene::IncreasePhoneCombo()
 {
 	activePhonePieces++;
 	App->audio->PlayFx(phoneSFX);
-
-	if (activePhonePieces >= 5) {
+	if (activePhonePieces >= 5u) {
 		activePhonePieces = 0u;
 		//TODO: Add bonus points
 		App->audio->PlayFx(phoneBonusSFX);
-		for (uint i = 0; i < 5; ++i) {
+		for (uint i = 0u; i < 5u; ++i) {
 			phonePieces[i]->Deactivate();
 		}
 	}
 }
 
+void ModulePlayScene::IncreaseYellowArrow()
+{
+	activeYellowArrows++;
+	App->audio->PlayFx(arrowSFX);
+	if (activeYellowArrows >= 3u) {
+		activeYellowArrows = 0u;
+		//TODO: Add bonus points
+		for (uint i = 0u; i < 3u; ++i) {
+			yellowArrows[i]->Deactivate();
+		}
+	}
+}
+
+void ModulePlayScene::IncreaseOrangeArrow()
+{
+	activeOrangeArrows++;
+	App->audio->PlayFx(arrowSFX);
+	if (activeOrangeArrows >= 2u) {
+		activeOrangeArrows = 0u;
+		//TODO: Add bonus points
+		for (uint i = 0u; i < 2u; ++i) {
+			orangeArrows[i]->Deactivate();
+		}
+	}
+}
+
+void ModulePlayScene::IncreasePurpleArrow()
+{
+	activePurpleArrows++;
+	App->audio->PlayFx(arrowSFX);
+	if (activePurpleArrows >= 3u) {
+		activePurpleArrows = 0u;
+		//TODO: Add bonus points
+		for (uint i = 0u; i < 3u; ++i) {
+			purpleArrows[i]->Deactivate();
+		}
+	}
+}
 
 update_status ModulePlayScene::PreUpdate()
 {
