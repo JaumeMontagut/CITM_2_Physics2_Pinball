@@ -82,7 +82,8 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84, b2_staticBody, 0.0f));
-	Physbackground.add(App->physics->CreateChain(0, 0, center, 68, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, bellLeft, 24, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, bellRight, 30, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, top, 26, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12, b2_staticBody, 0.0f));
