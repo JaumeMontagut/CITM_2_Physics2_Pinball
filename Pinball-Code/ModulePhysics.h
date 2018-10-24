@@ -21,6 +21,12 @@ class PBTriangle;
 enum class BUMPER_TYPE;
 enum class ARROW_COLOR;
 
+enum class COLLISION_FILTER : uint16 {
+	BACKGROUND = 1,//The place where the ball passes through on the start of the game
+	FOREGROUND = 2,
+	BALL = 4
+};
+
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
 {
@@ -62,17 +68,18 @@ public:
 	bool CleanUp();
 
 	PhysBody* CreateCircle(int x, int y, int radius);
-	PhysBody* CreateRectangle(int x, int y, int width, int height);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, COLLISION_FILTER filter = COLLISION_FILTER::BACKGROUND);
 	PBPhone* CreatePhonePiece(int x, int y, int width, int height, float angle);
 	PBStar* CreateStar(int x, int y, int width, int height, float angle);
 	PBTriangle* CreateTriangle(int x, int y, int width, int height, float angle);
 	PBArrow * CreateArrow(int x, int y, int width, int height, float angle, ARROW_COLOR color);
-	PhysBody* CreateChain(int x, int y, int* points, int size, b2BodyType type = b2_staticBody, float restitution = 0.0f);
+	PhysBody* CreateChain(int x, int y, int* points, int size, b2BodyType type = b2_staticBody, float restitution = 0.0f, COLLISION_FILTER filter = COLLISION_FILTER::BACKGROUND);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
 	PhysBody* CreateFliper(int x, int y, bool rightFliper);
 	b2Joint* CreateJoint_2(const b2JointDef& def);
 	PhysBody* CreateTri(int x, int y, int* points, int size, bool isLeft, int blitX, int blitY);
 	PhysBody* CreateTeleport(const iPoint & pos, const iPoint & tpPoint, b2Vec2 ForceDirection);
+	PhysBody* CreateBell(int x, int y, int width, int height);
 
 	b2Body* ground;
 	b2World* world;

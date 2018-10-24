@@ -59,7 +59,7 @@ bool ModulePlayScene::Start()
 	triBackTex = App->textures->Load("sprites/images/237.png");
 	triFrontTex = App->textures->Load("sprites/images/240.png");
 	teleportTex = App->textures->Load("sprites/images/166.png");
-
+	bellTex = App->textures->Load("sprites/images/270.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -72,6 +72,7 @@ bool ModulePlayScene::Start()
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
 	triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
+	bellSFX = App->audio->LoadFx("sprites/sounds/563_launch_tube_bell.wav");
 	
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
@@ -81,7 +82,8 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRight, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, rightCenter, 84, b2_staticBody, 0.0f));
-	Physbackground.add(App->physics->CreateChain(0, 0, center, 68, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, bellLeft, 24, b2_staticBody, 0.0f));
+	Physbackground.add(App->physics->CreateChain(0, 0, bellRight, 30, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, tel, 40, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, top, 26, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12, b2_staticBody, 0.0f));
@@ -140,7 +142,7 @@ bool ModulePlayScene::Start()
 	App->physics->CreateTeleport({ 414,240 }, { 414,275 }, { 0,-10});
 	App->physics->CreateTeleport({ 414,280 }, { 414,230 }, { 0, 10});
 
-	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody)->body;
+	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody, 0.0f, COLLISION_FILTER::FOREGROUND)->body;
 	
 	b2PrismaticJointDef jointDef;
 	jointDef.Initialize(App->physics->ground, handlauncher, { 294,294 }, { 0.0f, 1.0f });
@@ -159,10 +161,10 @@ bool ModulePlayScene::Start()
 
 	App->physics->CreateFliper(133, 463, false);
 	App->physics->CreateFliper(224, 464, true);
-
 	App->physics->CreateFliper(362, 461, false);
-
 	App->physics->CreateFliper(458, 463, true);
+
+	App->physics->CreateBell(294, 179, 26, 12);
 	
 	ball = App->physics->CreateCircle(294, 450, 6.5f);
 	ball->body->SetBullet(true);
@@ -198,6 +200,7 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(triTex);
 	App->textures->Unload(triBackTex);
 	App->textures->Unload(triFrontTex);
+	App->textures->Unload(bellTex);
 
 	return true;
 }
@@ -294,16 +297,24 @@ update_status ModulePlayScene::PreUpdate()
 	{
 		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
 		{
-			ball->body->SetLinearVelocity({ 0,0 });
-			ball->body->SetAngularVelocity(0.0f);
-			ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS(450) }, 0);
-			App->fonts->SubstractLifes();
+			ResetBall();
 		}
 
 	}
-	
-	//Input
+
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayScene::ResetBall()
+{
+	ball->body->SetLinearVelocity({ 0,0 });
+	ball->body->SetAngularVelocity(0.0f);
+	ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS(450) }, 0);
+	App->fonts->SubstractLifes();
+	b2Filter filter;
+	filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+	filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	ball->body->GetFixtureList()->SetFilterData(filter);
 }
 
 update_status ModulePlayScene::Update()

@@ -36,6 +36,9 @@
     <ClCompile Include="PBTriangle.cpp">
       <Filter>PhysBodys</Filter>
     </ClCompile>
+    <ClCompile Include="PBBell.cpp">
+      <Filter>PhysBodys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -78,6 +81,9 @@
       <Filter>PhysBodys</Filter>
     </ClInclude>
     <ClInclude Include="PBTriangle.h">
+      <Filter>PhysBodys</Filter>
+    </ClInclude>
+    <ClInclude Include="PBBell.h">
       <Filter>PhysBodys</Filter>
     </ClInclude>
   </ItemGroup>

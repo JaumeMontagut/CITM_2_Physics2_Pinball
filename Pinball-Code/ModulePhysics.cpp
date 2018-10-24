@@ -15,6 +15,7 @@
 #include "PBTriangle.h"
 #include "PBTri.h"
 #include "PBTeleport.h"
+#include "PBBell.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -278,7 +279,8 @@ PhysBody * ModulePhysics::CreateTri(int x, int y, int* points, int size, bool is
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.restitution = 0.85f;
-
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	delete p;
@@ -303,6 +305,8 @@ PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPo
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.isSensor = true;
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 	PBteleport* pbody = new PBteleport(tpPoint, pos, ForceDirection);
 	pbody->body = b;
@@ -310,6 +314,33 @@ PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPo
 	
 
 	return nullptr;
+}
+
+PhysBody * ModulePhysics::CreateBell(int x, int y, int width, int height)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 1.0f;
+	fixture.isSensor = true;
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
+	b->CreateFixture(&fixture);
+
+	PBBell* pbody = new PBBell();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width;
+	pbody->height = height;
+
+	return pbody;
 }
 
 PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type)
@@ -327,7 +358,8 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type
 	fixture.density = 1.0f;
 	fixture.friction = 0.0f;
 	fixture.restitution = 0.85f;
-	
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;	
 	b->CreateFixture(&fixture);
 
 	PBBumper* pbody = new PBBumper(type);
@@ -348,7 +380,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 	{
 		CircleFlipper = CreateCircle(x, y, 4)->body;
 		CircleFlipper->SetType(b2BodyType::b2_staticBody);
-		rectangleFlipper = App->physics->CreateRectangle( x+20 , y, mesure.x, mesure.y)->body;
+		rectangleFlipper = App->physics->CreateRectangle( x+20, y, mesure.x, mesure.y, COLLISION_FILTER::BACKGROUND)->body;
 		rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
 		
 		
@@ -361,7 +393,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 
 		CircleFlipper = CreateCircle(x, y, 4)->body;
 		CircleFlipper->SetType(b2BodyType::b2_staticBody);
-		rectangleFlipper = App->physics->CreateRectangle(x-20, y, mesure.x, mesure.y)->body;
+		rectangleFlipper = App->physics->CreateRectangle(x-20, y, mesure.x, mesure.y, COLLISION_FILTER::BACKGROUND)->body;
 		rectangleFlipper->SetType(b2BodyType::b2_dynamicBody);
 		
 		jointFlipperDef.enableLimit = true;
@@ -394,7 +426,10 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
-
+	//Category bits indicates the type of collision filter this body is
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+	//Mask bits indicates the objects it can collide with this body
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
@@ -405,7 +440,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, COLLISION_FILTER filter)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -418,7 +453,8 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 1.0f;
-
+	fixture.filter.categoryBits = (uint16)filter;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
@@ -445,7 +481,8 @@ PBPhone* ModulePhysics::CreatePhonePiece(int x, int y, int width, int height, fl
 	fixture.shape = &box;
 	fixture.density = 1.0f;
 	fixture.isSensor = true;
-
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	PBPhone* pbody = new PBPhone();
@@ -472,7 +509,8 @@ PBStar * ModulePhysics::CreateStar(int x, int y, int width, int height, float an
 	fixture.shape = &box;
 	fixture.density = 1.0f;
 	fixture.isSensor = true;
-
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	PBStar* pbody = new PBStar();
@@ -499,7 +537,8 @@ PBTriangle * ModulePhysics::CreateTriangle(int x, int y, int width, int height, 
 	fixture.shape = &box;
 	fixture.density = 1.0f;
 	fixture.isSensor = true;
-
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	PBTriangle* pbody = new PBTriangle();
@@ -526,7 +565,8 @@ PBArrow * ModulePhysics::CreateArrow(int x, int y, int width, int height, float 
 	fixture.shape = &box;
 	fixture.density = 1.0f;
 	fixture.isSensor = true;
-
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	PBArrow * pbody = new PBArrow(color);
@@ -538,7 +578,7 @@ PBArrow * ModulePhysics::CreateArrow(int x, int y, int width, int height, float 
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type, float restitution)
+PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type, float restitution, COLLISION_FILTER filter)
 {
 	b2BodyDef body;
 	body.type = type;
@@ -560,7 +600,8 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2Body
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.restitution = restitution;
-
+	fixture.filter.categoryBits = (uint16)filter;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
 
 	delete p;
