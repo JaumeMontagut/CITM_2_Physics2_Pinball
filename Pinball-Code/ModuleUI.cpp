@@ -49,7 +49,6 @@ void ModuleFonts::SubstractLifes()
 
 void ModuleFonts::ReStartGame()
 {
-	
 	App->scene_play->ball->body->SetTransform({ (float)PIXEL_TO_METERS(294),(float)PIXEL_TO_METERS( 440) }, 0.0f);
 	App->scene_play->Playertraveling = false;
 	App->scene_play->PlayerArrivedTele = false;

@@ -440,10 +440,10 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, COLLISION_FILTER filter)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, COLLISION_FILTER filter, b2BodyType bodyType)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = bodyType;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);

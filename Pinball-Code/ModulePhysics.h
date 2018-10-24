@@ -68,7 +68,7 @@ public:
 	bool CleanUp();
 
 	PhysBody* CreateCircle(int x, int y, int radius);
-	PhysBody* CreateRectangle(int x, int y, int width, int height, COLLISION_FILTER filter = COLLISION_FILTER::BACKGROUND);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, COLLISION_FILTER filter = COLLISION_FILTER::BACKGROUND, b2BodyType bodyType = b2_dynamicBody);
 	PBPhone* CreatePhonePiece(int x, int y, int width, int height, float angle);
 	PBStar* CreateStar(int x, int y, int width, int height, float angle);
 	PBTriangle* CreateTriangle(int x, int y, int width, int height, float angle);
