@@ -56,9 +56,11 @@ void ModuleFonts::ReStartGame()
 	App->scene_play->PlayerEntereTele = false;
 	App->scene_play->ball->body->SetAngularVelocity(0.0f);
 	App->scene_play->ball->body->SetLinearVelocity({0,0});
-	lifes = 3;
-	scoreNum = 0;
-	SetScore(0);
+
+	b2Filter filter;
+	filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+	filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	App->scene_play->ball->body->GetFixtureList()->SetFilterData(filter);
 	
 }
 
@@ -123,6 +125,10 @@ update_status ModuleFonts::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_R))
 	{
+		lifes = 3;
+		scoreNum = 0;
+		SetScore(0);
+
 		ReStartGame();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_0))
