@@ -335,7 +335,7 @@ update_status ModulePlayScene::Update()
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		PhysBody* circle = App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f);
+		PhysBody* circle = App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f, false);
 		circle->body->SetBullet(true);
 		circles.add(circle);
 		

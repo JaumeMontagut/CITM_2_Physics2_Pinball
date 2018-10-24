@@ -413,7 +413,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 	return newFliper;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool isOnBackground)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -427,9 +427,14 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
 	//Category bits indicates the type of collision filter this body is
-	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
 	//Mask bits indicates the objects it can collide with this body
-	fixture.filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+	if (isOnBackground) {
+		fixture.filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	}
+	else {
+		fixture.filter.maskBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	}
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
