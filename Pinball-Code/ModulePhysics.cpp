@@ -291,7 +291,7 @@ PhysBody * ModulePhysics::CreateTri(int x, int y, int* points, int size, bool is
 	return pbody;
 }
 
-PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPoint)
+PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPoint, b2Vec2 ForceDirection)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -304,7 +304,7 @@ PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPo
 	fixture.shape = &shape;
 	fixture.isSensor = true;
 	b->CreateFixture(&fixture);
-	PBteleport* pbody = new PBteleport(tpPoint, pos);
+	PBteleport* pbody = new PBteleport(tpPoint, pos, ForceDirection);
 	pbody->body = b;
 	b->SetUserData(pbody);
 	

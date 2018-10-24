@@ -72,7 +72,7 @@ public:
 	PhysBody* CreateFliper(int x, int y, bool rightFliper);
 	b2Joint* CreateJoint_2(const b2JointDef& def);
 	PhysBody* CreateTri(int x, int y, int* points, int size, bool isLeft, int blitX, int blitY);
-	PhysBody* CreateTeleport(const iPoint & pos, const iPoint & tpPoint);
+	PhysBody* CreateTeleport(const iPoint & pos, const iPoint & tpPoint, b2Vec2 ForceDirection);
 
 	b2Body* ground;
 	b2World* world;
