@@ -20,6 +20,7 @@ public:
 
 	bool Start();
 	update_status PreUpdate();
+	void ResetBall();
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();

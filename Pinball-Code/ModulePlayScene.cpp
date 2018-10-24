@@ -297,16 +297,24 @@ update_status ModulePlayScene::PreUpdate()
 	{
 		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
 		{
-			ball->body->SetLinearVelocity({ 0,0 });
-			ball->body->SetAngularVelocity(0.0f);
-			ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS(450) }, 0);
-			App->fonts->SubstractLifes();
+			ResetBall();
 		}
 
 	}
-	
-	//Input
+
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayScene::ResetBall()
+{
+	ball->body->SetLinearVelocity({ 0,0 });
+	ball->body->SetAngularVelocity(0.0f);
+	ball->body->SetTransform({ PIXEL_TO_METERS(294),PIXEL_TO_METERS(450) }, 0);
+	App->fonts->SubstractLifes();
+	b2Filter filter;
+	filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+	filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	ball->body->GetFixtureList()->SetFilterData(filter);
 }
 
 update_status ModulePlayScene::Update()
