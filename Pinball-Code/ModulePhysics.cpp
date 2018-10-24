@@ -292,7 +292,7 @@ PhysBody * ModulePhysics::CreateTri(int x, int y, int* points, int size, bool is
 	return pbody;
 }
 
-PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPoint)
+PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPoint, b2Vec2 ForceDirection)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -307,8 +307,7 @@ PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPo
 	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BACKGROUND;
 	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
 	b->CreateFixture(&fixture);
-
-	PBteleport* pbody = new PBteleport(tpPoint, pos);
+	PBteleport* pbody = new PBteleport(tpPoint, pos, ForceDirection);
 	pbody->body = b;
 	b->SetUserData(pbody);
 	

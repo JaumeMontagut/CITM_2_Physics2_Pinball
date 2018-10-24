@@ -109,4 +109,5 @@ public:
 
 public :
 	PhysBody * ball;
+	bool teleporting;
 };

@@ -6,6 +6,8 @@
 #include "ModuleRender.h"
 
 #include "ModuleInput.h"
+#include "ModulePlayScene.h"
+#include "ModulePhysics.h"
 void ModuleFonts::SetScore(uint addscore)
 {
 	SDL_DestroyTexture(scoreNumTex);
@@ -47,9 +49,14 @@ void ModuleFonts::SubstractLifes()
 
 void ModuleFonts::ReStartGame()
 {
+	
+	App->scene_play->ball->body->SetTransform({ (float)PIXEL_TO_METERS(294),(float)PIXEL_TO_METERS( 440) }, 0.0f);
+	App->scene_play->ball->body->SetAngularVelocity(0.0f);
+	App->scene_play->ball->body->SetLinearVelocity({0,0});
 	lifes = 3;
 	scoreNum = 0;
 	SetScore(0);
+	
 }
 
 ModuleFonts::ModuleFonts(bool start_enabled)
