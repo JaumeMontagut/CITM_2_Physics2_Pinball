@@ -102,7 +102,9 @@ public:
 	uint activeTriangles = 0u;
 	PBTriangle * triangles[5u] = { nullptr };
 	uint triangleBonusSFX = 0u;
-
+	//Bell
+	uint bellSFX = 0u;
+	SDL_Texture * bellTex = nullptr;
 	//Teleport
 	SDL_Texture* teleportTex = nullptr;
 

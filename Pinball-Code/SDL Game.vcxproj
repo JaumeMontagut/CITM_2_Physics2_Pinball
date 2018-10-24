@@ -76,6 +76,7 @@
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PBArrow.h" />
+    <ClInclude Include="PBBell.h" />
     <ClInclude Include="PBFlipper.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="Globals.h" />
@@ -100,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="PBArrow.cpp" />
+    <ClCompile Include="PBBell.cpp" />
     <ClCompile Include="PBFlipper.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="log.cpp" />

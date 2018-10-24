@@ -59,7 +59,7 @@ bool ModulePlayScene::Start()
 	triBackTex = App->textures->Load("sprites/images/237.png");
 	triFrontTex = App->textures->Load("sprites/images/240.png");
 	teleportTex = App->textures->Load("sprites/images/166.png");
-
+	bellTex = App->textures->Load("sprites/images/270.png");
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -72,6 +72,7 @@ bool ModulePlayScene::Start()
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
 	triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
+	bellSFX = App->audio->LoadFx("sprites/sounds/563_launch_tube_bell.wav");
 	
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
@@ -159,10 +160,10 @@ bool ModulePlayScene::Start()
 
 	App->physics->CreateFliper(133, 463, false);
 	App->physics->CreateFliper(224, 464, true);
-
 	App->physics->CreateFliper(362, 461, false);
-
 	App->physics->CreateFliper(458, 463, true);
+
+	App->physics->CreateBell(294, 179, 26, 12);
 	
 	ball = App->physics->CreateCircle(294, 450, 6.5f);
 	ball->body->SetBullet(true);
@@ -198,6 +199,7 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(triTex);
 	App->textures->Unload(triBackTex);
 	App->textures->Unload(triFrontTex);
+	App->textures->Unload(bellTex);
 
 	return true;
 }

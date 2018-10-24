@@ -15,6 +15,7 @@
 #include "PBTriangle.h"
 #include "PBTri.h"
 #include "PBTeleport.h"
+#include "PBBell.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -313,6 +314,33 @@ PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPo
 	
 
 	return nullptr;
+}
+
+PhysBody * ModulePhysics::CreateBell(int x, int y, int width, int height)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 1.0f;
+	fixture.isSensor = true;
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::BALL;
+	b->CreateFixture(&fixture);
+
+	PBBell* pbody = new PBBell();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width;
+	pbody->height = height;
+
+	return pbody;
 }
 
 PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type)
