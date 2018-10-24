@@ -49,7 +49,6 @@ void ModuleFonts::SubstractLifes()
 
 void ModuleFonts::ReStartGame()
 {
-	
 	App->scene_play->ball->body->SetTransform({ (float)PIXEL_TO_METERS(294),(float)PIXEL_TO_METERS( 440) }, 0.0f);
 	App->scene_play->ball->body->SetAngularVelocity(0.0f);
 	App->scene_play->ball->body->SetLinearVelocity({0,0});
