@@ -140,7 +140,7 @@ bool ModulePlayScene::Start()
 	App->physics->CreateTeleport({ 414,240 }, { 414,275 });
 	App->physics->CreateTeleport({ 414,280 }, { 414,237 });
 
-	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody)->body;
+	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody, 0.0f, COLLISION_FILTER::FOREGROUND)->body;
 	
 	b2PrismaticJointDef jointDef;
 	jointDef.Initialize(App->physics->ground, handlauncher, { 294,294 }, { 0.0f, 1.0f });
