@@ -103,6 +103,10 @@ public:
 	PBTriangle * triangles[5u] = { nullptr };
 	uint triangleBonusSFX = 0u;
 
+	//Teleport
+	SDL_Texture* teleportTex = nullptr;
+
+
 public :
 	PhysBody * ball;
 };

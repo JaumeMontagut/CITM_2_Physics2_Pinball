@@ -1,15 +1,19 @@
-#ifndef _PB_TELEPORT_H_
-#define _PB_TELEPORT_H_
 
 #include "ModulePhysics.h"
 
-class teleport : public PhysBody
+
+class PBteleport : public PhysBody
 {
-	teleport();
-}
+public:
+	iPoint TpPoint;
+	iPoint pos;
+	PBteleport(const iPoint &tpPoint, iPoint pixelPos);
+	update_status PostUpdate() override;
+
+};
 
 
 
 
-#endif // !_PB_TELEPORT_H_
+
 

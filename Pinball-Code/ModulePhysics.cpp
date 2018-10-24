@@ -14,6 +14,7 @@
 #include "PBStar.h"
 #include "PBTriangle.h"
 #include "PBTri.h"
+#include "PBTeleport.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -288,6 +289,27 @@ PhysBody * ModulePhysics::CreateTri(int x, int y, int* points, int size, bool is
 	pbody->width = pbody->height = 0;
 
 	return pbody;
+}
+
+PhysBody * ModulePhysics::CreateTeleport(const iPoint & pos, const iPoint & tpPoint)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(pos.x), PIXEL_TO_METERS(pos.y));
+	
+	b2Body* b = world->CreateBody(&body);
+	b2CircleShape shape;
+	shape.m_radius= PIXEL_TO_METERS(9);
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.isSensor = true;
+	b->CreateFixture(&fixture);
+	PBteleport* pbody = new PBteleport(tpPoint, pos);
+	pbody->body = b;
+	b->SetUserData(pbody);
+	
+
+	return nullptr;
 }
 
 PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type)

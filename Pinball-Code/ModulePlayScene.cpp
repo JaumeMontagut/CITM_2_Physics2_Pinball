@@ -30,6 +30,7 @@ bool ModulePlayScene::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
+	//Textures---------------------------------------------------------------------
 	circleTex = App->textures->Load("sprites/images/174.png"); 
 	wallsTex = App->textures->Load("sprites/images/253.png");
 	backgroundTex = App->textures->Load("sprites/images/65.png");
@@ -57,6 +58,8 @@ bool ModulePlayScene::Start()
 	triTex = App->textures->Load("sprites/images/250.png");
 	triBackTex = App->textures->Load("sprites/images/237.png");
 	triFrontTex = App->textures->Load("sprites/images/240.png");
+	teleportTex = App->textures->Load("sprites/images/166.png");
+
 
 	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
@@ -130,6 +133,12 @@ bool ModulePlayScene::Start()
 	triangles[2] = App->physics->CreateTriangle(181, 357, 16, 7, 0.0f);
 	triangles[3] = App->physics->CreateTriangle(207, 367, 16, 7, 26.2f);
 	triangles[4] = App->physics->CreateTriangle(229, 382, 16, 7, 51.3f);
+
+	App->physics->CreateTeleport({ 177,240 }, { 175,283 });
+	App->physics->CreateTeleport({ 177,283 }, { 177,240 });
+
+	App->physics->CreateTeleport({ 414,240 }, { 414,275 });
+	App->physics->CreateTeleport({ 414,280 }, { 414,237 });
 
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody)->body;
 	
