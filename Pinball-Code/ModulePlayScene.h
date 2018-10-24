@@ -112,5 +112,8 @@ public:
 
 public :
 	PhysBody * ball;
-	bool teleporting;
+	bool PlayerEntereTele=false;
+	bool PlayerArrivedTele = false;
+	bool Playertraveling = false;
+	
 };
