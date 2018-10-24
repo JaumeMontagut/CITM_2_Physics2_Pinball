@@ -82,7 +82,7 @@ private:
 
 	bool debug;
 	
-	b2MouseJoint* mouse_joint;
+	b2MouseJoint* mouse_joint= nullptr;
 	
-	b2Body* clickedBody = NULL;
+	b2Body* clickedBody = nullptr;
 };
