@@ -7,4 +7,6 @@ class PBBell : public PhysBody {
 public:
 	update_status PostUpdate() override;
 	void OnCollisionEnter(PhysBody * bodyB) override;
+private:
+	iPoint offset = iPoint(-12,-18);
 };

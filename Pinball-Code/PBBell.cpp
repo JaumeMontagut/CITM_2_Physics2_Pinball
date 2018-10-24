@@ -7,6 +7,9 @@
 
 update_status PBBell::PostUpdate()
 {
+	int x, y;
+	GetPixelPosition(x, y);
+	App->renderer->Blit(App->scene_play->bellTex, x + offset.x, y + offset.y);
 	return UPDATE_CONTINUE;
 }
 
