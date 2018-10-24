@@ -54,7 +54,7 @@ bool ModulePlayScene::Start()
 	triangleInactiveTex = App->textures->Load("sprites/shapes/100.png");
 	triangleActiveTex = App->textures->Load("sprites/shapes/102.png");
 	girlCharacterTex = App->textures->Load("sprites/images/64.png");
-	triTex = App->textures->Load("sprites/images/235.png");
+	triTex = App->textures->Load("sprites/images/250.png");
 	triBackTex = App->textures->Load("sprites/images/237.png");
 	triFrontTex = App->textures->Load("sprites/images/240.png");
 
@@ -68,7 +68,7 @@ bool ModulePlayScene::Start()
 	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
-	//triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
+	triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
 	
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
@@ -84,10 +84,6 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16, b2_staticBody, 0.0f));
-	//Physbackground.add(App->physics->CreateChain(0, 0, leftTri, 12));
-	//Physbackground.add(App->physics->CreateChain(0, 0, centerLeftTri, 10));
-	//Physbackground.add(App->physics->CreateChain(0, 0, rightTri, 10));
-	//Physbackground.add(App->physics->CreateChain(0, 0, lastTri, 10));
 
 	App->physics->CreateBumper(267, 256, 11, BUMPER_TYPE::Red);
 	App->physics->CreateBumper(322, 255, 11, BUMPER_TYPE::Red);
@@ -100,6 +96,11 @@ bool ModulePlayScene::Start()
 	App->physics->CreateBumper(414, 137, 11, BUMPER_TYPE::Blue);
 
 	App->physics->CreateBumper(158, 102, 11, BUMPER_TYPE::Grey);
+
+	App->physics->CreateTri(-115, 0, leftTriPoints, 10, true, 96, 376);
+	App->physics->CreateTri(0, 0, rightTriPoint, 10, false, 218, 378);
+	App->physics->CreateTri(0, 0, leftTriPoints, 10, true, 325, 378);
+	App->physics->CreateTri(116, -2, rightTriPoint, 10, false, 451, 376);
 
 	phonePieces[0] = App->physics->CreatePhonePiece(380, 131, 14, 6, -121.6f);
 	phonePieces[1] = App->physics->CreatePhonePiece(391, 143, 14, 6, -150.0f);

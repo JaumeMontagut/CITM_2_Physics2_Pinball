@@ -255,7 +255,7 @@ b2Joint*  ModulePhysics::CreateJoint_2(const b2JointDef& def)
 	return world->CreateJoint(&def);
 }
 
-PhysBody * ModulePhysics::CreateTri(int x, int y, int width, int height, int* points, int size, bool isLeft, int blitX, int blitY)
+PhysBody * ModulePhysics::CreateTri(int x, int y, int* points, int size, bool isLeft, int blitX, int blitY)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -268,14 +268,15 @@ PhysBody * ModulePhysics::CreateTri(int x, int y, int width, int height, int* po
 
 	for (uint i = 0; i < size / 2; ++i)
 	{
-		p[i].x = PIXEL_TO_METERS(points[i * 2 + 0]);
-		p[i].y = PIXEL_TO_METERS(points[i * 2 + 1]);
+		p[i].x = PIXEL_TO_METERS(points[i * 2 + 0]) + PIXEL_TO_METERS(x);
+		p[i].y = PIXEL_TO_METERS(points[i * 2 + 1]) + PIXEL_TO_METERS(y);
 	}
 
 	shape.CreateLoop(p, size / 2);
 
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
+	fixture.restitution = 0.85f;
 
 	b->CreateFixture(&fixture);
 

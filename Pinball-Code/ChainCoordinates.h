@@ -341,14 +341,14 @@ int leftTri[12] = {
 	138, 434,
 	106, 380
 };
-int centerLeftTri[10] = {
+int rightTriPoint[10] = {
 	220, 436,
 	253, 382,
 	261, 385,
 	261, 426,
 	228, 443
 };
-int rightTri[10] = {
+int leftTriPoints[10] = {
 	337, 383,
 	369, 437,
 	366, 442,
