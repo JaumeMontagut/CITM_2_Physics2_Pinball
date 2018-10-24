@@ -78,6 +78,7 @@
     <ClInclude Include="p2Defs.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="PBTeleport.h">
     <ClInclude Include="PBTri.h">
       <Filter>Physics Bodies</Filter>
     </ClInclude>
@@ -128,6 +129,7 @@
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="PBTeleport.cpp">
     <ClCompile Include="PBTri.cpp">
       <Filter>Physics Bodies</Filter>
     </ClCompile>

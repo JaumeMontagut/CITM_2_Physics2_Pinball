@@ -8,22 +8,18 @@
 #include "ModuleInput.h"
 void ModuleFonts::SetScore(uint addscore)
 {
-	/*App->textures->Unload(scoreNumTex);*/
 	SDL_DestroyTexture(scoreNumTex);
 	scoreNum += addscore;
 	stringnum = std::to_string(scoreNum);
 	const char* charnum = stringnum.c_str();
 
-	scoreString;
-
-
-	const char* aux0 = "0";
+	
 
 	uint digits = 0;
 	uint aux = scoreNum;
 
 	if (aux < 0) digits = 1; // remove this line if '-' counts as a digit
-	while (aux>10) {
+	while (aux) {
 		aux /= 10;
 		digits++;
 	}
@@ -33,12 +29,8 @@ void ModuleFonts::SetScore(uint addscore)
 		scoreString += aux0;
 	}
 	scoreString += charnum;
-	
-	
 
 	scoreNumTex = LoadMessatgeTex(GothicFont12, scoreString.GetString(), { 255,255,255,255 });
-
-
 
 	scoreString.Clear();
 	stringnum.clear();
@@ -62,6 +54,7 @@ void ModuleFonts::ReStartGame()
 
 ModuleFonts::ModuleFonts(bool start_enabled)
 {
+
 }
 
 ModuleFonts::~ModuleFonts()
@@ -90,19 +83,28 @@ bool ModuleFonts::Start()
 
 	//Images-------------------------------------------------------------
 	scoreRect = App->textures->Load("sprites/images/score.png");
+	lifeRectTex = App->textures->Load("sprites/images/ballsCount.png");
+	ballTex = App->textures->Load("sprites/images/lifes.png");
+
 	scoreTex = LoadMessatgeTex(VAGFont12, "score", { 255,255,255,255 });
 	scoreNumTex = LoadMessatgeTex(GothicFont12, "00000000", { 255,255,255,255 });
-	lifeRectTex = App->textures->Load("sprites/images/ballsCount.png");
 	ballstexTex = LoadMessatgeTex(FuturaFont, "Balls", { 255,255,255,255 });
-	ballTex= App->textures->Load("sprites/images/lifes.png");
+	highScoreText = LoadMessatgeTex(FuturaFont, "hi score", { 254,152,51,255 });
+	hiScoreTexNum= LoadMessatgeTex(GothicFont12, "00000000", { 254,152,51,255 });
 
 	return true;
 }
 bool ModuleFonts::CleanUp()
 {
 	App->textures->Unload(scoreRect);
-	App->textures->Unload(scoreTex);
-	App->textures->Unload(scoreNumTex);
+	App->textures->Unload(lifeRectTex);
+	App->textures->Unload(ballTex);
+
+	SDL_DestroyTexture(scoreTex);
+	SDL_DestroyTexture(scoreNumTex);
+	SDL_DestroyTexture(ballstexTex);
+	SDL_DestroyTexture(highScoreText);
+
 	TTF_Quit();
 	return true;
 }
@@ -111,11 +113,16 @@ update_status ModuleFonts::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_R))
 	{
-		lifes = 3;
+		ReStartGame();
 	}
-	if(App->input->GetKey(SDL_SCANCODE_0))
+	if (App->input->GetKey(SDL_SCANCODE_0))
 	{
-		SetScore(1000);
+		SetScore(200);
+	}
+	if (hiScore < scoreNum)
+	{
+		hiScore = scoreNum;
+		SetHighScore();
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -124,10 +131,14 @@ update_status ModuleFonts::PostUpdate()
 {
 	if(scoreRect !=nullptr)
 	App->renderer->Blit(scoreRect, 9, 455);
+	App->renderer->Blit(scoreRect, 500, 455,NULL,1.0f,0.0f,NULL,NULL,SDL_FLIP_HORIZONTAL);
 	App->renderer->Blit(scoreTex, 15, 460);
 	App->renderer->Blit(scoreNumTex,16,473);
 	App->renderer->Blit(lifeRectTex, 310, 458);
 	App->renderer->Blit(ballstexTex, 318, 464);
+	App->renderer->Blit(highScoreText, 530, 460);
+	App->renderer->Blit(hiScoreTexNum, 517, 473);
+
 	if (lifes > 0)
 	{
 		App->renderer->Blit(ballTex, 336, 477);
@@ -171,6 +182,37 @@ SDL_Texture* ModuleFonts::LoadMessatgeTex(TTF_Font* thisfont,const char * text, 
 	}
 
 	return textTex;
+}
+
+void ModuleFonts::SetHighScore()
+{
+	SDL_DestroyTexture(hiScoreTexNum);
+	
+	stringnumhiScore = std::to_string(hiScore);
+	const char* charnum = stringnumhiScore.c_str();
+
+	
+	
+
+	uint digits = 0;
+	uint aux = scoreNum;
+
+	if (aux < 0) digits = 1; // remove this line if '-' counts as a digit
+	while (aux) {
+		aux /= 10;
+		digits++;
+	}
+
+	for (uint i = 0; i < 8 - digits; i++)
+	{
+		hiScoreString += aux0;
+	}
+	hiScoreString += charnum;
+
+	hiScoreTexNum = LoadMessatgeTex(GothicFont12, hiScoreString.GetString(), { 254,152,51,255 });
+
+	hiScoreString.Clear();
+	stringnumhiScore.clear();
 }
 
 
