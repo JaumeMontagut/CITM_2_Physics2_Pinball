@@ -51,6 +51,9 @@ void ModuleFonts::ReStartGame()
 {
 	
 	App->scene_play->ball->body->SetTransform({ (float)PIXEL_TO_METERS(294),(float)PIXEL_TO_METERS( 440) }, 0.0f);
+	App->scene_play->Playertraveling = false;
+	App->scene_play->PlayerArrivedTele = false;
+	App->scene_play->PlayerEntereTele = false;
 	App->scene_play->ball->body->SetAngularVelocity(0.0f);
 	App->scene_play->ball->body->SetLinearVelocity({0,0});
 	lifes = 3;

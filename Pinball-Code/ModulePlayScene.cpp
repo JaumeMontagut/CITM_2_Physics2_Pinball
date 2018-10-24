@@ -134,11 +134,11 @@ bool ModulePlayScene::Start()
 	triangles[3] = App->physics->CreateTriangle(207, 367, 16, 7, 26.2f);
 	triangles[4] = App->physics->CreateTriangle(229, 382, 16, 7, 51.3f);
 
-	App->physics->CreateTeleport({ 177,240 }, { 175,283 }, {0,-5});
-	App->physics->CreateTeleport({ 177,283 }, { 177,240 }, { 0,5 });
+	App->physics->CreateTeleport({ 177,240 }, { 175,275 }, {0,-10});
+	App->physics->CreateTeleport({ 177,283 }, { 177,230 }, { 0,10});
 
-	App->physics->CreateTeleport({ 414,240 }, { 414,275 }, { 0,-5 });
-	App->physics->CreateTeleport({ 414,280 }, { 414,237 }, { 0,5 });
+	App->physics->CreateTeleport({ 414,240 }, { 414,275 }, { 0,-10});
+	App->physics->CreateTeleport({ 414,280 }, { 414,230 }, { 0, 10});
 
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody)->body;
 	
