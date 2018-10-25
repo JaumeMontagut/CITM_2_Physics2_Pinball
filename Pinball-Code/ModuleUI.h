@@ -16,7 +16,7 @@ public:
 	
     uint lifes=3;
 public:
-	void SetScore(uint score);
+	void AddScore(uint score);
 	void SubstractLifes();
 	void ReStartGame();
 public:

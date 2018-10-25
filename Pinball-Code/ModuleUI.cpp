@@ -9,7 +9,11 @@
 #include "ModulePlayScene.h"
 #include "ModulePhysics.h"
 
-void ModuleFonts::SetScore(uint addscore)
+
+
+
+void ModuleFonts::AddScore(uint addscore)
+
 {
 	SDL_DestroyTexture(scoreNumTex);
 	scoreNum += addscore;
@@ -138,13 +142,16 @@ update_status ModuleFonts::PreUpdate()
 	{
 		lifes = 3;
 		scoreNum = 0;
-		SetScore(0);
+		AddScore(0);
 
 		ReStartGame();
 	}
 	if (lifes == 0 )
 	{
+
 		isOnPlayAgain = true;
+
+
 	}
 	if (hiScore < scoreNum)
 	{
@@ -226,7 +233,6 @@ void ModuleFonts::SetHighScore()
 	stringnumhiScore = std::to_string(hiScore);
 	const char* charnum = stringnumhiScore.c_str();
 
-	
 	
 
 	uint digits = 0;

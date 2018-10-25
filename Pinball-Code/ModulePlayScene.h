@@ -112,6 +112,8 @@ public:
 	uint exitAreaSFX = 0u;
 	//Launch
 	uint lauchSFX = 0u;
+	//Ball hit
+	uint ballHitSFX = 0u;
 
 
 public :

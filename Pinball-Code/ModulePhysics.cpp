@@ -16,7 +16,7 @@
 #include "PBTri.h"
 #include "PBTeleport.h"
 #include "PBBell.h"
-#include "PBPPlayer.h"
+#include "PBPlayer.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
