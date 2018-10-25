@@ -230,7 +230,7 @@ void ModulePlayScene::IncreasePhoneCombo()
 	App->audio->PlayFx(phoneSFX);
 	if (activePhonePieces >= 5u) {
 		activePhonePieces = 0u;
-		//TODO: Add bonus points
+		App->UI->AddScore(22500);
 		App->audio->PlayFx(phoneBonusSFX);
 		for (uint i = 0u; i < 5u; ++i) {
 			phonePieces[i]->Deactivate();
@@ -244,7 +244,7 @@ void ModulePlayScene::IncreaseYellowArrow()
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeYellowArrows >= 3u) {
 		activeYellowArrows = 0u;
-		//TODO: Add bonus points
+		App->UI->AddScore(750);
 		for (uint i = 0u; i < 3u; ++i) {
 			yellowArrows[i]->Deactivate();
 		}
@@ -257,7 +257,7 @@ void ModulePlayScene::IncreaseOrangeArrow()
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeOrangeArrows >= 2u) {
 		activeOrangeArrows = 0u;
-		//TODO: Add bonus points
+		App->UI->AddScore(500);
 		for (uint i = 0u; i < 2u; ++i) {
 			orangeArrows[i]->Deactivate();
 		}
@@ -270,7 +270,7 @@ void ModulePlayScene::IncreasePurpleArrow()
 	App->audio->PlayFx(activateTargetSFX);
 	if (activePurpleArrows >= 3u) {
 		activePurpleArrows = 0u;
-		//TODO: Add bonus points
+		App->UI->AddScore(750);
 		for (uint i = 0u; i < 3u; ++i) {
 			purpleArrows[i]->Deactivate();
 		}
@@ -283,7 +283,7 @@ void ModulePlayScene::IncreaseStars()
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeStars >= 5u) {
 		activeStars = 0u;
-		//TODO: Add bonus points
+		App->UI->AddScore(7500);
 		App->audio->PlayFx(starBonusSFX);
 		for (uint i = 0u; i < 5u; ++i) {
 			stars[i]->Deactivate();
@@ -297,7 +297,7 @@ void ModulePlayScene::IncreaseTriangles()
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeTriangles >= 5u) {
 		activeTriangles = 0u;
-		//TODO: Add bonus points
+		App->UI->AddScore(7500);
 		App->audio->PlayFx(triangleBonusSFX);
 		for (uint i = 0u; i < 5u; ++i) {
 			triangles[i]->Deactivate();

@@ -26,9 +26,9 @@ https://www.classicgame.com/game/Mr+Bump+Pinball
 - F1: See colliders and activate mouse joint.
 
 ## Combo implemented:
-- Activate all 3 yellow arrows to gain x points.
-- Activate all 2 orange arrows to gain x points.
-- Activate all 3 purple arrows to gain x points.
-- Activate all 5 bonus triangles to gain x points.
-- Activate all 5 bonus stars to gain x points.
+- Activate all 3 yellow arrows to gain 500 points.
+- Activate all 2 orange arrows to gain 750 points.
+- Activate all 3 purple arrows to gain 750 points.
+- Activate all 5 bonus triangles to gain 7500 points.
+- Activate all 5 bonus stars to gain 7500 points.
 

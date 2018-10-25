@@ -8,7 +8,7 @@
 #include "ModuleInput.h"
 #include "ModulePlayScene.h"
 #include "ModulePhysics.h"
-void ModuleFonts::SetScore(uint addscore)
+void ModuleFonts::AddScore(uint addscore)
 {
 	SDL_DestroyTexture(scoreNumTex);
 	scoreNum += addscore;
@@ -126,13 +126,13 @@ update_status ModuleFonts::PreUpdate()
 	{
 		lifes = 3;
 		scoreNum = 0;
-		SetScore(0);
+		AddScore(0);
 
 		ReStartGame();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_0))
 	{
-		SetScore(200);
+		AddScore(200);
 	}
 	if (hiScore < scoreNum)
 	{

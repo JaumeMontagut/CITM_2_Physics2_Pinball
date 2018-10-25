@@ -31,17 +31,17 @@ PBBumper::PBBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 void PBBumper::OnCollisionEnter (PhysBody * bodyB) {
 	if (type == BUMPER_TYPE::Red) {
 		App->scene_play->IlluminateBlueCharacter();
-		App->UI->SetScore(3000);
+		App->UI->AddScore(3000);
 	}
 	App->audio->PlayFx(bumperSFX);
 	currFlash = 0u;
 	if (type == BUMPER_TYPE::Blue)
 	{
-		App->UI->SetScore(4000);
+		App->UI->AddScore(4000);
 	}
 	if (type == BUMPER_TYPE::Grey)
 	{
-		App->UI->SetScore(1000);
+		App->UI->AddScore(1000);
 	}
 }
 
