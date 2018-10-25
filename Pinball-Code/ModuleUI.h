@@ -37,6 +37,7 @@ private:
 	uint scoreNum = 0;
 
 	const char* aux0 = "0";
+	bool isOnPlayAgain=false;
 
 	//High Score variables-------------
 	uint hiScore = 0;
@@ -47,6 +48,15 @@ private:
 	TTF_Font* GothicFont12 = nullptr;
 	TTF_Font* candyFont = nullptr;
 	TTF_Font* FuturaFont = nullptr;
+
+	//PlayAgain Tex -------------------
+	SDL_Texture* backgroundCircles = nullptr;
+	SDL_Texture* playTex = nullptr;
+	SDL_Texture* gameTex = nullptr;
+	SDL_Texture* overTex = nullptr;
+	SDL_Texture* againTex = nullptr;
+
+
 
 	SDL_Texture* scoreRect = nullptr;
 	SDL_Texture* scoreTex = nullptr;

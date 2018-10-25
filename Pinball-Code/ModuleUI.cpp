@@ -8,7 +8,12 @@
 #include "ModuleInput.h"
 #include "ModulePlayScene.h"
 #include "ModulePhysics.h"
+
+
+
+
 void ModuleFonts::AddScore(uint addscore)
+
 {
 	SDL_DestroyTexture(scoreNumTex);
 	scoreNum += addscore;
@@ -41,26 +46,31 @@ void ModuleFonts::AddScore(uint addscore)
 
 void ModuleFonts::SubstractLifes()
 {
-	if (lifes > 0)
+	if (lifes >= 0)
 	{
+	
 		lifes -= 1;
 	}
 }
 
 void ModuleFonts::ReStartGame()
 {
-	App->scene_play->ball->body->SetTransform({ (float)PIXEL_TO_METERS(294),(float)PIXEL_TO_METERS( 440) }, 0.0f);
-	App->scene_play->Playertraveling = false;
-	App->scene_play->PlayerArrivedTele = false;
-	App->scene_play->PlayerEntereTele = false;
-	App->scene_play->ball->body->SetAngularVelocity(0.0f);
-	App->scene_play->ball->body->SetLinearVelocity({0,0});
+	if (lifes>0)
+	{
+		App->scene_play->ball->body->SetTransform({ (float)PIXEL_TO_METERS(294),(float)PIXEL_TO_METERS(440) }, 0.0f);
+		App->scene_play->Playertraveling = false;
+		App->scene_play->PlayerArrivedTele = false;
+		App->scene_play->PlayerEntereTele = false;
+		App->scene_play->ball->body->SetAngularVelocity(0.0f);
+		App->scene_play->ball->body->SetLinearVelocity({ 0,0 });
 
-	b2Filter filter;
-	filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
-	filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
-	App->scene_play->ball->body->GetFixtureList()->SetFilterData(filter);
-	
+		b2Filter filter;
+		filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+		filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+		App->scene_play->ball->body->GetFixtureList()->SetFilterData(filter);
+
+	}
+
 }
 
 ModuleFonts::ModuleFonts(bool start_enabled)
@@ -84,8 +94,14 @@ bool ModuleFonts::Init()
 }
 bool ModuleFonts::Start()
 {
+	//PlayAgainTex--------------------------------------------------------------
+	backgroundCircles = App->textures->Load("sprites/images/BackgroundBlueCircles.png");
+	gameTex = App->textures->Load("sprites/images/Game.png");
+	overTex = App->textures->Load("sprites/images/over.png");
+	playTex = App->textures->Load("sprites/images/play.png");
+	againTex = App->textures->Load("sprites/images/again.png");
 
-	
+
 	//Fonts-------------------------------------------------------------------
 	VAGFont12 = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
 	GothicFont12 = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 12);
@@ -130,9 +146,12 @@ update_status ModuleFonts::PreUpdate()
 
 		ReStartGame();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_0))
+	if (lifes == 0 )
 	{
-		AddScore(200);
+
+		isOnPlayAgain = true;
+
+
 	}
 	if (hiScore < scoreNum)
 	{
@@ -166,7 +185,15 @@ update_status ModuleFonts::PostUpdate()
 			}
 		}
 	}
+	if (isOnPlayAgain)
+	{
+		App->renderer->Blit(backgroundCircles, 93, 50);
+		App->renderer->Blit(gameTex, 129, 4);
+		App->renderer->Blit(overTex, 258, 68);
+		App->renderer->Blit(playTex, 172, 330);
+		App->renderer->Blit(playTex, 284, 334);
 
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -206,7 +233,6 @@ void ModuleFonts::SetHighScore()
 	stringnumhiScore = std::to_string(hiScore);
 	const char* charnum = stringnumhiScore.c_str();
 
-	
 	
 
 	uint digits = 0;
