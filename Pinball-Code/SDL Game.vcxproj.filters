@@ -42,7 +42,6 @@
     <ClCompile Include="PBPlayer.cpp">
       <Filter>PhysBodys</Filter>
     </ClCompile>
-    <ClCompile Include="PBPPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -90,7 +89,7 @@
     <ClInclude Include="PBBell.h">
       <Filter>PhysBodys</Filter>
     </ClInclude>
-    <ClInclude Include="PBPPlayer.h">
+    <ClInclude Include="PBPlayer.h">
       <Filter>PhysBodys</Filter>
     </ClInclude>
   </ItemGroup>

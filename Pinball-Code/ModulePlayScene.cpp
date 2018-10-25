@@ -69,13 +69,11 @@ bool ModulePlayScene::Start()
 	//greedy bulp. Delete if we're not going to use it.
 	//funny target
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
-	//bump 6
-	//bump 4
 	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
 	//naughty target hit
 	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
 	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
-	//ball hit 1
+	ballHitSFX = App->audio->LoadFx("sprites/sounds/554_ball_hit1.wav");
 	lauchSFX = App->audio->LoadFx("sprites/sounds/555_launch_ball.wav");
 	triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
 	teleportSFX = App->audio->LoadFx("sprites/sounds/558_ball_stuck_in_trap.wav");
