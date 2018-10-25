@@ -199,7 +199,7 @@ update_status ModuleFonts::PostUpdate()
 		ScoreTexPlayAgain = LoadMessatgeTex(playAgainScreenFontTex, "Score", { 255,255,255,255 });
 		HiScoTexPlayAgain = LoadMessatgeTex(playAgainScreenFontTex, "Hi Score", { 255,255,255,255 });
 		LastTexPlayAgain = LoadMessatgeTex(playAgainScreenFontTex, "Pre Score", { 255,255,255,255 });
-
+		PresRTex = LoadMessatgeTex(playAgainScreenFontTex, "Press  R", { 255,255,255,255 });
 		isOnPlayAgain = true;
 	}
 	if (isOnPlayAgain)
@@ -222,7 +222,7 @@ update_status ModuleFonts::PostUpdate()
 
 		App->renderer->Blit(LastTexPlayAgain, 210, 265);
 		App->renderer->Blit(scorePrevios, 219, 286);
-
+		App->renderer->Blit(PresRTex, 220, 394);
 
 
 	}

@@ -76,7 +76,7 @@ private:
 	SDL_Texture* ballTex = nullptr;
 	SDL_Texture* highScoreText=nullptr;
 	SDL_Texture* hiScoreTexNum = nullptr;
-
+	SDL_Texture* PresRTex = nullptr;
 
 
 	void SetHighScore();
