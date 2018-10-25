@@ -88,7 +88,7 @@ public:
 
 private:
 
-	bool debug;
+	bool debug=false;
 	
 	b2MouseJoint* mouse_joint= nullptr;
 	

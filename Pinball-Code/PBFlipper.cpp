@@ -26,6 +26,8 @@ update_status PBFlipper::PreUpdate()
 			body->ApplyTorque(40, true);
 		}
 	}
+
+
 	else
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {

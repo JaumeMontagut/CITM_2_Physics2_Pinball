@@ -90,7 +90,7 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16, b2_staticBody, 0.0f));
-	Physbackground.add(App->physics->CreateRectangle(293, 438, 26, 10, COLLISION_FILTER::BACKGROUND, b2_staticBody));
+	Physbackground.add(App->physics->CreateRectangle(293, 436, 24, 10, COLLISION_FILTER::BACKGROUND, b2_staticBody));
 
 	App->physics->CreateBumper(267, 256, 11, BUMPER_TYPE::Red);
 	App->physics->CreateBumper(322, 255, 11, BUMPER_TYPE::Red);
