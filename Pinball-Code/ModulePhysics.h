@@ -75,7 +75,7 @@ public:
 	PBArrow * CreateArrow(int x, int y, int width, int height, float angle, ARROW_COLOR color);
 	PhysBody* CreateChain(int x, int y, int* points, int size, b2BodyType type = b2_staticBody, float restitution = 0.0f, COLLISION_FILTER filter = COLLISION_FILTER::BACKGROUND);
 	PhysBody* CreateBumper(int x, int y, int radius, BUMPER_TYPE type);
-	PhysBody* CreateFliper(int x, int y, bool rightFliper);
+	PhysBody* CreateFliper(int x, int y, bool rightFliper, float MaxAngle= 30);
 	b2Joint* CreateJoint_2(const b2JointDef& def);
 	PhysBody* CreateTri(int x, int y, int* points, int size, bool isLeft, int blitX, int blitY);
 	PhysBody* CreateTeleport(const iPoint & pos, const iPoint & tpPoint, b2Vec2 ForceDirection);

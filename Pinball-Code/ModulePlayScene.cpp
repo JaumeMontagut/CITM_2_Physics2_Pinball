@@ -76,6 +76,7 @@ bool ModulePlayScene::Start()
 	
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
+	//Background---------------------------------------------------------------------------------------------------------
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, right, 70, b2_staticBody, 0.0f));
@@ -137,6 +138,7 @@ bool ModulePlayScene::Start()
 	triangles[3] = App->physics->CreateTriangle(207, 367, 16, 7, 26.2f);
 	triangles[4] = App->physics->CreateTriangle(229, 382, 16, 7, 51.3f);
 
+	//TelePorters--------------------------------------------------------
 	App->physics->CreateTeleport({ 177,240 }, { 175,275 }, {0,-10});
 	App->physics->CreateTeleport({ 177,283 }, { 177,220 }, { -3,5});
 
@@ -161,11 +163,14 @@ bool ModulePlayScene::Start()
 	jointDef.collideConnected = false;
 	m_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&jointDef);
 
-
-	App->physics->CreateFliper(133, 463, false);
+	//Flipers---------------------------------------
+	App->physics->CreateFliper(133, 463, false );
 	App->physics->CreateFliper(224, 464, true);
-	App->physics->CreateFliper(362, 461, false);
-	App->physics->CreateFliper(458, 463, true);
+	App->physics->CreateFliper(362, 461, false );
+	App->physics->CreateFliper(458, 463, true );
+
+	App->physics->CreateFliper(60, 285, false,55 );
+	App->physics->CreateFliper(530, 290, true, 55);
 
 	App->physics->CreateBell(294, 179, 26, 12);
 	

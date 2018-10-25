@@ -370,12 +370,12 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type
 	return pbody;
 }
 
-PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
+PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper, float MaxAngle)
 {
 	b2Body* CircleFlipper;
 	b2Body* rectangleFlipper;
 	b2RevoluteJointDef jointFlipperDef;
-	b2Vec2 mesure(40, 10);
+	b2Vec2 mesure(40, 5);
 	if (!rightFliper)
 	{
 		CircleFlipper = CreateCircle(x, y, 4)->body;
@@ -385,7 +385,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 		
 		
 		jointFlipperDef.enableLimit = true;
-		jointFlipperDef.lowerAngle = -30 * DEGTORAD;
+		jointFlipperDef.lowerAngle = -MaxAngle * DEGTORAD;
 		jointFlipperDef.upperAngle = 45 * DEGTORAD;
 	}
 	else
@@ -398,7 +398,7 @@ PhysBody * ModulePhysics::CreateFliper(int x, int y, bool rightFliper)
 		
 		jointFlipperDef.enableLimit = true;
 		jointFlipperDef.lowerAngle = -45 * DEGTORAD;
-		jointFlipperDef.upperAngle = 30 * DEGTORAD;
+		jointFlipperDef.upperAngle = MaxAngle * DEGTORAD;
 	}
 
 	jointFlipperDef.Initialize(rectangleFlipper, CircleFlipper, CircleFlipper->GetWorldCenter());
