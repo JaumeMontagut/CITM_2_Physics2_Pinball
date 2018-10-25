@@ -6,6 +6,7 @@
 #include "Module.h"
 #include "Application.h"
 #include "p2Point.h"
+#include "ModuleUI.h"
 
 PBBumper::PBBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 	switch (type) {
@@ -30,9 +31,15 @@ PBBumper::PBBumper(BUMPER_TYPE type) : PhysBody(), type(type) {
 void PBBumper::OnCollisionEnter (PhysBody * bodyB) {
 	if (type == BUMPER_TYPE::Red) {
 		App->scene_play->IlluminateBlueCharacter();
+		App->UI->SetScore(3000);
 	}
 	App->audio->PlayFx(bumperSFX);
 	currFlash = 0u;
+	if (type == BUMPER_TYPE::Blue)
+	{
+		App->UI->SetScore(4000);
+	}
+	
 }
 
 update_status PBBumper::PostUpdate()

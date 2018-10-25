@@ -18,7 +18,7 @@ Application::Application()
 	audio = new ModuleAudio(true);
 	physics = new ModulePhysics();
 	scene_play = new ModulePlayScene();
-	fonts = new ModuleFonts();
+	UI = new ModuleFonts();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -31,7 +31,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(scene_play);
-	AddModule(fonts);
+	AddModule(UI);
 	AddModule(renderer);//Renderer has to be the last module because it's the one it executes RenderPresent
 }
 

@@ -22,7 +22,7 @@ public:
 	ModuleAudio* audio;
 	ModulePlayScene* scene_play;
 	ModulePhysics* physics;
-	ModuleFonts * fonts;
+	ModuleFonts * UI;
 private:
 
 	p2List<Module*> list_modules;

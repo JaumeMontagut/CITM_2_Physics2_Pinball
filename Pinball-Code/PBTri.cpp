@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "ModulePlayScene.h"
 #include "ModuleAudio.h"
+#include "ModuleUI.h"
 
 PBTri::PBTri(bool isLeft, int blitX, int blitY) : PhysBody(), isLeft(isLeft), blitX(blitX), blitY(blitY) {
 	if (isLeft) {
@@ -20,6 +21,7 @@ PBTri::PBTri(bool isLeft, int blitX, int blitY) : PhysBody(), isLeft(isLeft), bl
 void PBTri::OnCollisionEnter(PhysBody* bodyB) {
 	currFrame = 0u;
 	App->audio->PlayFx(App->scene_play->triSFX);
+	App->UI->SetScore(500);
 }
 
 update_status PBTri::PostUpdate() {

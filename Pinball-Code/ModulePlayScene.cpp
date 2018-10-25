@@ -76,7 +76,7 @@ bool ModulePlayScene::Start()
 	
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 
-	App->physics->CreateChain(0,0, backgroundChain, 216, b2_staticBody, 0.0f);
+	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, downRedPart, 28, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, right, 70, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, downleft, 12, b2_staticBody, 0.0f));
@@ -138,11 +138,13 @@ bool ModulePlayScene::Start()
 	triangles[4] = App->physics->CreateTriangle(229, 382, 16, 7, 51.3f);
 
 	App->physics->CreateTeleport({ 177,240 }, { 175,275 }, {0,-10});
-	App->physics->CreateTeleport({ 177,283 }, { 177,220 }, { -5,5});
+	App->physics->CreateTeleport({ 177,283 }, { 177,220 }, { -3,5});
 
 	App->physics->CreateTeleport({ 414,240 }, { 414,275 }, { 0,-10});
-	App->physics->CreateTeleport({ 414,280 }, { 414,220 }, { 5, 5});
+	App->physics->CreateTeleport({ 414,280 }, { 414,220 }, { 3, 5});
 
+	App->physics->CreateTeleport({ 533,326 }, { 58,326 }, { -5, 5 });
+	App->physics->CreateTeleport({ 58,326 }, { 533,326 }, { 5, 5 });
 	b2Body* handlauncher = App->physics->CreateChain(0, 0, rectangle, 8, b2_dynamicBody, 0.0f, COLLISION_FILTER::FOREGROUND)->body;
 	
 	b2PrismaticJointDef jointDef;
@@ -294,12 +296,12 @@ void ModulePlayScene::IncreaseTriangles()
 
 update_status ModulePlayScene::PreUpdate()
 {
-	if (App->fonts->lifes > 0)
+	if (App->UI->lifes > 0)
 	{
 		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
 		{
-			App->fonts->SubstractLifes();
-			App->fonts->ReStartGame();
+			App->UI->SubstractLifes();
+			App->UI->ReStartGame();
 		}
 
 	}
