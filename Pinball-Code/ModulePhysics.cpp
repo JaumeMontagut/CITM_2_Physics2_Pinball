@@ -16,6 +16,7 @@
 #include "PBTri.h"
 #include "PBTeleport.h"
 #include "PBBell.h"
+#include "PBPPlayer.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -343,6 +344,33 @@ PhysBody * ModulePhysics::CreateBell(int x, int y, int width, int height)
 	return pbody;
 }
 
+PhysBody * ModulePhysics::CreateBall(int x, int y, int radio)
+{
+	b2BodyDef body;
+	body.type = b2_dynamicBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(radio);
+
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = 1.0f;
+	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
+	fixture.filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	b->CreateFixture(&fixture);
+
+	b->CreateFixture(&fixture);
+	
+	PBPlayer* pbody = new PBPlayer();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = pbody->height = radio * 2;
+
+	return pbody;
+}
+
 PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius, BUMPER_TYPE type)
 {
 	b2BodyDef body;
@@ -423,6 +451,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool isOnBackgro
 
 	b2CircleShape shape;
 	shape.m_radius = PIXEL_TO_METERS(radius);
+
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;

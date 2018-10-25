@@ -172,9 +172,13 @@ bool ModulePlayScene::Start()
 	App->physics->CreateFliper(60, 285, false,55 );
 	App->physics->CreateFliper(530, 290, true, 55);
 
+	
+
+
 	App->physics->CreateBell(294, 179, 26, 12);
 	
-	ball = App->physics->CreateCircle(294, 450, 6.5f);
+	ball = App->physics->CreateBall(294, 450, 6.5f);
+	
 	ball->body->SetBullet(true);
 	circles.add(ball);
 	

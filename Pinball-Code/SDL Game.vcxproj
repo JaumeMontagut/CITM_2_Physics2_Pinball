@@ -93,6 +93,7 @@
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="PBBumper.h" />
     <ClInclude Include="PBPhone.h" />
+    <ClInclude Include="PBPPlayer.h" />
     <ClInclude Include="PBStar.h" />
     <ClInclude Include="PBTeleport.h" />
     <ClInclude Include="PBTri.h" />
@@ -115,6 +116,8 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="PBBumper.cpp" />
     <ClCompile Include="PBPhone.cpp" />
+    <ClCompile Include="PBPlayer.cpp" />
+    <ClCompile Include="PBPPlayer.cpp" />
     <ClCompile Include="PBStar.cpp" />
     <ClCompile Include="PBTeleport.cpp" />
     <ClCompile Include="PBTri.cpp" />

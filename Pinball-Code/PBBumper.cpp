@@ -39,7 +39,10 @@ void PBBumper::OnCollisionEnter (PhysBody * bodyB) {
 	{
 		App->UI->SetScore(4000);
 	}
-	
+	if (type == BUMPER_TYPE::Grey)
+	{
+		App->UI->SetScore(1000);
+	}
 }
 
 update_status PBBumper::PostUpdate()
