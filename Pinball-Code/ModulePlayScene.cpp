@@ -60,6 +60,8 @@ bool ModulePlayScene::Start()
 	triFrontTex = App->textures->Load("sprites/images/240.png");
 	teleportTex = App->textures->Load("sprites/images/166.png");
 	bellTex = App->textures->Load("sprites/images/270.png");
+	bonusLetters1 = App->textures->Load("sprites/shapes/105.png");
+	bonusLetters2 = App->textures->Load("sprites/shapes/84.png");
 
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
@@ -92,7 +94,6 @@ bool ModulePlayScene::Start()
 	Physbackground.add(App->physics->CreateChain(0, 0, firstTop, 12, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, secondTop, 10, b2_staticBody, 0.0f));
 	Physbackground.add(App->physics->CreateChain(0, 0, leftTop, 16, b2_staticBody, 0.0f));
-	Physbackground.add(App->physics->CreateRectangle(293, 436, 24, 10, COLLISION_FILTER::BACKGROUND, b2_staticBody));
 
 	App->physics->CreateBumper(267, 256, 11, BUMPER_TYPE::Red);
 	App->physics->CreateBumper(322, 255, 11, BUMPER_TYPE::Red);
@@ -229,12 +230,16 @@ void ModulePlayScene::IncreasePhoneCombo()
 	activePhonePieces++;
 	App->audio->PlayFx(phoneSFX);
 	if (activePhonePieces >= 5u) {
-		activePhonePieces = 0u;
 		App->UI->AddScore(22500);
 		App->audio->PlayFx(phoneBonusSFX);
-		for (uint i = 0u; i < 5u; ++i) {
-			phonePieces[i]->Deactivate();
-		}
+		DeactivatePhoneCombo();
+	}
+}
+
+void ModulePlayScene::DeactivatePhoneCombo() {
+	activePhonePieces = 0u;
+	for (uint i = 0u; i < 5u; ++i) {
+		phonePieces[i]->Deactivate();
 	}
 }
 
@@ -243,10 +248,17 @@ void ModulePlayScene::IncreaseYellowArrow()
 	activeYellowArrows++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeYellowArrows >= 3u) {
-		activeYellowArrows = 0u;
 		App->UI->AddScore(750);
-		for (uint i = 0u; i < 3u; ++i) {
-			yellowArrows[i]->Deactivate();
+		DeactivateYellowArrow(true);
+	}
+}
+
+void ModulePlayScene::DeactivateYellowArrow(bool animation) {
+	activeYellowArrows = 0u;
+	for (uint i = 0u; i < 3u; ++i) {
+		yellowArrows[i]->Deactivate();
+		if (animation) {
+			yellowArrows[i]->StartComboAnim();
 		}
 	}
 }
@@ -256,10 +268,17 @@ void ModulePlayScene::IncreaseOrangeArrow()
 	activeOrangeArrows++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeOrangeArrows >= 2u) {
-		activeOrangeArrows = 0u;
 		App->UI->AddScore(500);
-		for (uint i = 0u; i < 2u; ++i) {
-			orangeArrows[i]->Deactivate();
+		DeactivateOrangeArrow(true);
+	}
+}
+
+void ModulePlayScene::DeactivateOrangeArrow(bool animation) {
+	activeOrangeArrows = 0u;
+	for (uint i = 0u; i < 2u; ++i) {
+		orangeArrows[i]->Deactivate();
+		if (animation) {
+			orangeArrows[i]->StartComboAnim();
 		}
 	}
 }
@@ -269,10 +288,17 @@ void ModulePlayScene::IncreasePurpleArrow()
 	activePurpleArrows++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activePurpleArrows >= 3u) {
-		activePurpleArrows = 0u;
 		App->UI->AddScore(750);
-		for (uint i = 0u; i < 3u; ++i) {
-			purpleArrows[i]->Deactivate();
+		DeactivatePurpleArrow(true);
+	}
+}
+
+void ModulePlayScene::DeactivatePurpleArrow(bool animation) {
+	activePurpleArrows = 0u;
+	for (uint i = 0u; i < 3u; ++i) {
+		purpleArrows[i]->Deactivate();
+		if (animation) {
+			purpleArrows[i]->StartComboAnim();
 		}
 	}
 }
@@ -282,12 +308,16 @@ void ModulePlayScene::IncreaseStars()
 	activeStars++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeStars >= 5u) {
-		activeStars = 0u;
 		App->UI->AddScore(7500);
 		App->audio->PlayFx(starBonusSFX);
-		for (uint i = 0u; i < 5u; ++i) {
-			stars[i]->Deactivate();
-		}
+		DeactivateStars();
+	}
+}
+
+void ModulePlayScene::DeactivateStars() {
+	activeStars = 0u;
+	for (uint i = 0u; i < 5u; ++i) {
+		stars[i]->Deactivate();
 	}
 }
 
@@ -296,34 +326,22 @@ void ModulePlayScene::IncreaseTriangles()
 	activeTriangles++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeTriangles >= 5u) {
-		activeTriangles = 0u;
 		App->UI->AddScore(7500);
 		App->audio->PlayFx(triangleBonusSFX);
-		for (uint i = 0u; i < 5u; ++i) {
-			triangles[i]->Deactivate();
-		}
+		DeactivateTriangles();
+	}
+}
+
+void ModulePlayScene::DeactivateTriangles() {
+	activeTriangles = 0u;
+	for (uint i = 0u; i < 5u; ++i) {
+		triangles[i]->Deactivate();
 	}
 }
 
 update_status ModulePlayScene::PreUpdate()
 {
-		if (App->UI->lifes > 0 && METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
-		{
-			App->audio->PlayFx(exitAreaSFX);
-			App->UI->SubstractLifes();
-			App->UI->ReStartGame();
-			
-		}
-
-	
-
-	return UPDATE_CONTINUE;
-}
-
-
-
-update_status ModulePlayScene::Update()
-{
+	//Blit
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
 	if (!illuminateCharacter) {
@@ -334,7 +352,31 @@ update_status ModulePlayScene::Update()
 		illuminateCharacter = false;
 	}
 	App->renderer->Blit(wallsTex, 0, 0);
+	return UPDATE_CONTINUE;
+}
 
+void ModulePlayScene::LoseBall()
+{
+	App->audio->PlayFx(exitAreaSFX);
+	App->UI->SubstractLifes();
+	App->UI->ReStartGame();
+	//Remove current combos
+	DeactivatePhoneCombo();
+	DeactivateYellowArrow(false);
+	DeactivateOrangeArrow(false);
+	DeactivatePurpleArrow(false);
+	DeactivateStars();
+	DeactivateTriangles();
+}
+
+
+
+update_status ModulePlayScene::Update()
+{
+	//Draw forward elements
+	App->renderer->Blit(girlCharacterTex, 145, 381);
+	App->renderer->Blit(bonusLetters2, 370, 364);
+	App->renderer->Blit(bonusLetters1, 143, 372);
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -352,17 +394,16 @@ update_status ModulePlayScene::Update()
 		m_joint->SetMotorSpeed(-40.0f);
 	}
 
-	
+	if (App->UI->lifes > 0 && METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
+	{
+		LoseBall();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePlayScene::PostUpdate()
-{
-	//Draw forward elements
-	App->renderer->Blit(girlCharacterTex, 145, 381);
-
-	
-	
+{	
 	return UPDATE_CONTINUE;
 }
 

@@ -21,6 +21,8 @@ public:
 	bool Start();
 	update_status PreUpdate();
 
+	void LoseBall();
+
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
@@ -32,6 +34,13 @@ public:
 	void IncreasePurpleArrow();
 	void IncreaseStars();
 	void IncreaseTriangles();
+
+	void DeactivatePhoneCombo();
+	void DeactivateYellowArrow(bool animation);
+	void DeactivateOrangeArrow(bool animation);
+	void DeactivatePurpleArrow(bool animation);
+	void DeactivateStars();
+	void DeactivateTriangles();
 
 public:
 	p2List<PhysBody*> circles;
@@ -114,6 +123,9 @@ public:
 	uint lauchSFX = 0u;
 	//Ball hit
 	uint ballHitSFX = 0u;
+	//Bonus
+	SDL_Texture * bonusLetters1 = nullptr;
+	SDL_Texture * bonusLetters2 = nullptr;
 
 
 public :

@@ -45,20 +45,7 @@ void PBteleport::OnCollisionExit()
 	}
 }
 
-update_status PBteleport::PreUpdate()
-{
-	
-	
-	return UPDATE_CONTINUE;
-}
-
 update_status PBteleport::Update()
-{
-	
-	return UPDATE_CONTINUE;
-}
-
-update_status PBteleport::PostUpdate()
 {
 	
 	App->renderer->Blit(App->scene_play->teleportTex, pos.x-9, pos.y-9);

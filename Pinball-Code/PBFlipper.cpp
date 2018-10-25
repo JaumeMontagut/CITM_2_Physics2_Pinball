@@ -48,7 +48,7 @@ update_status PBFlipper::PreUpdate()
 
 }
 
-update_status PBFlipper::PostUpdate()
+update_status PBFlipper::Update()
 {
 	int x, y;
 	GetPixelPosition(x,y);

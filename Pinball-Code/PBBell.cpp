@@ -5,7 +5,7 @@
 #include "ModulePhysics.h"
 #include "Application.h"
 
-update_status PBBell::PostUpdate()
+update_status PBBell::Update()
 {
 	int x, y;
 	GetPixelPosition(x, y);

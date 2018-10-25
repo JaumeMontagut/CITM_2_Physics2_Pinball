@@ -10,7 +10,7 @@ class PBPhone : public PhysBody {
 public:
 	PBPhone();
 	void OnCollisionEnter(PhysBody * bodyB) override;
-	update_status PostUpdate() override;
+	update_status Update() override;
 
 	void Activate();
 	void Deactivate();

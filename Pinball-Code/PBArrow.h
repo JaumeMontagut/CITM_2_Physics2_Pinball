@@ -16,11 +16,12 @@ enum class ARROW_COLOR {
 class PBArrow : public PhysBody {
 public:
 	PBArrow(ARROW_COLOR color);
-	update_status PostUpdate() override;
+	update_status Update() override;
 	void OnCollisionEnter(PhysBody * bodyB) override;
 
 	void Activate();
 	void Deactivate();
+	void StartComboAnim();
 
 private:
 	SDL_Texture * activeTex = nullptr;

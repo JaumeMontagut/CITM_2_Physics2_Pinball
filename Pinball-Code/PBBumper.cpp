@@ -45,7 +45,7 @@ void PBBumper::OnCollisionEnter (PhysBody * bodyB) {
 	}
 }
 
-update_status PBBumper::PostUpdate()
+update_status PBBumper::Update()
 {
 	int x, y;
 	GetPixelPosition(x, y);

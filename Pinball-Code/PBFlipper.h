@@ -17,7 +17,7 @@ public:
 	PBFlipper();
 	PBFlipper(b2Vec2 mesure);
     update_status PreUpdate() override;
-	update_status PostUpdate() override;
+	update_status Update() override;
 	/*virtual void OnCollision(PhysBody* bodyB);
 	
 	virtual update_status Update();
