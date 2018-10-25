@@ -25,7 +25,7 @@ void ModuleFonts::AddScore(uint addscore)
 	uint digits = 0;
 	uint aux = scoreNum;
 
-	if (aux < 0) digits = 1; // remove this line if '-' counts as a digit
+	if (aux < 0) digits = 1; 
 	while (aux) {
 		aux /= 10;
 		digits++;
@@ -48,9 +48,9 @@ void ModuleFonts::SubstractLifes()
 {
 	if (lifes >= 0)
 	{
-	
 		lifes -= 1;
 	}
+
 }
 
 void ModuleFonts::ReStartGame()
@@ -107,11 +107,14 @@ bool ModuleFonts::Start()
 	GothicFont12 = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 12);
 	 candyFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
 	 FuturaFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
+	 playAgainScreenFontNum = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 48);
+
 
 	//Images-------------------------------------------------------------
 	scoreRect = App->textures->Load("sprites/images/score.png");
 	lifeRectTex = App->textures->Load("sprites/images/ballsCount.png");
 	ballTex = App->textures->Load("sprites/images/lifes.png");
+	rectBigger = App->textures->Load("sprites/images/RectBigger.png");
 
 	scoreTex = LoadMessatgeTex(VAGFont12, "score", { 255,255,255,255 });
 	scoreNumTex = LoadMessatgeTex(GothicFont12, "00000000", { 255,255,255,255 });
@@ -140,6 +143,7 @@ update_status ModuleFonts::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_R))
 	{
+		previusScore = scoreNum;
 		lifes = 3;
 		scoreNum = 0;
 		AddScore(0);
@@ -148,9 +152,8 @@ update_status ModuleFonts::PreUpdate()
 	}
 	if (lifes == 0 )
 	{
-
-		isOnPlayAgain = true;
-
+		enterOnPlayAgain = true;
+		
 
 	}
 	if (hiScore < scoreNum)
@@ -185,6 +188,11 @@ update_status ModuleFonts::PostUpdate()
 			}
 		}
 	}
+	if (enterOnPlayAgain)
+	{
+		scoreEnd = CreateNumTex(scoreEnd, scoreNum, playAgainScreenFontNum, { 255,255,255,255 });
+		isOnPlayAgain = true;
+	}
 	if (isOnPlayAgain)
 	{
 		App->renderer->Blit(backgroundCircles, 93, 50);
@@ -192,7 +200,10 @@ update_status ModuleFonts::PostUpdate()
 		App->renderer->Blit(overTex, 258, 68);
 		App->renderer->Blit(playTex, 172, 330);
 		App->renderer->Blit(playTex, 284, 334);
-
+		App->renderer->Blit(rectBigger, 118, 178);
+		App->renderer->Blit(rectBigger, 465, 179, NULL, 1.0f, 0.0f, NULL, NULL, SDL_FLIP_HORIZONTAL);
+		App->renderer->Blit(rectBigger, 200, 255, NULL, 1.0f, 0.0f, NULL, NULL);
+		App->renderer->Blit(scoreEnd, 032, 207);
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -224,6 +235,44 @@ SDL_Texture* ModuleFonts::LoadMessatgeTex(TTF_Font* thisfont,const char * text, 
 	}
 
 	return textTex;
+}
+
+SDL_Texture * ModuleFonts::CreateNumTex(SDL_Texture * destroyTex, int num, TTF_Font* thisfont, SDL_Color Color)
+{
+	SDL_Texture * TexNum = nullptr;
+
+	if(destroyTex!=nullptr)
+	SDL_DestroyTexture(destroyTex);
+
+
+	std::string auxString;
+
+	auxString = std::to_string(num);
+	const char* charnum = auxString.c_str();
+
+	uint digits = 0;
+	uint aux = num;
+
+	if (aux < 0) digits = 1;
+	while (aux) {
+		aux /= 10;
+		digits++;
+	}
+	p2SString auxCerosString;
+	for (uint i = 0; i < 8 - digits; i++)
+	{
+		auxCerosString += aux0;
+	}
+	auxCerosString += charnum;
+
+	TexNum = LoadMessatgeTex(thisfont, scoreString.GetString(), { 255,255,255,255 });
+
+	auxCerosString.Clear();
+	auxString.clear();
+
+
+
+	return TexNum;
 }
 
 void ModuleFonts::SetHighScore()
