@@ -60,6 +60,8 @@ bool ModulePlayScene::Start()
 	triFrontTex = App->textures->Load("sprites/images/240.png");
 	teleportTex = App->textures->Load("sprites/images/166.png");
 	bellTex = App->textures->Load("sprites/images/270.png");
+	bonusLetters1 = App->textures->Load("sprites/shapes/105.png");
+	bonusLetters2 = App->textures->Load("sprites/shapes/84.png");
 
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
@@ -374,6 +376,8 @@ update_status ModulePlayScene::Update()
 {
 	//Draw forward elements
 	App->renderer->Blit(girlCharacterTex, 145, 381);
+	App->renderer->Blit(bonusLetters2, 370, 364);
+	App->renderer->Blit(bonusLetters1, 143, 372);
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{

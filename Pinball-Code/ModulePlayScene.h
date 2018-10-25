@@ -123,6 +123,9 @@ public:
 	uint lauchSFX = 0u;
 	//Ball hit
 	uint ballHitSFX = 0u;
+	//Bonus
+	SDL_Texture * bonusLetters1 = nullptr;
+	SDL_Texture * bonusLetters2 = nullptr;
 
 
 public :
