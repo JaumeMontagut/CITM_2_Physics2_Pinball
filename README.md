@@ -16,7 +16,7 @@ https://www.classicgame.com/game/Mr+Bump+Pinball
 - Some combo flash don't light up in an specific pattern like the original game.
 - Teleports don't have animations. 
 
-## Controls:
+## How to play:
 - Move left flipper: Left arrow
 - Move right flipper: Right arrow
 - Throw the ball: Down arrow
@@ -31,3 +31,4 @@ https://www.classicgame.com/game/Mr+Bump+Pinball
 - Activate all 3 purple arrows to gain x points.
 - Activate all 5 bonus triangles to gain x points.
 - Activate all 5 bonus stars to gain x points.
+
