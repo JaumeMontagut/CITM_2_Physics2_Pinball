@@ -14,7 +14,8 @@ https://www.classicgame.com/game/Mr+Bump+Pinball
 ##Differences:
 - The ball can't roll to the yellow character on top of the pinball.
 - Some combo flash don't light up in an specific pattern like the original game.
-- Teleports don't have animations. 
+- Teleports don't have animations.
+- Purple colliders on the top left not implemented.
 
 ## How to play:
 - Move left flipper: Left arrow
