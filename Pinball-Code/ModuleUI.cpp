@@ -134,6 +134,23 @@ bool ModuleFonts::CleanUp()
 	SDL_DestroyTexture(scoreNumTex);
 	SDL_DestroyTexture(ballstexTex);
 	SDL_DestroyTexture(highScoreText);
+	App->textures->Unload(backgroundCircles);
+	App->textures->Unload(playTex);
+	App->textures->Unload(gameTex);
+	App->textures->Unload(overTex);
+	App->textures->Unload(againTex);
+	App->textures->Unload(rectBigger);
+
+	SDL_DestroyTexture(scoreEnd);
+	SDL_DestroyTexture(highScore);
+	SDL_DestroyTexture(scorePrevios);
+	SDL_DestroyTexture(ScoreTexPlayAgain);
+	SDL_DestroyTexture(HiScoTexPlayAgain);
+	SDL_DestroyTexture(LastTexPlayAgain);
+
+	SDL_DestroyTexture(highScoreText);
+	SDL_DestroyTexture(hiScoreTexNum);
+	SDL_DestroyTexture(PresRTex);
 
 	TTF_Quit();
 	return true;

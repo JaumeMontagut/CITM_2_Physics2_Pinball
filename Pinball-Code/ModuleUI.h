@@ -60,6 +60,8 @@ private:
 	SDL_Texture* overTex = nullptr;
 	SDL_Texture* againTex = nullptr;
 	SDL_Texture* rectBigger = nullptr;
+
+
 	SDL_Texture* scoreEnd = nullptr;
 	SDL_Texture* highScore = nullptr;
 	SDL_Texture* scorePrevios = nullptr;
