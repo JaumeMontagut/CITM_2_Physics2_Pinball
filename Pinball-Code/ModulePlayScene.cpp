@@ -340,11 +340,17 @@ void ModulePlayScene::DeactivateTriangles() {
 
 update_status ModulePlayScene::PreUpdate()
 {
-	if (App->UI->lifes > 0 && METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
-	{
-		LoseBall();
+	//Blit
+	App->renderer->Blit(backgroundTex, 0, 0);
+	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
+	if (!illuminateCharacter) {
+		App->renderer->Blit(blueCharacter1Tex, 234, 192);
 	}
-
+	else {
+		App->renderer->Blit(blueCharacter2Tex, 234, 192);
+		illuminateCharacter = false;
+	}
+	App->renderer->Blit(wallsTex, 0, 0);
 	return UPDATE_CONTINUE;
 }
 
@@ -366,17 +372,8 @@ void ModulePlayScene::LoseBall()
 
 update_status ModulePlayScene::Update()
 {
-	App->renderer->Blit(backgroundTex, 0, 0);
-	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	if (!illuminateCharacter) {
-		App->renderer->Blit(blueCharacter1Tex, 234, 192);
-	}
-	else {
-		App->renderer->Blit(blueCharacter2Tex, 234, 192);
-		illuminateCharacter = false;
-	}
-	App->renderer->Blit(wallsTex, 0, 0);
-
+	//Draw forward elements
+	App->renderer->Blit(girlCharacterTex, 145, 381);
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -394,17 +391,16 @@ update_status ModulePlayScene::Update()
 		m_joint->SetMotorSpeed(-40.0f);
 	}
 
-	
+	if (App->UI->lifes > 0 && METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
+	{
+		LoseBall();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePlayScene::PostUpdate()
-{
-	//Draw forward elements
-	App->renderer->Blit(girlCharacterTex, 145, 381);
-
-	
-	
+{	
 	return UPDATE_CONTINUE;
 }
 

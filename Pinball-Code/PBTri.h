@@ -11,7 +11,7 @@ class PBTri : public PhysBody {
 public:
 	PBTri(bool isLeft, int blitX, int blitY);
 	void OnCollisionEnter(PhysBody* bodyB) override;
-	update_status PostUpdate() override;
+	update_status Update() override;
 private:
 	SDL_Texture * tex = nullptr;
 	bool isLeft;

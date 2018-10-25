@@ -10,7 +10,7 @@ PBTriangle::PBTriangle()
 	currTex = inactiveTex;
 }
 
-update_status PBTriangle::PostUpdate()
+update_status PBTriangle::Update()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x, pos.y);

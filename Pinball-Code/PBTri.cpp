@@ -24,7 +24,7 @@ void PBTri::OnCollisionEnter(PhysBody* bodyB) {
 	App->UI->AddScore(500);
 }
 
-update_status PBTri::PostUpdate() {
+update_status PBTri::Update() {
 	if(currFrame < flashFrames) {
 		App->renderer->Blit(App->scene_play->triBackTex, blitX + backOffset.x, blitY + backOffset.y, NULL, 1.0f, 0.0, INT_MAX, INT_MAX, flip);
 		App->renderer->Blit(App->scene_play->triTex, blitX, blitY, NULL, 1.0f, 0.0, INT_MAX, INT_MAX, flip);

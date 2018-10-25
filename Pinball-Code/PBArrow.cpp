@@ -23,7 +23,7 @@ PBArrow::PBArrow(ARROW_COLOR color) : color(color), PhysBody() {
 	currTex = inactiveTex;
 }
 
-update_status PBArrow::PostUpdate()
+update_status PBArrow::Update()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x, pos.y);

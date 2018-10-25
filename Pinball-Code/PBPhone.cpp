@@ -18,7 +18,7 @@ void PBPhone::OnCollisionEnter(PhysBody * bodyB)
 	}
 }
 
-update_status PBPhone::PostUpdate()
+update_status PBPhone::Update()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x,pos.y);

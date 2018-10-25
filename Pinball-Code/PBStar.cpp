@@ -10,7 +10,7 @@ PBStar::PBStar()
 	currTex = inactiveTex;
 }
 
-update_status PBStar::PostUpdate()
+update_status PBStar::Update()
 {
 	iPoint pos;
 	GetPixelPosition(pos.x, pos.y);

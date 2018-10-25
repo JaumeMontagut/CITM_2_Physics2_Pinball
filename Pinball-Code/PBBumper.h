@@ -17,7 +17,7 @@ class PBBumper : public PhysBody {
 public:
 	PBBumper(BUMPER_TYPE type);
 	void OnCollisionEnter (PhysBody* bodyB) override;
-	update_status PostUpdate() override;
+	update_status Update() override;
 private:
 	SDL_Texture * bumperTex = nullptr;
 	iPoint bumperOffset = iPoint(-4, -2);

@@ -10,7 +10,7 @@ struct SDL_Texture;
 class PBTriangle : public PhysBody {
 public:
 	PBTriangle();
-	update_status PostUpdate() override;
+	update_status Update() override;
 	void OnCollisionEnter(PhysBody * bodyB) override;
 
 	void Activate();
