@@ -21,6 +21,7 @@ public:
 
 	void Activate();
 	void Deactivate();
+	void StartComboAnim();
 
 private:
 	SDL_Texture * activeTex = nullptr;

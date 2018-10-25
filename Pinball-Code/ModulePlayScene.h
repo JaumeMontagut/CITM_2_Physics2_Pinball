@@ -21,6 +21,8 @@ public:
 	bool Start();
 	update_status PreUpdate();
 
+	void LoseBall();
+
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
@@ -32,6 +34,13 @@ public:
 	void IncreasePurpleArrow();
 	void IncreaseStars();
 	void IncreaseTriangles();
+
+	void DeactivatePhoneCombo();
+	void DeactivateYellowArrow(bool animation);
+	void DeactivateOrangeArrow(bool animation);
+	void DeactivatePurpleArrow(bool animation);
+	void DeactivateStars();
+	void DeactivateTriangles();
 
 public:
 	p2List<PhysBody*> circles;

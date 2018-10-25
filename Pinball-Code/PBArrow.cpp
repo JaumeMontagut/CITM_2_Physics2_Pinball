@@ -82,5 +82,8 @@ void PBArrow::Deactivate()
 {
 	active = false;
 	currTex = inactiveTex;
-	currCombo = 0u;
+}
+
+void PBArrow::StartComboAnim() {
+
 }

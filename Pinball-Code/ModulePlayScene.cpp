@@ -229,12 +229,16 @@ void ModulePlayScene::IncreasePhoneCombo()
 	activePhonePieces++;
 	App->audio->PlayFx(phoneSFX);
 	if (activePhonePieces >= 5u) {
-		activePhonePieces = 0u;
 		App->UI->AddScore(22500);
 		App->audio->PlayFx(phoneBonusSFX);
-		for (uint i = 0u; i < 5u; ++i) {
-			phonePieces[i]->Deactivate();
-		}
+		DeactivatePhoneCombo();
+	}
+}
+
+void ModulePlayScene::DeactivatePhoneCombo() {
+	activePhonePieces = 0u;
+	for (uint i = 0u; i < 5u; ++i) {
+		phonePieces[i]->Deactivate();
 	}
 }
 
@@ -243,10 +247,17 @@ void ModulePlayScene::IncreaseYellowArrow()
 	activeYellowArrows++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeYellowArrows >= 3u) {
-		activeYellowArrows = 0u;
 		App->UI->AddScore(750);
-		for (uint i = 0u; i < 3u; ++i) {
-			yellowArrows[i]->Deactivate();
+		DeactivateYellowArrow(true);
+	}
+}
+
+void ModulePlayScene::DeactivateYellowArrow(bool animation) {
+	activeYellowArrows = 0u;
+	for (uint i = 0u; i < 3u; ++i) {
+		yellowArrows[i]->Deactivate();
+		if (animation) {
+			yellowArrows[i]->StartComboAnim();
 		}
 	}
 }
@@ -256,10 +267,17 @@ void ModulePlayScene::IncreaseOrangeArrow()
 	activeOrangeArrows++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeOrangeArrows >= 2u) {
-		activeOrangeArrows = 0u;
 		App->UI->AddScore(500);
-		for (uint i = 0u; i < 2u; ++i) {
-			orangeArrows[i]->Deactivate();
+		DeactivateOrangeArrow(true);
+	}
+}
+
+void ModulePlayScene::DeactivateOrangeArrow(bool animation) {
+	activeOrangeArrows = 0u;
+	for (uint i = 0u; i < 2u; ++i) {
+		orangeArrows[i]->Deactivate();
+		if (animation) {
+			orangeArrows[i]->StartComboAnim();
 		}
 	}
 }
@@ -269,10 +287,17 @@ void ModulePlayScene::IncreasePurpleArrow()
 	activePurpleArrows++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activePurpleArrows >= 3u) {
-		activePurpleArrows = 0u;
 		App->UI->AddScore(750);
-		for (uint i = 0u; i < 3u; ++i) {
-			purpleArrows[i]->Deactivate();
+		DeactivatePurpleArrow(true);
+	}
+}
+
+void ModulePlayScene::DeactivatePurpleArrow(bool animation) {
+	activePurpleArrows = 0u;
+	for (uint i = 0u; i < 3u; ++i) {
+		purpleArrows[i]->Deactivate();
+		if (animation) {
+			purpleArrows[i]->StartComboAnim();
 		}
 	}
 }
@@ -282,12 +307,16 @@ void ModulePlayScene::IncreaseStars()
 	activeStars++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeStars >= 5u) {
-		activeStars = 0u;
 		App->UI->AddScore(7500);
 		App->audio->PlayFx(starBonusSFX);
-		for (uint i = 0u; i < 5u; ++i) {
-			stars[i]->Deactivate();
-		}
+		DeactivateStars();
+	}
+}
+
+void ModulePlayScene::DeactivateStars() {
+	activeStars = 0u;
+	for (uint i = 0u; i < 5u; ++i) {
+		stars[i]->Deactivate();
 	}
 }
 
@@ -296,29 +325,41 @@ void ModulePlayScene::IncreaseTriangles()
 	activeTriangles++;
 	App->audio->PlayFx(activateTargetSFX);
 	if (activeTriangles >= 5u) {
-		activeTriangles = 0u;
 		App->UI->AddScore(7500);
 		App->audio->PlayFx(triangleBonusSFX);
-		for (uint i = 0u; i < 5u; ++i) {
-			triangles[i]->Deactivate();
-		}
+		DeactivateTriangles();
+	}
+}
+
+void ModulePlayScene::DeactivateTriangles() {
+	activeTriangles = 0u;
+	for (uint i = 0u; i < 5u; ++i) {
+		triangles[i]->Deactivate();
 	}
 }
 
 update_status ModulePlayScene::PreUpdate()
 {
-	if (App->UI->lifes > 0)
+	if (App->UI->lifes > 0 && METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
 	{
-		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
-		{
-			App->audio->PlayFx(exitAreaSFX);
-			App->UI->SubstractLifes();
-			App->UI->ReStartGame();
-		}
-
+		LoseBall();
 	}
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayScene::LoseBall()
+{
+	App->audio->PlayFx(exitAreaSFX);
+	App->UI->SubstractLifes();
+	App->UI->ReStartGame();
+	//Remove current combos
+	DeactivatePhoneCombo();
+	DeactivateYellowArrow(false);
+	DeactivateOrangeArrow(false);
+	DeactivatePurpleArrow(false);
+	DeactivateStars();
+	DeactivateTriangles();
 }
 
 
