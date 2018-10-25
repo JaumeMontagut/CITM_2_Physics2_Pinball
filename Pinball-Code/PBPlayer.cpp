@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModulePlayScene.h"
+#include "ModuleAudio.h"
+
 PBPlayer::PBPlayer()
 {
 }
@@ -18,4 +20,12 @@ update_status PBPlayer::PostUpdate()
 	
 
 	return update_status();
+}
+
+void PBPlayer::OnCollisionEnter(PhysBody * bodyB)
+{
+	b2Vec2 velocity = body->GetLinearVelocity();
+	if (!bodyB->body->GetFixtureList()->IsSensor() && (velocity.x * velocity.x + velocity.y * velocity.y) > 10) {
+		App->audio->PlayFx(App->scene_play->ballHitSFX);
+	}
 }
