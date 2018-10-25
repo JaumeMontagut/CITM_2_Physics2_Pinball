@@ -190,7 +190,8 @@ update_status ModuleFonts::PostUpdate()
 	}
 	if (enterOnPlayAgain)
 	{
-		scoreEnd = CreateNumTex(scoreEnd, scoreNum, playAgainScreenFontNum, { 255,255,255,255 });
+		enterOnPlayAgain = false;
+		scoreEnd = CreateNumTex(scoreEnd, scoreNum, GothicFont12, { 255,255,255,255 });
 		isOnPlayAgain = true;
 	}
 	if (isOnPlayAgain)
@@ -203,7 +204,7 @@ update_status ModuleFonts::PostUpdate()
 		App->renderer->Blit(rectBigger, 118, 178);
 		App->renderer->Blit(rectBigger, 465, 179, NULL, 1.0f, 0.0f, NULL, NULL, SDL_FLIP_HORIZONTAL);
 		App->renderer->Blit(rectBigger, 200, 255, NULL, 1.0f, 0.0f, NULL, NULL);
-		App->renderer->Blit(scoreEnd, 032, 207);
+		App->renderer->Blit(scoreEnd, 132, 207);
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -220,7 +221,12 @@ SDL_Texture* ModuleFonts::LoadMessatgeTex(TTF_Font* thisfont,const char * text, 
 	if (thisfont != nullptr)
 		textSurf = TTF_RenderText_Solid(thisfont, text, Color);
 	else
+	{
+		LOG("%s", TTF_GetError())
 		return nullptr;
+	}
+		
+		
 
 	if (textSurf != nullptr)
 	{
@@ -228,6 +234,9 @@ SDL_Texture* ModuleFonts::LoadMessatgeTex(TTF_Font* thisfont,const char * text, 
 		SDL_Rect textRect;
 		
 		textTex = SDL_CreateTextureFromSurface(App->renderer->renderer, textSurf);
+		if (textTex == nullptr)
+			LOG("%s", SDL_GetError());
+
 		SDL_QueryTexture(textTex, NULL, NULL, &textRect.w, &textRect.h);
 		App->renderer->Blit(textTex, 0, 0);
 		SDL_FreeSurface(textSurf);
@@ -265,7 +274,7 @@ SDL_Texture * ModuleFonts::CreateNumTex(SDL_Texture * destroyTex, int num, TTF_F
 	}
 	auxCerosString += charnum;
 
-	TexNum = LoadMessatgeTex(thisfont, scoreString.GetString(), { 255,255,255,255 });
+	TexNum = LoadMessatgeTex(thisfont, scoreString.GetString(), Color);
 
 	auxCerosString.Clear();
 	auxString.clear();
