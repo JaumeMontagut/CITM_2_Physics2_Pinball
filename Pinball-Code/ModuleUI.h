@@ -50,7 +50,7 @@ private:
 	TTF_Font* candyFont = nullptr;
 	TTF_Font* FuturaFont = nullptr;
 	TTF_Font* playAgainScreenFontNum = nullptr;
-
+	TTF_Font* playAgainScreenFontTex = nullptr;
 
 
 	//PlayAgain Tex -------------------
@@ -64,7 +64,9 @@ private:
 	SDL_Texture* highScore = nullptr;
 	SDL_Texture* scorePrevios = nullptr;
 
-
+	SDL_Texture* ScoreTexPlayAgain = nullptr;
+	SDL_Texture* HiScoTexPlayAgain = nullptr;
+	SDL_Texture* LastTexPlayAgain = nullptr;
 
 	SDL_Texture* scoreRect = nullptr;
 	SDL_Texture* scoreTex = nullptr;

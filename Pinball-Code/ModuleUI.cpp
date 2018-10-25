@@ -107,8 +107,8 @@ bool ModuleFonts::Start()
 	GothicFont12 = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 12);
 	 candyFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
 	 FuturaFont = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 12);
-	 playAgainScreenFontNum = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 48);
-
+	 playAgainScreenFontNum = TTF_OpenFont("sprites/fonts/38_TradeGothic Bold.ttf", 24);
+	 playAgainScreenFontTex = TTF_OpenFont("sprites/fonts/463_VAG Rounded Std Light.ttf", 24);
 
 	//Images-------------------------------------------------------------
 	scoreRect = App->textures->Load("sprites/images/score.png");
@@ -143,6 +143,8 @@ update_status ModuleFonts::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_R))
 	{
+		enterOnPlayAgain = false;
+		isOnPlayAgain = false;
 		previusScore = scoreNum;
 		lifes = 3;
 		scoreNum = 0;
@@ -188,10 +190,16 @@ update_status ModuleFonts::PostUpdate()
 			}
 		}
 	}
-	if (enterOnPlayAgain)
+	if (enterOnPlayAgain && !isOnPlayAgain)
 	{
 		enterOnPlayAgain = false;
-		scoreEnd = CreateNumTex(scoreEnd, scoreNum, GothicFont12, { 255,255,255,255 });
+		scoreEnd = CreateNumTex(scoreEnd, scoreNum, playAgainScreenFontNum, { 255,255,255,255 });
+		highScore = CreateNumTex(scoreEnd, hiScore, playAgainScreenFontNum, { 249,155,60,255 });
+		scorePrevios = CreateNumTex(scoreEnd, previusScore, playAgainScreenFontNum, { 255,255,255,255 });
+		ScoreTexPlayAgain = LoadMessatgeTex(playAgainScreenFontTex, "Score", { 255,255,255,255 });
+		HiScoTexPlayAgain = LoadMessatgeTex(playAgainScreenFontTex, "Hi Score", { 255,255,255,255 });
+		LastTexPlayAgain = LoadMessatgeTex(playAgainScreenFontTex, "Pre Score", { 255,255,255,255 });
+
 		isOnPlayAgain = true;
 	}
 	if (isOnPlayAgain)
@@ -202,9 +210,21 @@ update_status ModuleFonts::PostUpdate()
 		App->renderer->Blit(playTex, 172, 330);
 		App->renderer->Blit(playTex, 284, 334);
 		App->renderer->Blit(rectBigger, 118, 178);
-		App->renderer->Blit(rectBigger, 465, 179, NULL, 1.0f, 0.0f, NULL, NULL, SDL_FLIP_HORIZONTAL);
-		App->renderer->Blit(rectBigger, 200, 255, NULL, 1.0f, 0.0f, NULL, NULL);
+		App->renderer->Blit(rectBigger, 300, 178, NULL, 1.0f, 0.0f, NULL, NULL, SDL_FLIP_HORIZONTAL);
+		App->renderer->Blit(rectBigger, 200, 255);
+		
+
+		App->renderer->Blit(ScoreTexPlayAgain, 130, 190);
 		App->renderer->Blit(scoreEnd, 132, 207);
+
+		App->renderer->Blit(HiScoTexPlayAgain,360 , 190);
+		App->renderer->Blit(highScore, 321, 209);
+
+		App->renderer->Blit(LastTexPlayAgain, 210, 265);
+		App->renderer->Blit(scorePrevios, 219, 286);
+
+
+
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -274,7 +294,7 @@ SDL_Texture * ModuleFonts::CreateNumTex(SDL_Texture * destroyTex, int num, TTF_F
 	}
 	auxCerosString += charnum;
 
-	TexNum = LoadMessatgeTex(thisfont, scoreString.GetString(), Color);
+	TexNum = LoadMessatgeTex(thisfont, auxCerosString.GetString(), Color);
 
 	auxCerosString.Clear();
 	auxString.clear();
