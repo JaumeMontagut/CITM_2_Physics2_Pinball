@@ -11,10 +11,8 @@ struct SDL_Color;
 class ModuleFonts : public Module
 {
 public:
-
-	
-	
     uint lifes=3;
+
 public:
 	void AddScore(uint score);
 	void SubstractLifes();
@@ -28,6 +26,8 @@ public:
 	update_status PreUpdate() override;
 	update_status PostUpdate() override;
 	SDL_Texture* LoadMessatgeTex(TTF_Font* thisfont, const char* text, SDL_Color Color);
+	SDL_Texture* CreateNumTex(SDL_Texture* destroyTex, int num, TTF_Font* thisfont, SDL_Color Color);
+
 
 private:
 
@@ -35,10 +35,11 @@ private:
 	std::string stringnum;
 	p2SString scoreString;
 	uint scoreNum = 0;
+	uint previusScore = 0;
 
 	const char* aux0 = "0";
 	bool isOnPlayAgain=false;
-
+	bool enterOnPlayAgain = false;
 	//High Score variables-------------
 	uint hiScore = 0;
 	std::string stringnumhiScore;
@@ -48,6 +49,9 @@ private:
 	TTF_Font* GothicFont12 = nullptr;
 	TTF_Font* candyFont = nullptr;
 	TTF_Font* FuturaFont = nullptr;
+	TTF_Font* playAgainScreenFontNum = nullptr;
+
+
 
 	//PlayAgain Tex -------------------
 	SDL_Texture* backgroundCircles = nullptr;
@@ -55,6 +59,10 @@ private:
 	SDL_Texture* gameTex = nullptr;
 	SDL_Texture* overTex = nullptr;
 	SDL_Texture* againTex = nullptr;
+	SDL_Texture* rectBigger = nullptr;
+	SDL_Texture* scoreEnd = nullptr;
+	SDL_Texture* highScore = nullptr;
+	SDL_Texture* scorePrevios = nullptr;
 
 
 
@@ -66,6 +74,9 @@ private:
 	SDL_Texture* ballTex = nullptr;
 	SDL_Texture* highScoreText=nullptr;
 	SDL_Texture* hiScoreTexNum = nullptr;
+
+
+
 	void SetHighScore();
 };
 
