@@ -200,9 +200,14 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(backgroundTex);
 	App->textures->Unload(wallsTex);
 	App->textures->Unload(redBumperTex);
+	App->textures->Unload(blueBumperTex);
+	App->textures->Unload(greyBumperTex);
 	App->textures->Unload(blueCharacter1Tex);
+	App->textures->Unload(blueCharacter2Tex);
 	App->textures->Unload(flashTex);
 	App->textures->Unload(handTex);
+	App->textures->Unload(phoneActive);
+	App->textures->Unload(phoneInactive);
 	App->textures->Unload(fliperTex);
 	App->textures->Unload(yellowArrowActiveTex);
 	App->textures->Unload(yellowArrowInactiveTex);
@@ -212,10 +217,16 @@ bool ModulePlayScene::CleanUp()
 	App->textures->Unload(purpleArrowInactiveTex);
 	App->textures->Unload(starActiveTex);
 	App->textures->Unload(starInactiveTex);
+	App->textures->Unload(triangleInactiveTex);
+	App->textures->Unload(triangleActiveTex);
+	App->textures->Unload(girlCharacterTex);
 	App->textures->Unload(triTex);
 	App->textures->Unload(triBackTex);
 	App->textures->Unload(triFrontTex);
+	App->textures->Unload(teleportTex);
 	App->textures->Unload(bellTex);
+	App->textures->Unload(bonusLetters1);
+	App->textures->Unload(bonusLetters2);
 
 	return true;
 }
