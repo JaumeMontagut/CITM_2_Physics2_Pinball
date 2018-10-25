@@ -41,7 +41,6 @@ public:
 	SDL_Texture* circleTex = nullptr;
 	SDL_Texture* wallsTex = nullptr;
 	SDL_Texture* backgroundTex = nullptr;
-	uint bonusSFX = 0;
 	//Tris
 	SDL_Texture * triTex = nullptr;
 	SDL_Texture * triBackTex = nullptr;
@@ -108,6 +107,11 @@ public:
 	SDL_Texture * bellTex = nullptr;
 	//Teleport
 	SDL_Texture* teleportTex = nullptr;
+	uint teleportSFX = 0u;
+	//Exit play area
+	uint exitAreaSFX = 0u;
+	//Launch
+	uint lauchSFX = 0u;
 
 
 public :

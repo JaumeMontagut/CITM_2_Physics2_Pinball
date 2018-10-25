@@ -61,20 +61,30 @@ bool ModulePlayScene::Start()
 	teleportTex = App->textures->Load("sprites/images/166.png");
 	bellTex = App->textures->Load("sprites/images/270.png");
 
-	bonusSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
-	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
-	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
-	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
-	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
-	activateTargetSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
-	starBonusSFX = App->audio->LoadFx("sprites/sounds/544_happy_stars_anim.wav");
-	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
+	//greedy gulp. Delete if we're not going to use it
+	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
+	starBonusSFX = App->audio->LoadFx("sprites/sounds/544_happy_stars_anim.wav");
+	//greedy bulp. Delete if we're not going to use it.
+	//funny target
+	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
+	//bump 6
+	//bump 4
+	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
+	//naughty target hit
+	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
+	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
+	//ball hit 1
+	lauchSFX = App->audio->LoadFx("sprites/sounds/555_launch_ball.wav");
 	triSFX = App->audio->LoadFx("sprites/sounds/556_triangle_bumper_bounce2.wav");
+	teleportSFX = App->audio->LoadFx("sprites/sounds/558_ball_stuck_in_trap.wav");
+	activateTargetSFX = App->audio->LoadFx("sprites/sounds/560_target_lightup.wav");
+	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
 	bellSFX = App->audio->LoadFx("sprites/sounds/563_launch_tube_bell.wav");
-	
-	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
+	exitAreaSFX = App->audio->LoadFx("sprites/sounds/564_balll_goes_out_of_play.wav");
+
+
 
 	//Background---------------------------------------------------------------------------------------------------------
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216, b2_staticBody, 0.0f));
@@ -309,6 +319,7 @@ update_status ModulePlayScene::PreUpdate()
 	{
 		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
 		{
+			App->audio->PlayFx(exitAreaSFX);
 			App->UI->SubstractLifes();
 			App->UI->ReStartGame();
 		}
@@ -347,6 +358,7 @@ update_status ModulePlayScene::Update()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
+		App->audio->PlayFx(lauchSFX);
 		m_joint->SetMotorSpeed(-40.0f);
 	}
 

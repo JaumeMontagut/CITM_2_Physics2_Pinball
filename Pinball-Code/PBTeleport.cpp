@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModulePlayScene.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
+
 PBteleport::PBteleport( const iPoint &tpPoint, iPoint pixelPos, b2Vec2 forceDirection):  PhysBody(),
 TpPoint(tpPoint),ForceDirection(forceDirection),pos(pixelPos)
 {
@@ -11,6 +13,7 @@ TpPoint(tpPoint),ForceDirection(forceDirection),pos(pixelPos)
 
 void PBteleport::OnCollisionEnter(PhysBody * bodyB)
 {
+	App->audio->PlayFx(App->scene_play->teleportSFX);
 	if (!App->scene_play->PlayerEntereTele && !App->scene_play->PlayerArrivedTele && !App->scene_play->Playertraveling)
 	{
 		App->scene_play->ball->body->SetTransform({ PIXEL_TO_METERS((float)TpPoint.x), PIXEL_TO_METERS((float)TpPoint.y) }, 0);
