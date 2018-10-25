@@ -28,7 +28,7 @@ ModulePhysics::ModulePhysics(bool start_enabled) : Module(start_enabled)
 {
 	world = NULL;
 	mouse_joint = NULL;
-	debug = true;
+	debug = false;
 }
 
 // Destructor
