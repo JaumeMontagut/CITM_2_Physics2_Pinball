@@ -315,16 +315,15 @@ void ModulePlayScene::IncreaseTriangles()
 
 update_status ModulePlayScene::PreUpdate()
 {
-	if (App->UI->lifes > 0)
-	{
-		if (METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
+		if (App->UI->lifes > 0 && METERS_TO_PIXELS(ball->body->GetPosition().y) > SCREEN_HEIGHT)
 		{
 			App->audio->PlayFx(exitAreaSFX);
 			App->UI->SubstractLifes();
 			App->UI->ReStartGame();
+			
 		}
 
-	}
+	
 
 	return UPDATE_CONTINUE;
 }
