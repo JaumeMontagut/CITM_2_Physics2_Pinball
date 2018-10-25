@@ -170,14 +170,14 @@ bool ModulePlayScene::Start()
 	App->physics->CreateFliper(458, 463, true );
 
 	App->physics->CreateFliper(60, 285, false,55 );
-	App->physics->CreateFliper(530, 290, true, 55);
+	App->physics->CreateFliper(530, 295, true, 55);
 
 	
 
 
 	App->physics->CreateBell(294, 179, 26, 12);
 	
-	ball = App->physics->CreateBall(294, 450, 6.5f);
+	ball = App->physics->CreateBall(294, 450, 6.5f, true);
 	
 	ball->body->SetBullet(true);
 	circles.add(ball);
@@ -337,9 +337,8 @@ update_status ModulePlayScene::Update()
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		PhysBody* circle = App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f, false);
-		circle->body->SetBullet(true);
-		circles.add(circle);
+		App->physics->CreateBall(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f, false);
+		
 		
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -360,16 +359,8 @@ update_status ModulePlayScene::PostUpdate()
 	//Draw forward elements
 	App->renderer->Blit(girlCharacterTex, 145, 381);
 
-	//Draw
-	p2List_item<PhysBody*>* circle = circles.getFirst();
-	while (circle != NULL)
-	{
-		int x, y;
-		circle->data->GetPixelPosition(x, y);
-		App->renderer->Blit(circleTex, x, y, NULL, 1.0f, circle->data->GetRotation());
-		circle = circle->next;
-	}
-	/*App->fonts->PrintMessage(App->fonts->font, "Hola que hace xd", { 155,50,0,255 });*/
+	
+	
 	return UPDATE_CONTINUE;
 }
 

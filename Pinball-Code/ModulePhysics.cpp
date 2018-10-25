@@ -344,13 +344,15 @@ PhysBody * ModulePhysics::CreateBell(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBody * ModulePhysics::CreateBall(int x, int y, int radio)
+PhysBody * ModulePhysics::CreateBall(int x, int y, int radio, bool isOnBackground)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-	b2Body* b = world->CreateBody(&body);
 
+	
+	b2Body* b = world->CreateBody(&body);
+	b->SetBullet(true);
 	b2CircleShape shape;
 	shape.m_radius = PIXEL_TO_METERS(radio);
 
@@ -358,7 +360,13 @@ PhysBody * ModulePhysics::CreateBall(int x, int y, int radio)
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
 	fixture.filter.categoryBits = (uint16)COLLISION_FILTER::BALL;
-	fixture.filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	if (isOnBackground) {
+		fixture.filter.maskBits = (uint16)COLLISION_FILTER::FOREGROUND;
+	}
+	else {
+		fixture.filter.maskBits = (uint16)COLLISION_FILTER::BACKGROUND;
+	}
+	
 	b->CreateFixture(&fixture);
 
 	b->CreateFixture(&fixture);
