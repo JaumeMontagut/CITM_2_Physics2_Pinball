@@ -61,16 +61,12 @@ bool ModulePlayScene::Start()
 	teleportTex = App->textures->Load("sprites/images/166.png");
 	bellTex = App->textures->Load("sprites/images/270.png");
 
-	//greedy gulp. Delete if we're not going to use it
 	App->audio->PlayMusic("sprites/sounds/538_song.ogg");
 	flipperUpSFX = App->audio->LoadFx("sprites/sounds/540_flipper_up.wav");
 	flipperDownSFX = App->audio->LoadFx("sprites/sounds/541_flipper_down.wav");
 	starBonusSFX = App->audio->LoadFx("sprites/sounds/544_happy_stars_anim.wav");
-	//greedy bulp. Delete if we're not going to use it.
-	//funny target
 	redBumperSFX = App->audio->LoadFx("sprites/sounds/547_Bump - Body Hit 07.wav");
 	triangleBonusSFX = App->audio->LoadFx("sprites/sounds/550_sunshine_harp.wav");
-	//naughty target hit
 	phoneSFX = App->audio->LoadFx("sprites/sounds/552_chatter_target_hit.wav");
 	phoneBonusSFX = App->audio->LoadFx("sprites/sounds/553_chatter_bonus_activated.wav");
 	ballHitSFX = App->audio->LoadFx("sprites/sounds/554_ball_hit1.wav");
@@ -81,8 +77,6 @@ bool ModulePlayScene::Start()
 	bluegreyBumperSFX = App->audio->LoadFx("sprites/sounds/562_mushroom_bounce.wav");
 	bellSFX = App->audio->LoadFx("sprites/sounds/563_launch_tube_bell.wav");
 	exitAreaSFX = App->audio->LoadFx("sprites/sounds/564_balll_goes_out_of_play.wav");
-
-
 
 	//Background---------------------------------------------------------------------------------------------------------
 	Physbackground.add(App->physics->CreateChain(0,0, backgroundChain, 216, b2_staticBody, 0.0f));
@@ -333,8 +327,6 @@ update_status ModulePlayScene::Update()
 {
 	App->renderer->Blit(backgroundTex, 0, 0);
 	App->renderer->Blit(handTex, 275, 450 + METERS_TO_PIXELS(m_joint->GetBodyB()->GetPosition().y));
-	App->renderer->Blit(wallsTex, 0, 0);
-
 	if (!illuminateCharacter) {
 		App->renderer->Blit(blueCharacter1Tex, 234, 192);
 	}
@@ -342,6 +334,7 @@ update_status ModulePlayScene::Update()
 		App->renderer->Blit(blueCharacter2Tex, 234, 192);
 		illuminateCharacter = false;
 	}
+	App->renderer->Blit(wallsTex, 0, 0);
 
 	//Logic
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
